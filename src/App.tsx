@@ -9,6 +9,7 @@ import FaccaoDashboard from "./pages/FaccaoDashboard.tsx";
 import ArtesaoDashboard from "./pages/ArtesaoDashboard.tsx";
 import ImpactReport from "./pages/ImpactReport.tsx";
 import CriarPedido from "./pages/CriarPedido.tsx";
+import DashboardPlaceholder from "./pages/DashboardPlaceholder.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,9 @@ const App = () => (
           <Route path="/artesao" element={<ArtesaoDashboard />} />
           <Route path="/impacto" element={<ImpactReport />} />
           <Route path="/marca/novo-pedido" element={<CriarPedido />} />
+          <Route path="/marca/dashboard" element={<DashboardPlaceholder />} />
+          <Route path="/faccao/dashboard" element={<DashboardPlaceholder />} />
+          <Route path="/artesao/dashboard" element={<DashboardPlaceholder />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

@@ -1,12 +1,13 @@
-import { ArrowLeft, Leaf, Bell } from 'lucide-react';
+import { ArrowLeft, Leaf, Bell, BarChart3 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 interface PageHeaderProps {
   title: string;
   showBack?: boolean;
+  dashboardPath?: string;
 }
 
-const PageHeader = ({ title, showBack = true }: PageHeaderProps) => {
+const PageHeader = ({ title, showBack = true, dashboardPath }: PageHeaderProps) => {
   const navigate = useNavigate();
   return (
     <header className="sticky top-0 z-40 bg-background px-5" style={{ height: 56, display: 'flex', alignItems: 'center' }}>
@@ -20,6 +21,11 @@ const PageHeader = ({ title, showBack = true }: PageHeaderProps) => {
           <h1 className="text-screen-title">{title}</h1>
         </div>
         <div className="flex items-center gap-2">
+          {dashboardPath && (
+            <button onClick={() => navigate(dashboardPath)} className="p-1.5 rounded-lg hover:bg-muted transition-colors">
+              <BarChart3 size={20} className="text-muted-foreground" />
+            </button>
+          )}
           <button onClick={() => navigate('/impacto')} className="p-1.5 rounded-lg hover:bg-muted transition-colors">
             <Leaf size={20} className="text-primary" />
           </button>
