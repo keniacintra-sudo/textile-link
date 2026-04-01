@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Search, Briefcase, Trash2, MessageCircle, Plus, ToggleLeft, ToggleRight, List, Map, FileText, LayoutDashboard, Send, CheckCircle2, Clock, TrendingUp } from 'lucide-react';
+import { Search, Briefcase, Trash2, MessageCircle, Plus, ToggleLeft, ToggleRight, List, Map, FileText } from 'lucide-react';
 import BottomNav from '@/components/BottomNav';
 import PageHeader from '@/components/PageHeader';
 import StatusBadge from '@/components/StatusBadge';
 import ChatList from '@/components/ChatList';
-import SummaryCard from '@/components/SummaryCard';
-import MiniChart from '@/components/MiniChart';
 import RegistrarResiduoForm from '@/components/RegistrarResiduoForm';
 import EnviarPropostaModal, { type Proposal } from '@/components/EnviarPropostaModal';
 import { faccaoOrders, chats, type Order } from '@/data/mockData';
@@ -19,33 +17,15 @@ const wasteLots = [
 ];
 
 const navItems = [
-  { icon: LayoutDashboard, label: 'Painel', id: 'painel' },
   { icon: Search, label: 'Oportunidades', id: 'oportunidades' },
+  { icon: Briefcase, label: 'Meus Serviços', id: 'servicos' },
   { icon: FileText, label: 'Propostas', id: 'propostas' },
   { icon: Trash2, label: 'Resíduos', id: 'residuos' },
   { icon: MessageCircle, label: 'Mensagens', id: 'mensagens' },
 ];
 
-const productionChartData = [
-  { name: 'Jan', value: 1 },
-  { name: 'Fev', value: 2 },
-  { name: 'Mar', value: 3 },
-  { name: 'Abr', value: 2 },
-  { name: 'Mai', value: 4 },
-  { name: 'Jun', value: 5 },
-];
-
-const proposalsChartData = [
-  { name: 'Jan', value: 3, value2: 1 },
-  { name: 'Fev', value: 5, value2: 2 },
-  { name: 'Mar', value: 4, value2: 1 },
-  { name: 'Abr', value: 6, value2: 2 },
-  { name: 'Mai', value: 7, value2: 3 },
-  { name: 'Jun', value: 9, value2: 2 },
-];
-
 const FaccaoDashboard = () => {
-  const [tab, setTab] = useState('painel');
+  const [tab, setTab] = useState('oportunidades');
   const [available, setAvailable] = useState(true);
   const [residuosView, setResiduosView] = useState<'lista' | 'mapa'>('lista');
   const [showRegistrar, setShowRegistrar] = useState(false);
@@ -68,17 +48,12 @@ const FaccaoDashboard = () => {
   const proposalStatusLabel = (status: Proposal['status']) => {
     if (status === 'aceita') return { label: 'ACEITA', cls: 'bg-primary/10 text-primary' };
     if (status === 'recusada') return { label: 'RECUSADA', cls: 'bg-destructive/10 text-destructive' };
-    return { label: 'ENVIADA', cls: 'bg-accent/10 text-accent' };
+    return { label: 'ENVIADA', cls: 'bg-accent text-accent-foreground' };
   };
-
-  const sentCount = proposals.length;
-  const acceptedCount = proposals.filter(p => p.status === 'aceita').length;
-  const activeProductions = faccaoOrders.filter(o => o.status === 'EM PRODUÇÃO').length;
-  const finishedCount = 12; // mock
 
   return (
     <div className="min-h-screen pb-20 bg-background">
-      <PageHeader title="Painel da Facção" />
+      <PageHeader title="Facção / Confecção" />
 
       {selectedOrder && (
         <EnviarPropostaModal
@@ -89,76 +64,6 @@ const FaccaoDashboard = () => {
       )}
 
       <main className="px-4 py-4 max-w-md mx-auto">
-        {tab === 'painel' && (
-          <div className="animate-fade-in space-y-4">
-            <div className="flex justify-between items-center">
-              <h2 className="text-section-title">Visão Geral</h2>
-              <button
-                onClick={() => setAvailable(!available)}
-                className="flex items-center gap-1.5 text-sm font-sans"
-              >
-                {available ? (
-                  <ToggleRight size={24} className="text-primary" />
-                ) : (
-                  <ToggleLeft size={24} className="text-nav-inactive" />
-                )}
-                <span className={`font-sans text-[12px] ${available ? 'text-primary font-medium' : 'text-muted-foreground'}`}>
-                  {available ? 'Disponível' : 'Indisponível'}
-                </span>
-              </button>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <SummaryCard icon={Send} label="Propostas Enviadas" value={sentCount} delay={0} />
-              <SummaryCard icon={CheckCircle2} label="Propostas Aceitas" value={acceptedCount} delay={60} />
-              <SummaryCard icon={TrendingUp} label="Produções Ativas" value={activeProductions} delay={120} />
-              <SummaryCard icon={Clock} label="Finalizados" value={finishedCount} delay={180} />
-            </div>
-
-            <MiniChart
-              title="Produções ao longo do tempo"
-              data={productionChartData}
-              type="area"
-              delay={240}
-            />
-            <MiniChart
-              title="Propostas: aceitas vs recusadas"
-              data={proposalsChartData}
-              type="bar"
-              color="hsl(152, 65%, 29%)"
-              color2="hsl(0, 84%, 60%)"
-              delay={300}
-            />
-
-            {/* Active Productions */}
-            <div className="card-elevated animate-slide-up" style={{ animationDelay: '360ms', animationFillMode: 'both' }}>
-              <p className="text-[13px] font-bold font-sans text-foreground mb-3">Produções em Andamento</p>
-              {faccaoOrders.filter(o => o.status === 'EM PRODUÇÃO').length === 0 ? (
-                <p className="text-[13px] text-muted-foreground font-sans text-center py-4">Nenhuma produção ativa.</p>
-              ) : (
-                <div className="space-y-3">
-                  {faccaoOrders.filter(o => o.status === 'EM PRODUÇÃO').map((order, i) => (
-                    <div key={order.id} className="py-2" style={i < faccaoOrders.filter(o => o.status === 'EM PRODUÇÃO').length - 1 ? { borderBottom: '1px solid hsl(var(--border))' } : {}}>
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <p className="text-[13px] font-bold font-sans text-foreground">{order.title}</p>
-                          <p className="text-[11px] text-muted-foreground font-sans">{order.brand} · {order.quantity} peças</p>
-                        </div>
-                        <StatusBadge status={order.status} />
-                      </div>
-                      {/* Progress bar */}
-                      <div className="mt-2 h-1.5 bg-muted rounded-full overflow-hidden">
-                        <div className="h-full bg-primary rounded-full transition-all" style={{ width: '60%' }} />
-                      </div>
-                      <p className="text-[10px] text-muted-foreground font-sans mt-1">Prazo: {order.deadline}</p>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-
         {tab === 'oportunidades' && (
           <div className="space-y-3 animate-fade-in">
             <h2 className="text-section-title mb-2">Oportunidades</h2>
@@ -190,12 +95,41 @@ const FaccaoDashboard = () => {
                 </div>
               </div>
             ))}
-            {faccaoOrders.filter(o => o.status === 'ATIVO' || o.status === 'PROPOSTA').length === 0 && (
-              <div className="card-elevated text-center py-10">
-                <Search size={32} className="mx-auto text-muted-foreground mb-2" />
-                <p className="text-[13px] text-muted-foreground font-sans">Nenhuma oportunidade disponível no momento.</p>
+          </div>
+        )}
+
+        {tab === 'servicos' && (
+          <div className="space-y-4 animate-fade-in">
+            <div className="flex justify-between items-center">
+              <h2 className="text-section-title">Meus Serviços</h2>
+              <button
+                onClick={() => setAvailable(!available)}
+                className="flex items-center gap-2 text-sm font-sans"
+              >
+                {available ? (
+                  <ToggleRight size={28} className="text-primary" />
+                ) : (
+                  <ToggleLeft size={28} className="text-nav-inactive" />
+                )}
+                <span className={`font-sans ${available ? 'text-primary font-medium' : 'text-muted-foreground'}`}>
+                  {available ? 'Disponível' : 'Indisponível'}
+                </span>
+              </button>
+            </div>
+            {faccaoOrders.filter(o => o.status === 'EM PRODUÇÃO').map((order, i) => (
+              <div
+                key={order.id}
+                className="card-elevated animate-slide-up"
+                style={{ animationDelay: `${i * 80}ms`, animationFillMode: 'both' }}
+              >
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="font-bold text-[15px] font-sans text-foreground">{order.title}</h3>
+                  <StatusBadge status={order.status} />
+                </div>
+                <p className="text-[13px] text-muted-foreground font-sans">{order.brand} — {order.description}</p>
+                <p className="text-[13px] text-muted-foreground font-sans mt-1">Prazo: {order.deadline}</p>
               </div>
-            )}
+            ))}
           </div>
         )}
 
@@ -219,10 +153,7 @@ const FaccaoDashboard = () => {
                       style={{ animationDelay: `${i * 80}ms`, animationFillMode: 'both' }}
                     >
                       <div className="flex justify-between items-start mb-2">
-                        <div>
-                          <h3 className="font-bold text-[15px] font-sans text-foreground">{p.order_title}</h3>
-                          <p className="text-[11px] text-muted-foreground font-sans">Marca: proposta enviada</p>
-                        </div>
+                        <h3 className="font-bold text-[15px] font-sans text-foreground">{p.order_title}</h3>
                         <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider font-sans ${st.cls}`}>
                           {st.label}
                         </span>
