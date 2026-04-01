@@ -15,7 +15,7 @@ export interface Residuo {
   location: string;
   price: string;
   seller: string;
-  image?: string;
+  image_url?: string;
 }
 
 export interface ChatPreview {
