@@ -21,6 +21,11 @@ const PageHeader = ({ title, showBack = true, dashboardPath }: PageHeaderProps) 
           <h1 className="text-screen-title">{title}</h1>
         </div>
         <div className="flex items-center gap-2">
+          {dashboardPath && (
+            <button onClick={() => navigate(dashboardPath)} className="p-1.5 rounded-lg hover:bg-muted transition-colors">
+              <BarChart3 size={20} className="text-muted-foreground" />
+            </button>
+          )}
           <button onClick={() => navigate('/impacto')} className="p-1.5 rounded-lg hover:bg-muted transition-colors">
             <Leaf size={20} className="text-primary" />
           </button>

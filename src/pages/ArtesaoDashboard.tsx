@@ -27,7 +27,7 @@ const ArtesaoDashboard = () => {
 
   return (
     <div className="min-h-screen pb-20 bg-background">
-      <PageHeader title="Artesão / Reciclador" />
+      <PageHeader title="Artesão / Reciclador" dashboardPath="/artesao/dashboard" />
 
       <main className="px-4 py-4 max-w-md mx-auto">
         {tab === 'marketplace' && (
