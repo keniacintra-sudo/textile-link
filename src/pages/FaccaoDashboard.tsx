@@ -177,6 +177,8 @@ const FaccaoDashboard = () => {
                 </div>
               </div>
             )}
+            </>
+            )}
           </div>
         )}
 
