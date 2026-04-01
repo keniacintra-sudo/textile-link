@@ -1,9 +1,10 @@
-import { ArrowLeft, Leaf, Bell } from 'lucide-react';
+import { ArrowLeft, Leaf, Bell, BarChart3 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 interface PageHeaderProps {
   title: string;
   showBack?: boolean;
+  dashboardPath?: string;
 }
 
 const PageHeader = ({ title, showBack = true }: PageHeaderProps) => {
