@@ -1,11 +1,12 @@
-import { useState } from 'react';
-import { Search, Briefcase, Trash2, MessageCircle, Plus, ToggleLeft, ToggleRight, List, Map } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Search, Briefcase, Trash2, MessageCircle, Plus, ToggleLeft, ToggleRight, List, Map, FileText } from 'lucide-react';
 import BottomNav from '@/components/BottomNav';
 import PageHeader from '@/components/PageHeader';
 import StatusBadge from '@/components/StatusBadge';
 import ChatList from '@/components/ChatList';
 import RegistrarResiduoForm from '@/components/RegistrarResiduoForm';
-import { faccaoOrders, chats } from '@/data/mockData';
+import EnviarPropostaModal, { type Proposal } from '@/components/EnviarPropostaModal';
+import { faccaoOrders, chats, type Order } from '@/data/mockData';
 import { toast } from 'sonner';
 
 const wasteLots = [
@@ -18,6 +19,7 @@ const wasteLots = [
 const navItems = [
   { icon: Search, label: 'Oportunidades', id: 'oportunidades' },
   { icon: Briefcase, label: 'Meus Serviços', id: 'servicos' },
+  { icon: FileText, label: 'Propostas', id: 'propostas' },
   { icon: Trash2, label: 'Resíduos', id: 'residuos' },
   { icon: MessageCircle, label: 'Mensagens', id: 'mensagens' },
 ];
@@ -27,10 +29,39 @@ const FaccaoDashboard = () => {
   const [available, setAvailable] = useState(true);
   const [residuosView, setResiduosView] = useState<'lista' | 'mapa'>('lista');
   const [showRegistrar, setShowRegistrar] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  const [proposals, setProposals] = useState<Proposal[]>([]);
+
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem('elo_proposals') || '[]');
+    setProposals(saved);
+  }, []);
+
+  const handleProposalSubmit = (proposal: Proposal) => {
+    const updated = [...proposals, proposal];
+    setProposals(updated);
+    localStorage.setItem('elo_proposals', JSON.stringify(updated));
+    setSelectedOrder(null);
+    toast.success('Proposta enviada com sucesso!');
+  };
+
+  const proposalStatusLabel = (status: Proposal['status']) => {
+    if (status === 'aceita') return { label: 'ACEITA', cls: 'bg-primary/10 text-primary' };
+    if (status === 'recusada') return { label: 'RECUSADA', cls: 'bg-destructive/10 text-destructive' };
+    return { label: 'ENVIADA', cls: 'bg-accent text-accent-foreground' };
+  };
 
   return (
     <div className="min-h-screen pb-20 bg-background">
       <PageHeader title="Facção / Confecção" />
+
+      {selectedOrder && (
+        <EnviarPropostaModal
+          order={selectedOrder}
+          onClose={() => setSelectedOrder(null)}
+          onSubmit={handleProposalSubmit}
+        />
+      )}
 
       <main className="px-4 py-4 max-w-md mx-auto">
         {tab === 'oportunidades' && (
@@ -55,7 +86,10 @@ const FaccaoDashboard = () => {
                     <span>{order.quantity} peças</span>
                     <span>Prazo: {order.deadline}</span>
                   </div>
-                  <button className="btn-primary !text-[13px] !py-1.5 !px-4 active:scale-95 transition-transform">
+                  <button
+                    onClick={() => setSelectedOrder(order)}
+                    className="btn-primary !text-[13px] !py-1.5 !px-4 active:scale-95 transition-transform"
+                  >
                     Enviar Proposta
                   </button>
                 </div>
@@ -96,6 +130,56 @@ const FaccaoDashboard = () => {
                 <p className="text-[13px] text-muted-foreground font-sans mt-1">Prazo: {order.deadline}</p>
               </div>
             ))}
+          </div>
+        )}
+
+        {tab === 'propostas' && (
+          <div className="animate-fade-in">
+            <h2 className="text-section-title mb-3">Minhas Propostas</h2>
+            {proposals.length === 0 ? (
+              <div className="card-elevated text-center py-10">
+                <FileText size={32} className="mx-auto text-muted-foreground mb-2" />
+                <p className="text-[13px] text-muted-foreground font-sans">Nenhuma proposta enviada ainda.</p>
+                <p className="text-[12px] text-muted-foreground font-sans mt-1">Vá em Oportunidades e envie sua primeira proposta!</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {proposals.map((p, i) => {
+                  const st = proposalStatusLabel(p.status);
+                  return (
+                    <div
+                      key={p.id}
+                      className="card-elevated animate-slide-up"
+                      style={{ animationDelay: `${i * 80}ms`, animationFillMode: 'both' }}
+                    >
+                      <div className="flex justify-between items-start mb-2">
+                        <h3 className="font-bold text-[15px] font-sans text-foreground">{p.order_title}</h3>
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider font-sans ${st.cls}`}>
+                          {st.label}
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-3 gap-2 mt-2">
+                        <div className="bg-muted rounded-xl p-2 text-center">
+                          <p className="text-metric text-base">R${p.preco_por_peca}</p>
+                          <p className="text-[10px] text-muted-foreground font-sans">por peça</p>
+                        </div>
+                        <div className="bg-muted rounded-xl p-2 text-center">
+                          <p className="text-metric text-base">{p.prazo_dias}d</p>
+                          <p className="text-[10px] text-muted-foreground font-sans">prazo</p>
+                        </div>
+                        <div className="bg-muted rounded-xl p-2 text-center">
+                          <p className="text-metric text-base">{p.quantidade}</p>
+                          <p className="text-[10px] text-muted-foreground font-sans">peças</p>
+                        </div>
+                      </div>
+                      {p.mensagem && (
+                        <p className="text-[12px] text-muted-foreground font-sans mt-2 line-clamp-2">"{p.mensagem}"</p>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         )}
 

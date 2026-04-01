@@ -1,15 +1,18 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Package, Trash2, MessageCircle, User, Plus, Star } from 'lucide-react';
+import { Package, Trash2, MessageCircle, User, Plus, Star, FileText, Check, X } from 'lucide-react';
 import BottomNav from '@/components/BottomNav';
 import PageHeader from '@/components/PageHeader';
 import StatusBadge from '@/components/StatusBadge';
 import ChatList from '@/components/ChatList';
 import RegistrarResiduoForm from '@/components/RegistrarResiduoForm';
 import { marcaOrders, marcaResiduos, chats, type Order } from '@/data/mockData';
+import type { Proposal } from '@/components/EnviarPropostaModal';
+import { toast } from 'sonner';
 
 const navItems = [
   { icon: Package, label: 'Produção', id: 'producao' },
+  { icon: FileText, label: 'Propostas', id: 'propostas' },
   { icon: Trash2, label: 'Resíduos', id: 'residuos' },
   { icon: MessageCircle, label: 'Mensagens', id: 'mensagens' },
   { icon: User, label: 'Perfil', id: 'perfil' },
@@ -23,10 +26,13 @@ const MarcaDashboard = () => {
   const [producaoFilter, setProducaoFilter] = useState('Todos');
   const [showRegistrar, setShowRegistrar] = useState(false);
   const [customOrders, setCustomOrders] = useState<Order[]>([]);
+  const [proposals, setProposals] = useState<Proposal[]>([]);
 
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem('elo_custom_orders') || '[]');
     setCustomOrders(saved);
+    const savedProposals = JSON.parse(localStorage.getItem('elo_proposals') || '[]');
+    setProposals(savedProposals);
   }, []);
 
   const allOrders = useMemo(() => [...marcaOrders, ...customOrders], [customOrders]);
@@ -38,6 +44,13 @@ const MarcaDashboard = () => {
       o.description.toLowerCase().includes(producaoFilter.toLowerCase())
     );
   }, [producaoFilter, allOrders]);
+
+  const updateProposalStatus = (id: string, status: 'aceita' | 'recusada') => {
+    const updated = proposals.map(p => p.id === id ? { ...p, status } : p);
+    setProposals(updated);
+    localStorage.setItem('elo_proposals', JSON.stringify(updated));
+    toast.success(status === 'aceita' ? 'Proposta aceita!' : 'Proposta recusada.');
+  };
 
   return (
     <div className="min-h-screen pb-20 bg-background">
@@ -85,6 +98,75 @@ const MarcaDashboard = () => {
             ))}
             {filteredOrders.length === 0 && (
               <p className="text-center text-sm text-muted-foreground py-8 font-sans">Nenhum pedido encontrado.</p>
+            )}
+          </div>
+        )}
+
+        {tab === 'propostas' && (
+          <div className="animate-fade-in">
+            <h2 className="text-section-title mb-3">Propostas Recebidas</h2>
+            {proposals.length === 0 ? (
+              <div className="card-elevated text-center py-10">
+                <FileText size={32} className="mx-auto text-muted-foreground mb-2" />
+                <p className="text-[13px] text-muted-foreground font-sans">Nenhuma proposta recebida.</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {proposals.map((p, i) => (
+                  <div
+                    key={p.id}
+                    className="card-elevated animate-slide-up"
+                    style={{ animationDelay: `${i * 80}ms`, animationFillMode: 'both' }}
+                  >
+                    <div className="flex justify-between items-start mb-1">
+                      <div>
+                        <h3 className="font-bold text-[15px] font-sans text-foreground">{p.order_title}</h3>
+                        <p className="text-[13px] text-muted-foreground font-sans">por {p.faccao_nome}</p>
+                      </div>
+                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider font-sans ${
+                        p.status === 'aceita' ? 'bg-primary/10 text-primary' :
+                        p.status === 'recusada' ? 'bg-destructive/10 text-destructive' :
+                        'bg-accent text-accent-foreground'
+                      }`}>
+                        {p.status.toUpperCase()}
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-3 gap-2 mt-2">
+                      <div className="bg-muted rounded-xl p-2 text-center">
+                        <p className="text-metric text-base">R${p.preco_por_peca}</p>
+                        <p className="text-[10px] text-muted-foreground font-sans">por peça</p>
+                      </div>
+                      <div className="bg-muted rounded-xl p-2 text-center">
+                        <p className="text-metric text-base">{p.prazo_dias}d</p>
+                        <p className="text-[10px] text-muted-foreground font-sans">prazo</p>
+                      </div>
+                      <div className="bg-muted rounded-xl p-2 text-center">
+                        <p className="text-metric text-base">{p.quantidade}</p>
+                        <p className="text-[10px] text-muted-foreground font-sans">peças</p>
+                      </div>
+                    </div>
+                    {p.mensagem && (
+                      <p className="text-[12px] text-muted-foreground font-sans mt-2 line-clamp-2">"{p.mensagem}"</p>
+                    )}
+                    {p.status === 'enviada' && (
+                      <div className="flex gap-2 mt-3">
+                        <button
+                          onClick={() => updateProposalStatus(p.id, 'aceita')}
+                          className="btn-primary flex-1 flex items-center justify-center gap-1.5 !text-[13px] !py-2 active:scale-95 transition-transform"
+                        >
+                          <Check size={15} /> Aceitar
+                        </button>
+                        <button
+                          onClick={() => updateProposalStatus(p.id, 'recusada')}
+                          className="btn-outline flex-1 flex items-center justify-center gap-1.5 !text-[13px] !py-2 active:scale-95 transition-transform"
+                        >
+                          <X size={15} /> Recusar
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
             )}
           </div>
         )}
