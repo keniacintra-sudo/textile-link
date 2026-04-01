@@ -53,12 +53,12 @@ export const faccaoOrders: Order[] = [
 ];
 
 export const marketplaceResiduos: Residuo[] = [
-  { id: '3', material: 'Jeans reciclado', weight: '30 kg', location: 'Belo Horizonte, MG', price: 'R$ 120', seller: 'Facção Sul' },
-  { id: '4', material: 'Malha de algodão', weight: '22 kg', location: 'Blumenau, SC', price: 'R$ 88', seller: 'Confecções ABC' },
-  { id: '5', material: 'Retalhos de seda', weight: '8 kg', location: 'São Paulo, SP', price: 'R$ 210', seller: 'Atelier Luxo' },
-  { id: '6', material: 'Viscose colorida', weight: '18 kg', location: 'Fortaleza, CE', price: 'R$ 65', seller: 'TextilNE' },
-  { id: '7', material: 'Tricoline estampado', weight: '25 kg', location: 'Americana, SP', price: 'R$ 150', seller: 'Estamparia Central' },
-  { id: '8', material: 'Moletom cinza', weight: '40 kg', location: 'Caxias do Sul, RS', price: 'R$ 160', seller: 'Malhas Gaúchas' },
+  { id: '3', material: 'Jeans reciclado', weight: '30 kg', location: 'Belo Horizonte, MG', price: 'R$ 120', seller: 'Facção Sul', image_url: 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400&h=400&fit=crop' },
+  { id: '4', material: 'Malha de algodão', weight: '22 kg', location: 'Blumenau, SC', price: 'R$ 88', seller: 'Confecções ABC', image_url: 'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=400&h=400&fit=crop' },
+  { id: '5', material: 'Retalhos de seda', weight: '8 kg', location: 'São Paulo, SP', price: 'R$ 210', seller: 'Atelier Luxo', image_url: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=400&fit=crop' },
+  { id: '6', material: 'Viscose colorida', weight: '18 kg', location: 'Fortaleza, CE', price: 'R$ 65', seller: 'TextilNE', image_url: 'https://images.unsplash.com/photo-1606722590583-6951b5ea92ad?w=400&h=400&fit=crop' },
+  { id: '7', material: 'Tricoline estampado', weight: '25 kg', location: 'Americana, SP', price: 'R$ 150', seller: 'Estamparia Central', image_url: 'https://images.unsplash.com/photo-1528459105426-b9548367069b?w=400&h=400&fit=crop' },
+  { id: '8', material: 'Moletom cinza', weight: '40 kg', location: 'Caxias do Sul, RS', price: 'R$ 160', seller: 'Malhas Gaúchas', image_url: 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400&h=400&fit=crop' },
 ];
 
 export const chats: ChatPreview[] = [
