@@ -4,6 +4,7 @@ import BottomNav from '@/components/BottomNav';
 import PageHeader from '@/components/PageHeader';
 import StatusBadge from '@/components/StatusBadge';
 import ChatList from '@/components/ChatList';
+import RegistrarResiduoForm from '@/components/RegistrarResiduoForm';
 import { faccaoOrders, chats } from '@/data/mockData';
 import { toast } from 'sonner';
 
@@ -25,6 +26,7 @@ const FaccaoDashboard = () => {
   const [tab, setTab] = useState('oportunidades');
   const [available, setAvailable] = useState(true);
   const [residuosView, setResiduosView] = useState<'lista' | 'mapa'>('lista');
+  const [showRegistrar, setShowRegistrar] = useState(false);
 
   return (
     <div className="min-h-screen pb-20 bg-background">
@@ -99,47 +101,52 @@ const FaccaoDashboard = () => {
 
         {tab === 'residuos' && (
           <div className="animate-fade-in">
+            {showRegistrar ? (
+              <RegistrarResiduoForm onClose={() => setShowRegistrar(false)} />
+            ) : (
+            <>
             <div className="flex justify-between items-center mb-3">
-              <h2 className="font-heading font-semibold text-lg">Catalogar Resíduo</h2>
-              <div className="flex bg-muted rounded-lg p-0.5">
+              <h2 className="font-heading font-semibold text-lg">Resíduos</h2>
+              <div className="flex items-center gap-2">
                 <button
-                  onClick={() => setResiduosView('lista')}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
-                    residuosView === 'lista' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground'
-                  }`}
+                  onClick={() => setShowRegistrar(true)}
+                  className="flex items-center gap-1.5 text-sm font-medium text-primary-foreground bg-primary px-3 py-2 rounded-xl active:scale-95 transition-transform"
                 >
-                  <List size={14} /> Lista
+                  <Plus size={16} /> Registrar
                 </button>
-                <button
-                  onClick={() => setResiduosView('mapa')}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
-                    residuosView === 'mapa' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground'
-                  }`}
-                >
-                  <Map size={14} /> Mapa
-                </button>
+                <div className="flex bg-muted rounded-lg p-0.5">
+                  <button
+                    onClick={() => setResiduosView('lista')}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                      residuosView === 'lista' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground'
+                    }`}
+                  >
+                    <List size={14} /> Lista
+                  </button>
+                  <button
+                    onClick={() => setResiduosView('mapa')}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                      residuosView === 'mapa' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground'
+                    }`}
+                  >
+                    <Map size={14} /> Mapa
+                  </button>
+                </div>
               </div>
             </div>
 
             {residuosView === 'lista' ? (
-              <div className="bg-card rounded-xl p-5 shadow-sm border border-border space-y-4 animate-fade-in">
-                <div>
-                  <label className="text-xs font-medium text-muted-foreground block mb-1.5">Tipo de material</label>
-                  <input className="w-full bg-muted rounded-lg px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-primary/30" placeholder="Ex: Algodão, Jeans, Seda..." />
-                </div>
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-xs font-medium text-muted-foreground block mb-1.5">Peso (kg)</label>
-                    <input className="w-full bg-muted rounded-lg px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-primary/30" placeholder="0" type="number" />
+              <div className="space-y-3">
+                {wasteLots.map((lot, i) => (
+                  <div
+                    key={lot.id}
+                    className="bg-card rounded-xl p-3.5 shadow-sm border border-border border-l-4 border-l-primary animate-slide-up"
+                    style={{ animationDelay: `${i * 80}ms`, animationFillMode: 'both' }}
+                  >
+                    <p className="font-semibold text-sm">📦 {lot.name}</p>
+                    <p className="text-xs text-muted-foreground mt-1">{lot.weight} · {lot.price} · {lot.bairro}</p>
                   </div>
-                  <div>
-                    <label className="text-xs font-medium text-muted-foreground block mb-1.5">Localização</label>
-                    <input className="w-full bg-muted rounded-lg px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-primary/30" placeholder="Cidade, UF" />
-                  </div>
-                </div>
-                <button className="w-full flex items-center justify-center gap-2 text-sm font-medium text-primary-foreground bg-primary px-4 py-3 rounded-xl active:scale-[0.97] transition-transform">
-                  <Plus size={18} /> Catalogar Resíduo
-                </button>
+                ))}
               </div>
             ) : (
               <div className="animate-fade-in space-y-3">
@@ -169,6 +176,8 @@ const FaccaoDashboard = () => {
                   ))}
                 </div>
               </div>
+            )}
+            </>
             )}
           </div>
         )}

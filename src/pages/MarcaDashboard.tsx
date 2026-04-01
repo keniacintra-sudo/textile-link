@@ -4,6 +4,7 @@ import BottomNav from '@/components/BottomNav';
 import PageHeader from '@/components/PageHeader';
 import StatusBadge from '@/components/StatusBadge';
 import ChatList from '@/components/ChatList';
+import RegistrarResiduoForm from '@/components/RegistrarResiduoForm';
 import { marcaOrders, marcaResiduos, chats } from '@/data/mockData';
 
 const navItems = [
@@ -18,6 +19,7 @@ const producaoFilters = ['Todos', 'Camisetas', 'Vestidos', 'Calças', 'Jaquetas'
 const MarcaDashboard = () => {
   const [tab, setTab] = useState('producao');
   const [producaoFilter, setProducaoFilter] = useState('Todos');
+  const [showRegistrar, setShowRegistrar] = useState(false);
 
   const filteredOrders = useMemo(() => {
     if (producaoFilter === 'Todos') return marcaOrders;
@@ -80,26 +82,35 @@ const MarcaDashboard = () => {
 
         {tab === 'residuos' && (
           <div className="space-y-3 animate-fade-in">
-            <div className="flex justify-between items-center mb-2">
-              <h2 className="font-heading font-semibold text-lg">Resíduos Têxteis</h2>
-              <button className="flex items-center gap-1.5 text-sm font-medium text-primary-foreground bg-primary px-3 py-2 rounded-xl active:scale-95 transition-transform">
-                <Plus size={16} /> Registrar
-              </button>
-            </div>
-            {marcaResiduos.map((r, i) => (
-              <div
-                key={r.id}
-                className="bg-card rounded-xl p-4 shadow-sm border border-border animate-slide-up"
-                style={{ animationDelay: `${i * 80}ms`, animationFillMode: 'both' }}
-              >
-                <h3 className="font-semibold text-sm">{r.material}</h3>
-                <div className="flex gap-4 mt-2 text-xs text-muted-foreground">
-                  <span>{r.weight}</span>
-                  <span>{r.location}</span>
-                  <span className="font-semibold text-foreground">{r.price}</span>
+            {showRegistrar ? (
+              <RegistrarResiduoForm onClose={() => setShowRegistrar(false)} />
+            ) : (
+              <>
+                <div className="flex justify-between items-center mb-2">
+                  <h2 className="font-heading font-semibold text-lg">Resíduos Têxteis</h2>
+                  <button
+                    onClick={() => setShowRegistrar(true)}
+                    className="flex items-center gap-1.5 text-sm font-medium text-primary-foreground bg-primary px-3 py-2 rounded-xl active:scale-95 transition-transform"
+                  >
+                    <Plus size={16} /> Registrar
+                  </button>
                 </div>
-              </div>
-            ))}
+                {marcaResiduos.map((r, i) => (
+                  <div
+                    key={r.id}
+                    className="bg-card rounded-xl p-4 shadow-sm border border-border animate-slide-up"
+                    style={{ animationDelay: `${i * 80}ms`, animationFillMode: 'both' }}
+                  >
+                    <h3 className="font-semibold text-sm">{r.material}</h3>
+                    <div className="flex gap-4 mt-2 text-xs text-muted-foreground">
+                      <span>{r.weight}</span>
+                      <span>{r.location}</span>
+                      <span className="font-semibold text-foreground">{r.price}</span>
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
           </div>
         )}
 
