@@ -7,7 +7,7 @@ interface PageHeaderProps {
   dashboardPath?: string;
 }
 
-const PageHeader = ({ title, showBack = true }: PageHeaderProps) => {
+const PageHeader = ({ title, showBack = true, dashboardPath }: PageHeaderProps) => {
   const navigate = useNavigate();
   return (
     <header className="sticky top-0 z-40 bg-background px-5" style={{ height: 56, display: 'flex', alignItems: 'center' }}>
