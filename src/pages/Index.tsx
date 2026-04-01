@@ -12,17 +12,25 @@ const Index = () => {
 
   return (
     <div className="flex flex-col" style={{ height: '100dvh', maxWidth: 390, margin: '0 auto', backgroundColor: '#F5F0EB', overflow: 'hidden' }}>
-      {/* Logo */}
-      <div className="flex flex-col items-center justify-center shrink-0" style={{ height: 80 }}>
-        <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 36, fontWeight: 700, fontStyle: 'italic', color: '#1C1C1E', lineHeight: 1, margin: 0 }}>elo</h1>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, letterSpacing: 3, color: '#9C8B7A', textTransform: 'uppercase', margin: '2px 0 0' }}>MODA CONNECT</p>
-      </div>
+      {/* Header */}
+      <div className="shrink-0 flex flex-col items-center" style={{ padding: '32px 24px 24px', backgroundColor: '#F5F0EB' }}>
+        {/* Chain link symbol */}
+        <svg width="48" height="28" viewBox="0 0 48 28" fill="none" style={{ filter: 'drop-shadow(0 2px 6px rgba(26,122,74,0.2))' }}>
+          <ellipse cx="17" cy="14" rx="13" ry="10" stroke="#1A7A4A" strokeWidth="2.5" transform="rotate(-10 17 14)" />
+          <ellipse cx="31" cy="14" rx="13" ry="10" stroke="#1A7A4A" strokeWidth="2.5" transform="rotate(10 31 14)" />
+        </svg>
 
-      {/* Hero */}
-      <div className="shrink-0 flex items-center justify-center" style={{ height: 180, background: '#C4A882' }}>
-        <p className="text-center" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, fontWeight: 400, color: 'rgba(255,255,255,0.95)', maxWidth: 260, lineHeight: 1.4, margin: 0 }}>
+        {/* Logo */}
+        <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 40, fontWeight: 700, fontStyle: 'italic', color: '#1C1C1E', lineHeight: 1, margin: '10px 0 0' }}>elo</h1>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, letterSpacing: 4, color: '#9C8B7A', textTransform: 'uppercase', margin: '3px 0 0' }}>MODA CONNECT</p>
+
+        {/* Tagline */}
+        <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 18, fontWeight: 400, fontStyle: 'italic', color: '#5C4A38', textAlign: 'center', maxWidth: 280, lineHeight: 1.5, margin: '20px 0 0' }}>
           Conectamos você às melhores oportunidades da moda
         </p>
+
+        {/* Divider */}
+        <div style={{ width: 40, height: 1, backgroundColor: '#C4A882', borderRadius: 2, margin: '20px auto 0' }} />
       </div>
 
       {/* Cards */}
