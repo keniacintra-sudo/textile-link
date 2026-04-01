@@ -19,6 +19,7 @@ const producaoFilters = ['Todos', 'Camisetas', 'Vestidos', 'Calças', 'Jaquetas'
 const MarcaDashboard = () => {
   const [tab, setTab] = useState('producao');
   const [producaoFilter, setProducaoFilter] = useState('Todos');
+  const [showRegistrar, setShowRegistrar] = useState(false);
 
   const filteredOrders = useMemo(() => {
     if (producaoFilter === 'Todos') return marcaOrders;
