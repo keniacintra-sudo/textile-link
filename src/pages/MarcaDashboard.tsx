@@ -48,7 +48,10 @@ const MarcaDashboard = () => {
           <div className="space-y-3 animate-fade-in">
             <div className="flex justify-between items-center mb-2">
               <h2 className="text-section-title">Pedidos</h2>
-              <button className="btn-primary flex items-center gap-1.5 text-sm !py-2 !px-4 active:scale-95 transition-transform">
+              <button
+                onClick={() => navigate('/marca/novo-pedido')}
+                className="btn-primary flex items-center gap-1.5 text-sm !py-2 !px-4 active:scale-95 transition-transform"
+              >
                 <Plus size={16} /> Novo Pedido
               </button>
             </div>
