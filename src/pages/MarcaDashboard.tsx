@@ -45,6 +45,13 @@ const MarcaDashboard = () => {
     );
   }, [producaoFilter, allOrders]);
 
+  const updateProposalStatus = (id: string, status: 'aceita' | 'recusada') => {
+    const updated = proposals.map(p => p.id === id ? { ...p, status } : p);
+    setProposals(updated);
+    localStorage.setItem('elo_proposals', JSON.stringify(updated));
+    toast.success(status === 'aceita' ? 'Proposta aceita!' : 'Proposta recusada.');
+  };
+
   return (
     <div className="min-h-screen pb-20 bg-background">
       <PageHeader title="Marca / Designer" />
