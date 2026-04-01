@@ -4,6 +4,7 @@ import BottomNav from '@/components/BottomNav';
 import PageHeader from '@/components/PageHeader';
 import StatusBadge from '@/components/StatusBadge';
 import ChatList from '@/components/ChatList';
+import RegistrarResiduoForm from '@/components/RegistrarResiduoForm';
 import { marcaOrders, marcaResiduos, chats } from '@/data/mockData';
 
 const navItems = [
