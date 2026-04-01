@@ -12,6 +12,7 @@ import { toast } from 'sonner';
 
 const navItems = [
   { icon: Package, label: 'Produção', id: 'producao' },
+  { icon: FileText, label: 'Propostas', id: 'propostas' },
   { icon: Trash2, label: 'Resíduos', id: 'residuos' },
   { icon: MessageCircle, label: 'Mensagens', id: 'mensagens' },
   { icon: User, label: 'Perfil', id: 'perfil' },
