@@ -171,7 +171,7 @@ const MarcaDashboard = () => {
           </div>
         )}
 
-
+        {tab === 'residuos' && (
           <div className="space-y-3 animate-fade-in">
             {showRegistrar ? (
               <RegistrarResiduoForm onClose={() => setShowRegistrar(false)} />
