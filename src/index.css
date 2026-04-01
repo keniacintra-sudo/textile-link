@@ -91,7 +91,28 @@
   }
 }
 
+/* Global card style */
+@layer components {
+  .card-elevated {
+    @apply bg-card rounded-2xl p-4;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+    border: none;
+  }
+}
+
 @layer utilities {
+  .text-metric {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    color: hsl(var(--primary));
+  }
+
+  .text-screen-title {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    color: #1C1C1E;
+  }
+
   .animate-fade-in {
     animation: fade-in 0.4s ease-out forwards;
   }
