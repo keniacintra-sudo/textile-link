@@ -1,11 +1,12 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Package, Trash2, MessageCircle, User, Plus, Star } from 'lucide-react';
 import BottomNav from '@/components/BottomNav';
 import PageHeader from '@/components/PageHeader';
 import StatusBadge from '@/components/StatusBadge';
 import ChatList from '@/components/ChatList';
 import RegistrarResiduoForm from '@/components/RegistrarResiduoForm';
-import { marcaOrders, marcaResiduos, chats } from '@/data/mockData';
+import { marcaOrders, marcaResiduos, chats, type Order } from '@/data/mockData';
 
 const navItems = [
   { icon: Package, label: 'Produção', id: 'producao' },
@@ -17,17 +18,26 @@ const navItems = [
 const producaoFilters = ['Todos', 'Camisetas', 'Vestidos', 'Calças', 'Jaquetas'];
 
 const MarcaDashboard = () => {
+  const navigate = useNavigate();
   const [tab, setTab] = useState('producao');
   const [producaoFilter, setProducaoFilter] = useState('Todos');
   const [showRegistrar, setShowRegistrar] = useState(false);
+  const [customOrders, setCustomOrders] = useState<Order[]>([]);
+
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem('elo_custom_orders') || '[]');
+    setCustomOrders(saved);
+  }, []);
+
+  const allOrders = useMemo(() => [...marcaOrders, ...customOrders], [customOrders]);
 
   const filteredOrders = useMemo(() => {
-    if (producaoFilter === 'Todos') return marcaOrders;
-    return marcaOrders.filter(o =>
+    if (producaoFilter === 'Todos') return allOrders;
+    return allOrders.filter(o =>
       o.title.toLowerCase().includes(producaoFilter.toLowerCase()) ||
       o.description.toLowerCase().includes(producaoFilter.toLowerCase())
     );
-  }, [producaoFilter]);
+  }, [producaoFilter, allOrders]);
 
   return (
     <div className="min-h-screen pb-20 bg-background">
@@ -38,7 +48,10 @@ const MarcaDashboard = () => {
           <div className="space-y-3 animate-fade-in">
             <div className="flex justify-between items-center mb-2">
               <h2 className="text-section-title">Pedidos</h2>
-              <button className="btn-primary flex items-center gap-1.5 text-sm !py-2 !px-4 active:scale-95 transition-transform">
+              <button
+                onClick={() => navigate('/marca/novo-pedido')}
+                className="btn-primary flex items-center gap-1.5 text-sm !py-2 !px-4 active:scale-95 transition-transform"
+              >
                 <Plus size={16} /> Novo Pedido
               </button>
             </div>
