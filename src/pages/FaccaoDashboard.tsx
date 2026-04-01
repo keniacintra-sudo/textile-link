@@ -5,7 +5,14 @@ import PageHeader from '@/components/PageHeader';
 import StatusBadge from '@/components/StatusBadge';
 import ChatList from '@/components/ChatList';
 import { faccaoOrders, chats } from '@/data/mockData';
-import ResiduosMap from '@/components/ResiduosMap';
+import { toast } from 'sonner';
+
+const wasteLots = [
+  { id: 1, name: 'Retalhos de Algodão', weight: '8kg', price: 'R$ 45,00', bairro: 'Bairro Bom Pastor' },
+  { id: 2, name: 'Sobras de Viscose', weight: '3kg', price: 'R$ 28,00', bairro: 'Centro' },
+  { id: 3, name: 'Malha Mista', weight: '12kg', price: 'R$ 60,00', bairro: 'Niterói' },
+  { id: 4, name: 'Jeans Retalho', weight: '5kg', price: 'R$ 35,00', bairro: 'São José' },
+];
 
 const navItems = [
   { icon: Search, label: 'Oportunidades', id: 'oportunidades' },
