@@ -51,8 +51,19 @@ const ArtesaoDashboard = () => {
                   className="card-elevated animate-fade-in cursor-pointer active:scale-[0.97] transition-transform duration-150"
                   style={{ animationDelay: `${i * 40}ms`, animationFillMode: 'both' }}
                 >
-                  <div className="w-full aspect-square rounded-lg bg-primary/5 flex items-center justify-center mb-2.5">
-                    <span className="text-3xl">🧵</span>
+                  <div className="w-full aspect-square rounded-xl overflow-hidden mb-2.5 bg-muted">
+                    {r.image_url ? (
+                      <img
+                        src={r.image_url}
+                        alt={r.material}
+                        className="w-full h-full object-cover animate-fade-in"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <span className="text-xs text-muted-foreground font-sans">Sem imagem</span>
+                      </div>
+                    )}
                   </div>
                   <h3 className="font-bold text-[14px] leading-snug font-sans text-foreground">{r.material}</h3>
                   <p className="text-[13px] text-muted-foreground mt-1 font-sans">{r.weight} · {r.location}</p>
