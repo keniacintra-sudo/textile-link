@@ -26,6 +26,7 @@ const FaccaoDashboard = () => {
   const [tab, setTab] = useState('oportunidades');
   const [available, setAvailable] = useState(true);
   const [residuosView, setResiduosView] = useState<'lista' | 'mapa'>('lista');
+  const [showRegistrar, setShowRegistrar] = useState(false);
 
   return (
     <div className="min-h-screen pb-20 bg-background">
