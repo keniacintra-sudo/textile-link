@@ -18,17 +18,26 @@ const navItems = [
 const producaoFilters = ['Todos', 'Camisetas', 'Vestidos', 'Calças', 'Jaquetas'];
 
 const MarcaDashboard = () => {
+  const navigate = useNavigate();
   const [tab, setTab] = useState('producao');
   const [producaoFilter, setProducaoFilter] = useState('Todos');
   const [showRegistrar, setShowRegistrar] = useState(false);
+  const [customOrders, setCustomOrders] = useState<Order[]>([]);
+
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem('elo_custom_orders') || '[]');
+    setCustomOrders(saved);
+  }, []);
+
+  const allOrders = useMemo(() => [...marcaOrders, ...customOrders], [customOrders]);
 
   const filteredOrders = useMemo(() => {
-    if (producaoFilter === 'Todos') return marcaOrders;
-    return marcaOrders.filter(o =>
+    if (producaoFilter === 'Todos') return allOrders;
+    return allOrders.filter(o =>
       o.title.toLowerCase().includes(producaoFilter.toLowerCase()) ||
       o.description.toLowerCase().includes(producaoFilter.toLowerCase())
     );
-  }, [producaoFilter]);
+  }, [producaoFilter, allOrders]);
 
   return (
     <div className="min-h-screen pb-20 bg-background">
