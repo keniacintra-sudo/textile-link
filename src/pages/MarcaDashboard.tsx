@@ -26,10 +26,13 @@ const MarcaDashboard = () => {
   const [producaoFilter, setProducaoFilter] = useState('Todos');
   const [showRegistrar, setShowRegistrar] = useState(false);
   const [customOrders, setCustomOrders] = useState<Order[]>([]);
+  const [proposals, setProposals] = useState<Proposal[]>([]);
 
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem('elo_custom_orders') || '[]');
     setCustomOrders(saved);
+    const savedProposals = JSON.parse(localStorage.getItem('elo_proposals') || '[]');
+    setProposals(savedProposals);
   }, []);
 
   const allOrders = useMemo(() => [...marcaOrders, ...customOrders], [customOrders]);
