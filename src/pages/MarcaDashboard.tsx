@@ -1,11 +1,12 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Package, Trash2, MessageCircle, User, Plus, Star } from 'lucide-react';
 import BottomNav from '@/components/BottomNav';
 import PageHeader from '@/components/PageHeader';
 import StatusBadge from '@/components/StatusBadge';
 import ChatList from '@/components/ChatList';
 import RegistrarResiduoForm from '@/components/RegistrarResiduoForm';
-import { marcaOrders, marcaResiduos, chats } from '@/data/mockData';
+import { marcaOrders, marcaResiduos, chats, type Order } from '@/data/mockData';
 
 const navItems = [
   { icon: Package, label: 'Produção', id: 'producao' },
