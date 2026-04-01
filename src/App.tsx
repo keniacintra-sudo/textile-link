@@ -7,6 +7,7 @@ import Index from "./pages/Index.tsx";
 import MarcaDashboard from "./pages/MarcaDashboard.tsx";
 import FaccaoDashboard from "./pages/FaccaoDashboard.tsx";
 import ArtesaoDashboard from "./pages/ArtesaoDashboard.tsx";
+import ImpactReport from "./pages/ImpactReport.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
