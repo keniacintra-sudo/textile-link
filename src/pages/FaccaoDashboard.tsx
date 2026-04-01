@@ -142,8 +142,32 @@ const FaccaoDashboard = () => {
                 </button>
               </div>
             ) : (
-              <div className="animate-fade-in">
-                <ResiduosMap />
+              <div className="animate-fade-in space-y-3">
+                <div className="rounded-xl overflow-hidden shadow-sm" style={{ height: 340 }}>
+                  <iframe
+                    src="https://www.openstreetmap.org/export/embed.html?bbox=-44.92,-20.16,-44.84,-20.11&layer=mapnik"
+                    style={{ width: '100%', height: '100%', border: 'none' }}
+                    title="Mapa de resíduos em Divinópolis"
+                  />
+                </div>
+                <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-none">
+                  {wasteLots.map(lot => (
+                    <div
+                      key={lot.id}
+                      className="min-w-[200px] bg-card rounded-xl p-3.5 shadow-sm border-l-4 border-l-primary border border-border flex-shrink-0"
+                    >
+                      <p className="font-semibold text-sm">📦 {lot.name}</p>
+                      <p className="text-xs text-muted-foreground mt-1">{lot.weight} · {lot.price}</p>
+                      <p className="text-xs text-muted-foreground">{lot.bairro}</p>
+                      <button
+                        onClick={() => toast.success('Solicitação enviada! A facção será notificada.')}
+                        className="mt-2.5 w-full text-xs font-medium text-primary-foreground bg-primary px-3 py-1.5 rounded-lg active:scale-95 transition-transform"
+                      >
+                        Solicitar
+                      </button>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
           </div>
