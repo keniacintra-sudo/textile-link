@@ -35,7 +35,7 @@ const FaccaoDashboard = () => {
       <main className="px-4 py-4 max-w-md mx-auto">
         {tab === 'oportunidades' && (
           <div className="space-y-3 animate-fade-in">
-            <h2 className="font-heading font-semibold text-lg mb-2">Oportunidades</h2>
+            <h2 className="text-section-title mb-2">Oportunidades</h2>
             {faccaoOrders.filter(o => o.status === 'ATIVO' || o.status === 'PROPOSTA').map((order, i) => (
               <div
                 key={order.id}
@@ -44,18 +44,18 @@ const FaccaoDashboard = () => {
               >
                 <div className="flex justify-between items-start mb-2">
                   <div>
-                    <h3 className="font-semibold text-sm font-sans">{order.title}</h3>
-                    <p className="text-xs text-muted-foreground font-sans">{order.brand}</p>
+                    <h3 className="font-bold text-[15px] font-sans text-foreground">{order.title}</h3>
+                    <p className="text-[13px] text-muted-foreground font-sans">{order.brand}</p>
                   </div>
                   <StatusBadge status={order.status} />
                 </div>
-                <p className="text-xs text-muted-foreground font-sans">{order.description}</p>
+                <p className="text-[13px] text-muted-foreground font-sans">{order.description}</p>
                 <div className="flex justify-between items-center mt-3">
-                  <div className="flex gap-4 text-xs text-muted-foreground font-sans">
+                  <div className="flex gap-4 text-[13px] text-muted-foreground font-sans">
                     <span>{order.quantity} peças</span>
                     <span>Prazo: {order.deadline}</span>
                   </div>
-                  <button className="text-xs font-semibold text-primary-foreground bg-primary px-3 py-1.5 rounded-lg active:scale-95 transition-transform font-sans">
+                  <button className="btn-primary !text-[13px] !py-1.5 !px-4 active:scale-95 transition-transform">
                     Enviar Proposta
                   </button>
                 </div>
@@ -67,7 +67,7 @@ const FaccaoDashboard = () => {
         {tab === 'servicos' && (
           <div className="space-y-4 animate-fade-in">
             <div className="flex justify-between items-center">
-              <h2 className="font-heading font-semibold text-lg">Meus Serviços</h2>
+              <h2 className="text-section-title">Meus Serviços</h2>
               <button
                 onClick={() => setAvailable(!available)}
                 className="flex items-center gap-2 text-sm font-sans"
@@ -75,9 +75,9 @@ const FaccaoDashboard = () => {
                 {available ? (
                   <ToggleRight size={28} className="text-primary" />
                 ) : (
-                  <ToggleLeft size={28} className="text-muted-foreground" />
+                  <ToggleLeft size={28} className="text-nav-inactive" />
                 )}
-                <span className={available ? 'text-primary font-medium' : 'text-muted-foreground'}>
+                <span className={`font-sans ${available ? 'text-primary font-medium' : 'text-muted-foreground'}`}>
                   {available ? 'Disponível' : 'Indisponível'}
                 </span>
               </button>
@@ -89,11 +89,11 @@ const FaccaoDashboard = () => {
                 style={{ animationDelay: `${i * 80}ms`, animationFillMode: 'both' }}
               >
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="font-semibold text-sm font-sans">{order.title}</h3>
+                  <h3 className="font-bold text-[15px] font-sans text-foreground">{order.title}</h3>
                   <StatusBadge status={order.status} />
                 </div>
-                <p className="text-xs text-muted-foreground font-sans">{order.brand} — {order.description}</p>
-                <p className="text-xs text-muted-foreground font-sans mt-1">Prazo: {order.deadline}</p>
+                <p className="text-[13px] text-muted-foreground font-sans">{order.brand} — {order.description}</p>
+                <p className="text-[13px] text-muted-foreground font-sans mt-1">Prazo: {order.deadline}</p>
               </div>
             ))}
           </div>
@@ -106,18 +106,18 @@ const FaccaoDashboard = () => {
             ) : (
             <>
             <div className="flex justify-between items-center mb-3">
-              <h2 className="font-heading font-semibold text-lg">Resíduos</h2>
+              <h2 className="text-section-title">Resíduos</h2>
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setShowRegistrar(true)}
-                  className="flex items-center gap-1.5 text-sm font-medium text-primary-foreground bg-primary px-3 py-2 rounded-xl active:scale-95 transition-transform font-sans"
+                  className="btn-primary flex items-center gap-1.5 !text-sm !py-2 !px-4 active:scale-95 transition-transform"
                 >
                   <Plus size={16} /> Registrar
                 </button>
                 <div className="flex bg-muted rounded-lg p-0.5">
                   <button
                     onClick={() => setResiduosView('lista')}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors font-sans ${
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[13px] font-medium transition-colors font-sans ${
                       residuosView === 'lista' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground'
                     }`}
                   >
@@ -125,7 +125,7 @@ const FaccaoDashboard = () => {
                   </button>
                   <button
                     onClick={() => setResiduosView('mapa')}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors font-sans ${
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[13px] font-medium transition-colors font-sans ${
                       residuosView === 'mapa' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground'
                     }`}
                   >
@@ -143,14 +143,14 @@ const FaccaoDashboard = () => {
                     className="card-elevated border-l-4 border-l-primary animate-slide-up"
                     style={{ animationDelay: `${i * 80}ms`, animationFillMode: 'both' }}
                   >
-                    <p className="font-semibold text-sm font-sans">📦 {lot.name}</p>
-                    <p className="text-xs text-muted-foreground mt-1 font-sans">{lot.weight} · {lot.price} · {lot.bairro}</p>
+                    <p className="font-bold text-[15px] font-sans text-foreground">📦 {lot.name}</p>
+                    <p className="text-[13px] text-muted-foreground mt-1 font-sans">{lot.weight} · {lot.price} · {lot.bairro}</p>
                   </div>
                 ))}
               </div>
             ) : (
               <div className="animate-fade-in space-y-3">
-                <div className="rounded-2xl overflow-hidden" style={{ height: 340, boxShadow: '0 2px 12px rgba(0,0,0,0.07)' }}>
+                <div className="rounded-2xl overflow-hidden" style={{ height: 340, boxShadow: '0 1px 8px rgba(0,0,0,0.05)' }}>
                   <iframe
                     src="https://www.openstreetmap.org/export/embed.html?bbox=-44.92,-20.16,-44.84,-20.11&layer=mapnik"
                     style={{ width: '100%', height: '100%', border: 'none' }}
@@ -163,12 +163,12 @@ const FaccaoDashboard = () => {
                       key={lot.id}
                       className="min-w-[200px] card-elevated border-l-4 border-l-primary flex-shrink-0"
                     >
-                      <p className="font-semibold text-sm font-sans">📦 {lot.name}</p>
-                      <p className="text-xs text-muted-foreground mt-1 font-sans">{lot.weight} · {lot.price}</p>
-                      <p className="text-xs text-muted-foreground font-sans">{lot.bairro}</p>
+                      <p className="font-bold text-[15px] font-sans text-foreground">📦 {lot.name}</p>
+                      <p className="text-[13px] text-muted-foreground mt-1 font-sans">{lot.weight} · {lot.price}</p>
+                      <p className="text-[13px] text-muted-foreground font-sans">{lot.bairro}</p>
                       <button
                         onClick={() => toast.success('Solicitação enviada! A facção será notificada.')}
-                        className="mt-2.5 w-full text-xs font-medium text-primary-foreground bg-primary px-3 py-1.5 rounded-lg active:scale-95 transition-transform font-sans"
+                        className="btn-primary mt-2.5 w-full !text-[13px] !py-1.5 active:scale-95 transition-transform"
                       >
                         Solicitar
                       </button>
@@ -184,7 +184,7 @@ const FaccaoDashboard = () => {
 
         {tab === 'mensagens' && (
           <div className="animate-fade-in">
-            <h2 className="font-heading font-semibold text-lg mb-3">Mensagens</h2>
+            <h2 className="text-section-title mb-3">Mensagens</h2>
             <ChatList chats={chats} />
           </div>
         )}

@@ -32,18 +32,13 @@ const ArtesaoDashboard = () => {
       <main className="px-4 py-4 max-w-md mx-auto">
         {tab === 'marketplace' && (
           <div className="animate-fade-in">
-            <h2 className="font-heading font-semibold text-lg mb-3">Marketplace de Resíduos</h2>
+            <h2 className="text-section-title mb-3">Marketplace de Resíduos</h2>
             <div className="flex gap-2 overflow-x-auto pb-3 scrollbar-none">
               {marketplaceFilters.map(f => (
                 <button
                   key={f}
                   onClick={() => setMarketplaceFilter(f)}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors font-sans ${
-                    marketplaceFilter === f
-                      ? 'bg-primary text-primary-foreground'
-                      : 'bg-card text-muted-foreground'
-                  }`}
-                  style={marketplaceFilter !== f ? { boxShadow: '0 2px 12px rgba(0,0,0,0.07)' } : undefined}
+                  className={marketplaceFilter === f ? 'chip-active' : 'chip'}
                 >
                   {f}
                 </button>
@@ -59,12 +54,12 @@ const ArtesaoDashboard = () => {
                   <div className="w-full aspect-square rounded-lg bg-primary/5 flex items-center justify-center mb-2.5">
                     <span className="text-3xl">🧵</span>
                   </div>
-                  <h3 className="font-semibold text-xs leading-snug font-sans">{r.material}</h3>
-                  <p className="text-[11px] text-muted-foreground mt-1 font-sans">{r.weight} · {r.location}</p>
+                  <h3 className="font-bold text-[14px] leading-snug font-sans text-foreground">{r.material}</h3>
+                  <p className="text-[13px] text-muted-foreground mt-1 font-sans">{r.weight} · {r.location}</p>
                   <div className="flex justify-between items-center mt-2">
-                    <span className="text-metric text-sm">{r.price}</span>
+                    <span className="text-metric-sm text-sm">{r.price}</span>
                   </div>
-                  <p className="text-[10px] text-muted-foreground mt-1 font-sans">{r.seller}</p>
+                  <p className="text-[11px] text-muted-foreground mt-1 font-sans">{r.seller}</p>
                 </div>
               ))}
               {filteredResiduos.length === 0 && (
@@ -76,7 +71,7 @@ const ArtesaoDashboard = () => {
 
         {tab === 'pedidos' && (
           <div className="space-y-3 animate-fade-in">
-            <h2 className="font-heading font-semibold text-lg mb-2">Meus Pedidos</h2>
+            <h2 className="text-section-title mb-2">Meus Pedidos</h2>
             {artesaoOrders.map((order, i) => (
               <div
                 key={order.id}
@@ -84,11 +79,11 @@ const ArtesaoDashboard = () => {
                 style={{ animationDelay: `${i * 80}ms`, animationFillMode: 'both' }}
               >
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="font-semibold text-sm font-sans">{order.title}</h3>
+                  <h3 className="font-bold text-[15px] font-sans text-foreground">{order.title}</h3>
                   <StatusBadge status={order.status} />
                 </div>
-                <p className="text-xs text-muted-foreground font-sans">Vendedor: {order.brand}</p>
-                <p className="text-xs text-muted-foreground mt-1 font-sans">{order.description}</p>
+                <p className="text-[13px] text-muted-foreground font-sans">Vendedor: {order.brand}</p>
+                <p className="text-[13px] text-muted-foreground mt-1 font-sans">{order.description}</p>
               </div>
             ))}
           </div>
@@ -96,7 +91,7 @@ const ArtesaoDashboard = () => {
 
         {tab === 'mensagens' && (
           <div className="animate-fade-in">
-            <h2 className="font-heading font-semibold text-lg mb-3">Mensagens</h2>
+            <h2 className="text-section-title mb-3">Mensagens</h2>
             <ChatList chats={chats} />
           </div>
         )}
