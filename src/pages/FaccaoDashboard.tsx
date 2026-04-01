@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Search, Briefcase, Trash2, MessageCircle, Plus, ToggleLeft, ToggleRight } from 'lucide-react';
+import { Search, Briefcase, Trash2, MessageCircle, Plus, ToggleLeft, ToggleRight, List, Map } from 'lucide-react';
 import BottomNav from '@/components/BottomNav';
 import PageHeader from '@/components/PageHeader';
 import StatusBadge from '@/components/StatusBadge';
 import ChatList from '@/components/ChatList';
 import { faccaoOrders, chats } from '@/data/mockData';
+import ResiduosMap from '@/components/ResiduosMap';
 
 const navItems = [
   { icon: Search, label: 'Oportunidades', id: 'oportunidades' },
@@ -16,6 +17,7 @@ const navItems = [
 const FaccaoDashboard = () => {
   const [tab, setTab] = useState('oportunidades');
   const [available, setAvailable] = useState(true);
+  const [residuosView, setResiduosView] = useState<'lista' | 'mapa'>('lista');
 
   return (
     <div className="min-h-screen pb-20 bg-background">
@@ -90,26 +92,53 @@ const FaccaoDashboard = () => {
 
         {tab === 'residuos' && (
           <div className="animate-fade-in">
-            <h2 className="font-heading font-semibold text-lg mb-3">Catalogar Resíduo</h2>
-            <div className="bg-card rounded-xl p-5 shadow-sm border border-border space-y-4">
-              <div>
-                <label className="text-xs font-medium text-muted-foreground block mb-1.5">Tipo de material</label>
-                <input className="w-full bg-muted rounded-lg px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-primary/30" placeholder="Ex: Algodão, Jeans, Seda..." />
+            <div className="flex justify-between items-center mb-3">
+              <h2 className="font-heading font-semibold text-lg">Catalogar Resíduo</h2>
+              <div className="flex bg-muted rounded-lg p-0.5">
+                <button
+                  onClick={() => setResiduosView('lista')}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                    residuosView === 'lista' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground'
+                  }`}
+                >
+                  <List size={14} /> Lista
+                </button>
+                <button
+                  onClick={() => setResiduosView('mapa')}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                    residuosView === 'mapa' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground'
+                  }`}
+                >
+                  <Map size={14} /> Mapa
+                </button>
               </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="text-xs font-medium text-muted-foreground block mb-1.5">Peso (kg)</label>
-                  <input className="w-full bg-muted rounded-lg px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-primary/30" placeholder="0" type="number" />
-                </div>
-                <div>
-                  <label className="text-xs font-medium text-muted-foreground block mb-1.5">Localização</label>
-                  <input className="w-full bg-muted rounded-lg px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-primary/30" placeholder="Cidade, UF" />
-                </div>
-              </div>
-              <button className="w-full flex items-center justify-center gap-2 text-sm font-medium text-primary-foreground bg-primary px-4 py-3 rounded-xl active:scale-[0.97] transition-transform">
-                <Plus size={18} /> Catalogar Resíduo
-              </button>
             </div>
+
+            {residuosView === 'lista' ? (
+              <div className="bg-card rounded-xl p-5 shadow-sm border border-border space-y-4 animate-fade-in">
+                <div>
+                  <label className="text-xs font-medium text-muted-foreground block mb-1.5">Tipo de material</label>
+                  <input className="w-full bg-muted rounded-lg px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-primary/30" placeholder="Ex: Algodão, Jeans, Seda..." />
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="text-xs font-medium text-muted-foreground block mb-1.5">Peso (kg)</label>
+                    <input className="w-full bg-muted rounded-lg px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-primary/30" placeholder="0" type="number" />
+                  </div>
+                  <div>
+                    <label className="text-xs font-medium text-muted-foreground block mb-1.5">Localização</label>
+                    <input className="w-full bg-muted rounded-lg px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-primary/30" placeholder="Cidade, UF" />
+                  </div>
+                </div>
+                <button className="w-full flex items-center justify-center gap-2 text-sm font-medium text-primary-foreground bg-primary px-4 py-3 rounded-xl active:scale-[0.97] transition-transform">
+                  <Plus size={18} /> Catalogar Resíduo
+                </button>
+              </div>
+            ) : (
+              <div className="animate-fade-in">
+                <ResiduosMap />
+              </div>
+            )}
           </div>
         )}
 
