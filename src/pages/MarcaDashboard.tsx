@@ -13,8 +13,19 @@ const navItems = [
   { icon: User, label: 'Perfil', id: 'perfil' },
 ];
 
+const producaoFilters = ['Todos', 'Camisetas', 'Vestidos', 'Calças', 'Jaquetas'];
+
 const MarcaDashboard = () => {
   const [tab, setTab] = useState('producao');
+  const [producaoFilter, setProducaoFilter] = useState('Todos');
+
+  const filteredOrders = useMemo(() => {
+    if (producaoFilter === 'Todos') return marcaOrders;
+    return marcaOrders.filter(o =>
+      o.title.toLowerCase().includes(producaoFilter.toLowerCase()) ||
+      o.description.toLowerCase().includes(producaoFilter.toLowerCase())
+    );
+  }, [producaoFilter]);
 
   return (
     <div className="min-h-screen pb-20 bg-background">
