@@ -9,7 +9,7 @@ interface PageHeaderProps {
 const PageHeader = ({ title, showBack = true }: PageHeaderProps) => {
   const navigate = useNavigate();
   return (
-    <header className="sticky top-0 z-40 bg-background/80 backdrop-blur-md border-b border-border px-4 py-3">
+    <header className="sticky top-0 z-40 bg-background/80 backdrop-blur-md px-4 py-3">
       <div className="flex items-center justify-between max-w-md mx-auto">
         <div className="flex items-center gap-3">
           {showBack && (
@@ -17,7 +17,7 @@ const PageHeader = ({ title, showBack = true }: PageHeaderProps) => {
               <ArrowLeft size={22} />
             </button>
           )}
-          <h1 className="text-lg font-semibold">{title}</h1>
+          <h1 className="text-screen-title">{title}</h1>
         </div>
         <button onClick={() => navigate('/impacto')} className="p-1.5 rounded-lg hover:bg-muted transition-colors text-primary">
           <Leaf size={20} />
