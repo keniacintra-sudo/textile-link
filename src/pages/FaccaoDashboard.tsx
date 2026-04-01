@@ -53,7 +53,7 @@ const FaccaoDashboard = () => {
 
   return (
     <div className="min-h-screen pb-20 bg-background">
-      <PageHeader title="Facção / Confecção" />
+      <PageHeader title="Facção / Confecção" dashboardPath="/faccao/dashboard" />
 
       {selectedOrder && (
         <EnviarPropostaModal
