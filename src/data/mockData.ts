@@ -42,8 +42,8 @@ export const marcaOrders: Order[] = [
 ];
 
 export const marcaResiduos: Residuo[] = [
-  { id: '1', material: 'Algodão cru', weight: '45 kg', location: 'São Paulo, SP', price: 'R$ 180', seller: 'Atelier Verde' },
-  { id: '2', material: 'Linho orgânico', weight: '12 kg', location: 'São Paulo, SP', price: 'R$ 95', seller: 'Atelier Verde' },
+  { id: '1', material: 'Algodão cru', weight: '45 kg', location: 'São Paulo, SP', price: 'R$ 180', seller: 'Atelier Verde', image_url: 'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=400&h=400&fit=crop' },
+  { id: '2', material: 'Linho orgânico', weight: '12 kg', location: 'São Paulo, SP', price: 'R$ 95', seller: 'Atelier Verde', image_url: 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400&h=400&fit=crop' },
 ];
 
 export const faccaoOrders: Order[] = [
