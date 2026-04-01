@@ -15,7 +15,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
-        heading: ['"Fraunces"', 'Georgia', 'serif'],
+        heading: ['"Cormorant Garamond"', 'Georgia', 'serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -63,6 +63,8 @@ export default {
           DEFAULT: "hsl(var(--info))",
           foreground: "hsl(var(--info-foreground))",
         },
+        "nav-inactive": "hsl(var(--nav-inactive))",
+        "warm-brown": "hsl(var(--warm-brown))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",

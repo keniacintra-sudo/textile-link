@@ -2,17 +2,26 @@ interface StatusBadgeProps {
   status: string;
 }
 
-const statusStyles: Record<string, string> = {
-  'ATIVO': 'bg-[#E6F4ED] text-[#1A7A4A]',
-  'PROPOSTA': 'bg-[#FEF9E7] text-[#B8860B]',
-  'EM PRODUÇÃO': 'bg-[#EBF3FF] text-[#2563EB]',
-  'CONCLUÍDO': 'bg-muted text-muted-foreground',
+const statusStyles: Record<string, { bg: string; text: string }> = {
+  'ATIVO': { bg: '152 56% 93%', text: '152 65% 29%' },
+  'PROPOSTA': { bg: '45 93% 95%', text: '43 100% 37%' },
+  'EM PRODUÇÃO': { bg: '217 100% 95%', text: '217 91% 60%' },
+  'DISPONÍVEL': { bg: '30 30% 95%', text: '28 30% 41%' },
+  'CONCLUÍDO': { bg: '30 20% 93%', text: '28 15% 56%' },
 };
 
 const StatusBadge = ({ status }: StatusBadgeProps) => {
-  const style = statusStyles[status] || 'bg-muted text-muted-foreground';
+  const style = statusStyles[status];
   return (
-    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-[0.5px] ${style}`}>
+    <span
+      className="inline-flex items-center rounded-full font-sans font-bold text-[11px] uppercase"
+      style={{
+        padding: '3px 10px',
+        letterSpacing: '0.5px',
+        backgroundColor: style ? `hsl(${style.bg})` : 'hsl(var(--muted))',
+        color: style ? `hsl(${style.text})` : 'hsl(var(--muted-foreground))',
+      }}
+    >
       {status}
     </span>
   );
