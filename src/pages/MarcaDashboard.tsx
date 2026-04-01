@@ -40,11 +40,26 @@ const MarcaDashboard = () => {
                 <Plus size={16} /> Novo Pedido
               </button>
             </div>
-            {marcaOrders.map((order, i) => (
+            <div className="flex gap-2 overflow-x-auto pb-3 scrollbar-none">
+              {producaoFilters.map(f => (
+                <button
+                  key={f}
+                  onClick={() => setProducaoFilter(f)}
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors ${
+                    producaoFilter === f
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-card text-muted-foreground border border-border'
+                  }`}
+                >
+                  {f}
+                </button>
+              ))}
+            </div>
+            {filteredOrders.map((order, i) => (
               <div
                 key={order.id}
-                className="bg-card rounded-xl p-4 shadow-sm border border-border animate-slide-up"
-                style={{ animationDelay: `${i * 80}ms`, animationFillMode: 'both' }}
+                className="bg-card rounded-xl p-4 shadow-sm border border-border animate-fade-in"
+                style={{ animationDelay: `${i * 60}ms`, animationFillMode: 'both' }}
               >
                 <div className="flex justify-between items-start mb-2">
                   <h3 className="font-semibold text-sm">{order.title}</h3>
@@ -57,6 +72,9 @@ const MarcaDashboard = () => {
                 </div>
               </div>
             ))}
+            {filteredOrders.length === 0 && (
+              <p className="text-center text-sm text-muted-foreground py-8">Nenhum pedido encontrado.</p>
+            )}
           </div>
         )}
 
