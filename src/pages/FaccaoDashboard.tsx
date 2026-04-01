@@ -4,6 +4,7 @@ import BottomNav from '@/components/BottomNav';
 import PageHeader from '@/components/PageHeader';
 import StatusBadge from '@/components/StatusBadge';
 import ChatList from '@/components/ChatList';
+import RegistrarResiduoForm from '@/components/RegistrarResiduoForm';
 import { faccaoOrders, chats } from '@/data/mockData';
 import { toast } from 'sonner';
 
