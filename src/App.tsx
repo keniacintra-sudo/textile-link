@@ -27,6 +27,9 @@ const App = () => (
           <Route path="/artesao" element={<ArtesaoDashboard />} />
           <Route path="/impacto" element={<ImpactReport />} />
           <Route path="/marca/novo-pedido" element={<CriarPedido />} />
+          <Route path="/marca/dashboard" element={<DashboardPlaceholder />} />
+          <Route path="/faccao/dashboard" element={<DashboardPlaceholder />} />
+          <Route path="/artesao/dashboard" element={<DashboardPlaceholder />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
