@@ -39,23 +39,23 @@ const FaccaoDashboard = () => {
             {faccaoOrders.filter(o => o.status === 'ATIVO' || o.status === 'PROPOSTA').map((order, i) => (
               <div
                 key={order.id}
-                className="bg-card rounded-xl p-4 shadow-sm border border-border animate-slide-up"
+                className="card-elevated animate-slide-up"
                 style={{ animationDelay: `${i * 80}ms`, animationFillMode: 'both' }}
               >
                 <div className="flex justify-between items-start mb-2">
                   <div>
-                    <h3 className="font-semibold text-sm">{order.title}</h3>
-                    <p className="text-xs text-muted-foreground">{order.brand}</p>
+                    <h3 className="font-semibold text-sm font-sans">{order.title}</h3>
+                    <p className="text-xs text-muted-foreground font-sans">{order.brand}</p>
                   </div>
                   <StatusBadge status={order.status} />
                 </div>
-                <p className="text-xs text-muted-foreground">{order.description}</p>
+                <p className="text-xs text-muted-foreground font-sans">{order.description}</p>
                 <div className="flex justify-between items-center mt-3">
-                  <div className="flex gap-4 text-xs text-muted-foreground">
+                  <div className="flex gap-4 text-xs text-muted-foreground font-sans">
                     <span>{order.quantity} peças</span>
                     <span>Prazo: {order.deadline}</span>
                   </div>
-                  <button className="text-xs font-semibold text-primary-foreground bg-primary px-3 py-1.5 rounded-lg active:scale-95 transition-transform">
+                  <button className="text-xs font-semibold text-primary-foreground bg-primary px-3 py-1.5 rounded-lg active:scale-95 transition-transform font-sans">
                     Enviar Proposta
                   </button>
                 </div>
@@ -70,7 +70,7 @@ const FaccaoDashboard = () => {
               <h2 className="font-heading font-semibold text-lg">Meus Serviços</h2>
               <button
                 onClick={() => setAvailable(!available)}
-                className="flex items-center gap-2 text-sm"
+                className="flex items-center gap-2 text-sm font-sans"
               >
                 {available ? (
                   <ToggleRight size={28} className="text-primary" />
@@ -85,15 +85,15 @@ const FaccaoDashboard = () => {
             {faccaoOrders.filter(o => o.status === 'EM PRODUÇÃO').map((order, i) => (
               <div
                 key={order.id}
-                className="bg-card rounded-xl p-4 shadow-sm border border-border animate-slide-up"
+                className="card-elevated animate-slide-up"
                 style={{ animationDelay: `${i * 80}ms`, animationFillMode: 'both' }}
               >
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="font-semibold text-sm">{order.title}</h3>
+                  <h3 className="font-semibold text-sm font-sans">{order.title}</h3>
                   <StatusBadge status={order.status} />
                 </div>
-                <p className="text-xs text-muted-foreground">{order.brand} — {order.description}</p>
-                <p className="text-xs text-muted-foreground mt-1">Prazo: {order.deadline}</p>
+                <p className="text-xs text-muted-foreground font-sans">{order.brand} — {order.description}</p>
+                <p className="text-xs text-muted-foreground font-sans mt-1">Prazo: {order.deadline}</p>
               </div>
             ))}
           </div>
@@ -110,14 +110,14 @@ const FaccaoDashboard = () => {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setShowRegistrar(true)}
-                  className="flex items-center gap-1.5 text-sm font-medium text-primary-foreground bg-primary px-3 py-2 rounded-xl active:scale-95 transition-transform"
+                  className="flex items-center gap-1.5 text-sm font-medium text-primary-foreground bg-primary px-3 py-2 rounded-xl active:scale-95 transition-transform font-sans"
                 >
                   <Plus size={16} /> Registrar
                 </button>
                 <div className="flex bg-muted rounded-lg p-0.5">
                   <button
                     onClick={() => setResiduosView('lista')}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors font-sans ${
                       residuosView === 'lista' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground'
                     }`}
                   >
@@ -125,7 +125,7 @@ const FaccaoDashboard = () => {
                   </button>
                   <button
                     onClick={() => setResiduosView('mapa')}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors font-sans ${
                       residuosView === 'mapa' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground'
                     }`}
                   >
@@ -140,17 +140,17 @@ const FaccaoDashboard = () => {
                 {wasteLots.map((lot, i) => (
                   <div
                     key={lot.id}
-                    className="bg-card rounded-xl p-3.5 shadow-sm border border-border border-l-4 border-l-primary animate-slide-up"
+                    className="card-elevated border-l-4 border-l-primary animate-slide-up"
                     style={{ animationDelay: `${i * 80}ms`, animationFillMode: 'both' }}
                   >
-                    <p className="font-semibold text-sm">📦 {lot.name}</p>
-                    <p className="text-xs text-muted-foreground mt-1">{lot.weight} · {lot.price} · {lot.bairro}</p>
+                    <p className="font-semibold text-sm font-sans">📦 {lot.name}</p>
+                    <p className="text-xs text-muted-foreground mt-1 font-sans">{lot.weight} · {lot.price} · {lot.bairro}</p>
                   </div>
                 ))}
               </div>
             ) : (
               <div className="animate-fade-in space-y-3">
-                <div className="rounded-xl overflow-hidden shadow-sm" style={{ height: 340 }}>
+                <div className="rounded-2xl overflow-hidden" style={{ height: 340, boxShadow: '0 2px 12px rgba(0,0,0,0.07)' }}>
                   <iframe
                     src="https://www.openstreetmap.org/export/embed.html?bbox=-44.92,-20.16,-44.84,-20.11&layer=mapnik"
                     style={{ width: '100%', height: '100%', border: 'none' }}
@@ -161,14 +161,14 @@ const FaccaoDashboard = () => {
                   {wasteLots.map(lot => (
                     <div
                       key={lot.id}
-                      className="min-w-[200px] bg-card rounded-xl p-3.5 shadow-sm border-l-4 border-l-primary border border-border flex-shrink-0"
+                      className="min-w-[200px] card-elevated border-l-4 border-l-primary flex-shrink-0"
                     >
-                      <p className="font-semibold text-sm">📦 {lot.name}</p>
-                      <p className="text-xs text-muted-foreground mt-1">{lot.weight} · {lot.price}</p>
-                      <p className="text-xs text-muted-foreground">{lot.bairro}</p>
+                      <p className="font-semibold text-sm font-sans">📦 {lot.name}</p>
+                      <p className="text-xs text-muted-foreground mt-1 font-sans">{lot.weight} · {lot.price}</p>
+                      <p className="text-xs text-muted-foreground font-sans">{lot.bairro}</p>
                       <button
                         onClick={() => toast.success('Solicitação enviada! A facção será notificada.')}
-                        className="mt-2.5 w-full text-xs font-medium text-primary-foreground bg-primary px-3 py-1.5 rounded-lg active:scale-95 transition-transform"
+                        className="mt-2.5 w-full text-xs font-medium text-primary-foreground bg-primary px-3 py-1.5 rounded-lg active:scale-95 transition-transform font-sans"
                       >
                         Solicitar
                       </button>
