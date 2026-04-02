@@ -109,7 +109,7 @@ const Index = () => {
         {roles.map((role, i) => (
           <button
             key={role.path}
-            onClick={() => navigate(role.path)}
+            onClick={() => navigate(`/cadastro?tipo=${role.path.replace('/', '')}`)}
             className="animate-slide-up active:scale-[0.97] transition-all duration-200 text-left cursor-pointer group"
             style={{
               padding: '18px 16px',
