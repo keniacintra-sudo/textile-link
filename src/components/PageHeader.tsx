@@ -11,8 +11,8 @@ const PageHeader = ({ title, showBack = true, dashboardPath }: PageHeaderProps) 
   const navigate = useNavigate();
   return (
     <header
-      className="sticky top-0 z-40 bg-background/80 backdrop-blur-lg px-5"
-      style={{ height: 60, display: 'flex', alignItems: 'center', borderBottom: '1px solid hsl(var(--border))' }}
+      className="sticky top-0 z-40 backdrop-blur-lg px-5"
+      style={{ height: 56, display: 'flex', alignItems: 'center', borderBottom: '1px solid hsl(var(--border))', background: 'hsla(222, 84%, 11%, 0.95)' }}
     >
       <div className="flex items-center justify-between w-full max-w-md mx-auto">
         <div className="flex items-center gap-3">
