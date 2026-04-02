@@ -83,7 +83,7 @@ const Index = () => {
 
         {/* CTA */}
         <button
-          onClick={() => navigate('/marca')}
+          onClick={() => navigate('/escolher-perfil')}
           className="btn-primary animate-fade-in mt-7 relative z-10"
           style={{ animationDelay: '250ms', animationFillMode: 'both', fontSize: 15, padding: '14px 36px', letterSpacing: '-0.01em' }}
         >
@@ -109,7 +109,7 @@ const Index = () => {
         {roles.map((role, i) => (
           <button
             key={role.path}
-            onClick={() => navigate(role.path)}
+            onClick={() => navigate(`/cadastro?tipo=${role.path.replace('/', '')}`)}
             className="animate-slide-up active:scale-[0.97] transition-all duration-200 text-left cursor-pointer group"
             style={{
               padding: '18px 16px',
@@ -191,17 +191,17 @@ const Index = () => {
       {/* ── Bottom CTA ── */}
       <div className="shrink-0 flex flex-col items-center px-5 pt-7 pb-3">
         <button
-          onClick={() => navigate('/marca')}
+          onClick={() => navigate('/escolher-perfil')}
           className="btn-primary w-full animate-fade-in"
           style={{ animationDelay: '700ms', animationFillMode: 'both', fontSize: 15, padding: '15px 28px' }}
         >
           Começar agora
         </button>
         <button
-          onClick={() => navigate('/marca')}
+          onClick={() => navigate('/login')}
           className="font-sans text-[13px] text-muted-foreground mt-4 active:scale-[0.97] transition-all duration-150 hover:text-foreground"
         >
-          Explorar plataforma →
+          Já tenho conta →
         </button>
       </div>
 
