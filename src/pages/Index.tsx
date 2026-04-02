@@ -191,7 +191,7 @@ const Index = () => {
       {/* ── Bottom CTA ── */}
       <div className="shrink-0 flex flex-col items-center px-5 pt-7 pb-3">
         <button
-          onClick={() => navigate('/marca')}
+          onClick={() => navigate('/escolher-perfil')}
           className="btn-primary w-full animate-fade-in"
           style={{ animationDelay: '700ms', animationFillMode: 'both', fontSize: 15, padding: '15px 28px' }}
         >
