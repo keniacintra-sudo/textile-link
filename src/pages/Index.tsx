@@ -198,10 +198,10 @@ const Index = () => {
           Começar agora
         </button>
         <button
-          onClick={() => navigate('/marca')}
+          onClick={() => navigate('/login')}
           className="font-sans text-[13px] text-muted-foreground mt-4 active:scale-[0.97] transition-all duration-150 hover:text-foreground"
         >
-          Explorar plataforma →
+          Já tenho conta →
         </button>
       </div>
 
