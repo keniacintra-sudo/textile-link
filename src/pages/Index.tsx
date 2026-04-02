@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Scissors, Shirt, Palette, ChevronRight, Search, Sparkles, Handshake, TrendingUp, Layers, Ruler, PenTool, Zap, Shield, Globe } from 'lucide-react';
+import { Scissors, Shirt, Palette, ChevronRight, Sparkles, Handshake, TrendingUp, Zap, Shield, Globe } from 'lucide-react';
 
 const roles = [
   { icon: Shirt, title: 'Sou uma Marca', description: 'Crie pedidos e encontre produção', path: '/marca', delay: 100 },
@@ -7,12 +7,6 @@ const roles = [
   { icon: Palette, title: 'Sou um Artesão', description: 'Venda materiais e conecte-se com marcas', path: '/artesao', delay: 300 },
 ];
 
-const categories = [
-  { icon: Layers, label: 'Malharia' },
-  { icon: Ruler, label: 'Jeans' },
-  { icon: PenTool, label: 'Alfaiataria' },
-  { icon: Scissors, label: 'Corte' },
-];
 
 const steps = [
   { icon: Sparkles, title: 'Encontre', description: 'Crie ou encontre oportunidades na cadeia têxtil', delay: 400 },
@@ -27,10 +21,10 @@ const Index = () => {
     <div className="flex flex-col bg-background" style={{ minHeight: '100dvh' }}>
       {/* Hero with navy gradient */}
       <div
-        className="shrink-0 relative overflow-hidden"
+        className="shrink-0 relative overflow-hidden flex flex-col items-center justify-center text-center"
         style={{
           background: 'linear-gradient(135deg, hsl(222 84% 11%), hsl(222 47% 18%), hsl(217 33% 22%))',
-          padding: '40px 20px 36px',
+          padding: '56px 24px 48px',
         }}
       >
         {/* Decorative circles */}
@@ -38,11 +32,11 @@ const Index = () => {
         <div className="absolute -bottom-8 -left-8 w-32 h-32 rounded-full opacity-[0.04]" style={{ background: 'hsl(160 84% 39%)' }} />
 
         {/* Brand */}
-        <div className="flex items-center gap-2 mb-6 animate-fade-in">
-          <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'hsl(160 84% 39%)' }}>
-            <Zap size={16} className="text-accent-foreground" />
+        <div className="flex items-center gap-2 mb-8 animate-fade-in">
+          <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ background: 'hsl(160 84% 39%)' }}>
+            <Zap size={18} className="text-accent-foreground" />
           </div>
-          <span className="font-sans font-bold text-[15px] tracking-tight" style={{ color: 'hsl(210 40% 98%)' }}>
+          <span className="font-sans font-bold text-[16px] tracking-tight" style={{ color: 'hsl(210 40% 98%)' }}>
             ELO Moda
           </span>
         </div>
@@ -51,12 +45,12 @@ const Index = () => {
         <h1
           className="font-sans animate-fade-in"
           style={{
-            fontSize: 24,
+            fontSize: 28,
             fontWeight: 800,
-            lineHeight: 1.2,
+            lineHeight: 1.15,
             letterSpacing: '-0.03em',
             color: 'hsl(210 40% 98%)',
-            maxWidth: 320,
+            maxWidth: 340,
           }}
         >
           A Conexão Inteligente para a Cadeia Produtiva da Moda
@@ -64,9 +58,9 @@ const Index = () => {
         <p
           className="font-sans animate-fade-in"
           style={{
-            fontSize: 14,
+            fontSize: 15,
             lineHeight: 1.5,
-            marginTop: 10,
+            marginTop: 12,
             color: 'hsl(215 20% 70%)',
             maxWidth: 300,
           }}
@@ -74,32 +68,14 @@ const Index = () => {
           Marcas, facções e artesãos em um só lugar
         </p>
 
-        {/* Search bar */}
-        <div
-          className="animate-slide-up mt-6 flex items-center gap-2 bg-card/10 backdrop-blur-sm rounded-xl border"
-          style={{
-            padding: '10px 14px',
-            borderColor: 'hsla(210, 40%, 98%, 0.12)',
-          }}
+        {/* CTA in hero */}
+        <button
+          onClick={() => navigate('/marca')}
+          className="btn-primary animate-fade-in mt-7"
+          style={{ animationDelay: '300ms', animationFillMode: 'both', fontSize: 14, padding: '12px 32px' }}
         >
-          <Search size={16} style={{ color: 'hsl(215 20% 60%)' }} />
-          <span className="font-sans text-[13px]" style={{ color: 'hsl(215 20% 55%)' }}>
-            Buscar facções, serviços, materiais...
-          </span>
-        </div>
-      </div>
-
-      {/* Category filters */}
-      <div className="flex gap-2 overflow-x-auto scrollbar-hide" style={{ padding: '16px 20px 8px' }}>
-        {categories.map((cat) => (
-          <button
-            key={cat.label}
-            className="chip flex items-center gap-1.5 shrink-0 hover:border-accent/40 transition-colors"
-          >
-            <cat.icon size={14} className="text-accent" />
-            <span>{cat.label}</span>
-          </button>
-        ))}
+          Começar agora
+        </button>
       </div>
 
       {/* Role cards */}
