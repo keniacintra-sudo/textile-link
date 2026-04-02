@@ -3,11 +3,11 @@ interface StatusBadgeProps {
 }
 
 const statusStyles: Record<string, { bg: string; text: string; dot: string }> = {
-  'ATIVO': { bg: '152 56% 93%', text: '152 65% 29%', dot: '152 65% 40%' },
-  'PROPOSTA': { bg: '45 93% 95%', text: '43 100% 37%', dot: '43 90% 50%' },
-  'EM PRODUÇÃO': { bg: '217 100% 95%', text: '217 91% 50%', dot: '217 91% 60%' },
-  'DISPONÍVEL': { bg: '30 30% 95%', text: '28 30% 41%', dot: '28 30% 50%' },
-  'CONCLUÍDO': { bg: '152 56% 93%', text: '152 65% 29%', dot: '152 65% 40%' },
+  'ATIVO': { bg: '160 84% 93%', text: '160 84% 30%', dot: '160 84% 39%' },
+  'PROPOSTA': { bg: '43 96% 93%', text: '43 96% 35%', dot: '43 96% 56%' },
+  'EM PRODUÇÃO': { bg: '217 91% 93%', text: '217 91% 45%', dot: '217 91% 60%' },
+  'DISPONÍVEL': { bg: '160 84% 93%', text: '160 84% 30%', dot: '160 84% 39%' },
+  'CONCLUÍDO': { bg: '160 84% 93%', text: '160 84% 30%', dot: '160 84% 39%' },
 };
 
 const StatusBadge = ({ status }: StatusBadgeProps) => {

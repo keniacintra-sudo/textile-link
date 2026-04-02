@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
-        heading: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+        sans: ['"Inter"', '"DM Sans"', 'system-ui', 'sans-serif'],
+        heading: ['"Inter"', 'system-ui', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
