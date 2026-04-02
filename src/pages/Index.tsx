@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Scissors, Shirt, Palette, ChevronRight, Search, Sparkles, Handshake, TrendingUp, Layers, Ruler, PenTool, Zap, Shield, Globe } from 'lucide-react';
+import { Scissors, Shirt, Palette, ChevronRight, Sparkles, Handshake, TrendingUp, Zap, Shield, Globe } from 'lucide-react';
 
 const roles = [
   { icon: Shirt, title: 'Sou uma Marca', description: 'Crie pedidos e encontre produção', path: '/marca', delay: 100 },
