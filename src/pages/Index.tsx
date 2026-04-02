@@ -1,12 +1,20 @@
 import { useNavigate } from 'react-router-dom';
 import { Scissors, Shirt, Palette, ChevronRight, Sparkles, Handshake, TrendingUp, Zap, Shield, Globe } from 'lucide-react';
+import heroImage from '@/assets/hero-fashion.png';
+
+const roleColors = [
+  { bg: 'hsl(160 84% 39% / 0.08)', border: 'hsl(160 84% 39% / 0.18)', iconBg: 'hsl(160 84% 39% / 0.15)' },
+  { bg: 'hsl(217 91% 60% / 0.06)', border: 'hsl(217 91% 60% / 0.15)', iconBg: 'hsl(217 91% 60% / 0.12)' },
+  { bg: 'hsl(43 96% 56% / 0.06)', border: 'hsl(43 96% 56% / 0.15)', iconBg: 'hsl(43 96% 56% / 0.12)' },
+];
+
+const roleIconColors = ['hsl(160 84% 39%)', 'hsl(217 91% 60%)', 'hsl(43 96% 56%)'];
 
 const roles = [
   { icon: Shirt, title: 'Sou uma Marca', description: 'Crie pedidos e encontre produção', path: '/marca', delay: 100 },
   { icon: Scissors, title: 'Sou uma Facção', description: 'Receba pedidos e aumente sua produção', path: '/faccao', delay: 200 },
   { icon: Palette, title: 'Sou um Artesão', description: 'Venda materiais e conecte-se com marcas', path: '/artesao', delay: 300 },
 ];
-
 
 const steps = [
   { icon: Sparkles, title: 'Encontre', description: 'Crie ou encontre oportunidades na cadeia têxtil', delay: 400 },
@@ -19,177 +27,213 @@ const Index = () => {
 
   return (
     <div className="flex flex-col bg-background" style={{ minHeight: '100dvh' }}>
-      {/* Hero with navy gradient */}
+      {/* ── Hero ── */}
       <div
-        className="shrink-0 relative overflow-hidden flex flex-col items-center justify-center text-center"
+        className="shrink-0 relative overflow-hidden flex flex-col items-center text-center"
         style={{
-          background: 'linear-gradient(135deg, hsl(222 84% 11%), hsl(222 47% 18%), hsl(217 33% 22%))',
-          padding: '56px 24px 48px',
+          background: 'linear-gradient(160deg, hsl(222 84% 11%) 0%, hsl(222 47% 16%) 50%, hsl(217 33% 22%) 100%)',
+          padding: '48px 24px 0',
         }}
       >
-        {/* Decorative circles */}
-        <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full opacity-[0.06]" style={{ background: 'hsl(160 84% 39%)' }} />
-        <div className="absolute -bottom-8 -left-8 w-32 h-32 rounded-full opacity-[0.04]" style={{ background: 'hsl(160 84% 39%)' }} />
+        {/* Decorative blurs */}
+        <div className="absolute top-0 right-0 w-48 h-48 rounded-full opacity-[0.07] blur-2xl" style={{ background: 'hsl(160 84% 50%)' }} />
+        <div className="absolute bottom-12 -left-12 w-36 h-36 rounded-full opacity-[0.05] blur-2xl" style={{ background: 'hsl(217 91% 60%)' }} />
 
         {/* Brand */}
-        <div className="flex items-center gap-2 mb-8 animate-fade-in">
-          <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ background: 'hsl(160 84% 39%)' }}>
-            <Zap size={18} className="text-accent-foreground" />
+        <div className="flex items-center gap-2.5 mb-7 animate-fade-in">
+          <div
+            className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg"
+            style={{ background: 'linear-gradient(135deg, hsl(160 84% 39%), hsl(160 60% 45%))' }}
+          >
+            <Zap size={20} className="text-accent-foreground" />
           </div>
-          <span className="font-sans font-bold text-[16px] tracking-tight" style={{ color: 'hsl(210 40% 98%)' }}>
+          <span className="font-sans font-extrabold text-[18px] tracking-tight" style={{ color: 'hsl(210 40% 98%)' }}>
             ELO Moda
           </span>
         </div>
 
-        {/* Hero text */}
+        {/* Title */}
         <h1
           className="font-sans animate-fade-in"
           style={{
-            fontSize: 28,
+            fontSize: 30,
             fontWeight: 800,
-            lineHeight: 1.15,
-            letterSpacing: '-0.03em',
+            lineHeight: 1.12,
+            letterSpacing: '-0.035em',
             color: 'hsl(210 40% 98%)',
-            maxWidth: 340,
+            maxWidth: 320,
           }}
         >
           A Conexão Inteligente para a Cadeia Produtiva da Moda
         </h1>
+
         <p
           className="font-sans animate-fade-in"
           style={{
             fontSize: 15,
-            lineHeight: 1.5,
-            marginTop: 12,
-            color: 'hsl(215 20% 70%)',
-            maxWidth: 300,
+            lineHeight: 1.55,
+            marginTop: 14,
+            color: 'hsl(215 20% 72%)',
+            maxWidth: 280,
+            fontWeight: 400,
           }}
         >
           Marcas, facções e artesãos em um só lugar
         </p>
 
-        {/* CTA in hero */}
+        {/* CTA */}
         <button
           onClick={() => navigate('/marca')}
-          className="btn-primary animate-fade-in mt-7"
-          style={{ animationDelay: '300ms', animationFillMode: 'both', fontSize: 14, padding: '12px 32px' }}
+          className="btn-primary animate-fade-in mt-7 relative z-10"
+          style={{ animationDelay: '250ms', animationFillMode: 'both', fontSize: 15, padding: '14px 36px', letterSpacing: '-0.01em' }}
         >
           Começar agora
         </button>
+
+        {/* Hero illustration */}
+        <img
+          src={heroImage}
+          alt="Tecidos entrelaçados representando conexão têxtil"
+          width={640}
+          height={512}
+          className="animate-fade-in mt-6 w-[85%] max-w-[320px] h-auto object-contain relative z-0 pointer-events-none select-none"
+          style={{ animationDelay: '400ms', animationFillMode: 'both', opacity: 0.85 }}
+        />
       </div>
 
-      {/* Role cards */}
-      <div className="flex flex-col" style={{ padding: '12px 16px 0', gap: 10 }}>
-        <p className="font-sans text-muted-foreground" style={{ fontSize: 11, fontWeight: 600, letterSpacing: 1, textTransform: 'uppercase', paddingLeft: 4, marginBottom: 2 }}>
+      {/* ── Role Cards ── */}
+      <div className="flex flex-col px-5 pt-7 pb-1 gap-3">
+        <p className="font-sans text-muted-foreground text-[11px] font-semibold tracking-[0.08em] uppercase pl-1 mb-0.5">
           Escolha seu perfil
         </p>
-        {roles.map((role) => (
+        {roles.map((role, i) => (
           <button
             key={role.path}
             onClick={() => navigate(role.path)}
-            className="card-elevated animate-slide-up active:scale-[0.97] transition-all duration-150 text-left cursor-pointer"
+            className="animate-slide-up active:scale-[0.97] transition-all duration-200 text-left cursor-pointer group"
             style={{
-              padding: '16px',
-              display: 'flex', alignItems: 'center', gap: 14,
-              animationDelay: `${role.delay}ms`, animationFillMode: 'both',
+              padding: '18px 16px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 14,
+              animationDelay: `${role.delay}ms`,
+              animationFillMode: 'both',
+              borderRadius: 16,
+              background: roleColors[i].bg,
+              border: `1px solid ${roleColors[i].border}`,
+              boxShadow: 'var(--shadow-sm)',
             }}
           >
-            <div className="shrink-0 flex items-center justify-center w-11 h-11 bg-accent/10 rounded-xl">
-              <role.icon size={20} className="text-accent" />
+            <div
+              className="shrink-0 flex items-center justify-center w-12 h-12 rounded-2xl transition-transform duration-200 group-hover:scale-105"
+              style={{ background: roleColors[i].iconBg }}
+            >
+              <role.icon size={22} style={{ color: roleIconColors[i] }} />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="font-sans font-semibold text-[14px] text-foreground leading-snug">{role.title}</p>
-              <p className="font-sans text-[12px] text-muted-foreground mt-0.5">{role.description}</p>
+              <p className="font-sans font-bold text-[15px] text-foreground leading-snug">{role.title}</p>
+              <p className="font-sans text-[12.5px] text-muted-foreground mt-0.5 leading-relaxed">{role.description}</p>
             </div>
-            <ChevronRight size={16} className="text-muted-foreground/40 shrink-0" />
+            <ChevronRight size={18} className="text-muted-foreground/30 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5" />
           </button>
         ))}
       </div>
 
-      {/* How it works */}
-      <div style={{ padding: '28px 16px 0' }}>
-        <p className="font-sans text-foreground" style={{ fontSize: 17, fontWeight: 700, letterSpacing: '-0.02em', paddingLeft: 4, marginBottom: 14 }}>
+      {/* ── How it works ── */}
+      <div className="px-5 pt-8">
+        <p className="font-sans text-foreground text-[18px] font-bold tracking-tight pl-1 mb-4">
           Como funciona
         </p>
-        <div className="flex gap-2.5">
+        <div className="flex gap-3">
           {steps.map((step, i) => (
             <div
               key={i}
               className="card-elevated flex-1 flex flex-col items-center text-center animate-slide-up"
-              style={{ padding: '18px 6px 14px', animationDelay: `${step.delay}ms`, animationFillMode: 'both' }}
+              style={{
+                padding: '20px 8px 16px',
+                animationDelay: `${step.delay}ms`,
+                animationFillMode: 'both',
+              }}
             >
-              <div className="flex items-center justify-center w-10 h-10 bg-accent/10 rounded-xl mb-2.5">
-                <step.icon size={18} className="text-accent" />
+              <div className="flex items-center justify-center w-11 h-11 bg-accent/10 rounded-2xl mb-3">
+                <step.icon size={20} className="text-accent" />
               </div>
               <p className="font-sans font-bold text-[13px] text-foreground">{step.title}</p>
-              <p className="font-sans text-[11px] text-muted-foreground mt-1 leading-snug">{step.description}</p>
+              <p className="font-sans text-[11px] text-muted-foreground mt-1.5 leading-snug">{step.description}</p>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Stats */}
-      <div className="mx-4 mt-6 rounded-2xl" style={{ background: 'linear-gradient(135deg, hsl(222 84% 11%), hsl(222 47% 16%))', padding: '20px' }}>
-        <div className="flex justify-around text-center">
+      {/* ── Stats ── */}
+      <div
+        className="mx-5 mt-7 rounded-2xl overflow-hidden relative"
+        style={{
+          background: 'linear-gradient(135deg, hsl(222 84% 11%), hsl(222 47% 16%))',
+          padding: '24px 20px',
+        }}
+      >
+        <div className="absolute top-0 right-0 w-24 h-24 rounded-full opacity-[0.06] blur-xl" style={{ background: 'hsl(160 84% 50%)' }} />
+        <div className="flex justify-around text-center relative z-10">
           {[
             { value: '500+', label: 'Conexões' },
             { value: '120+', label: 'Facções' },
             { value: '98%', label: 'Satisfação' },
           ].map((stat) => (
             <div key={stat.label} className="animate-fade-in">
-              <p className="font-sans font-extrabold text-[22px]" style={{ color: 'hsl(160 84% 50%)' }}>{stat.value}</p>
-              <p className="font-sans text-[11px] mt-0.5" style={{ color: 'hsl(215 20% 65%)' }}>{stat.label}</p>
+              <p className="font-sans font-extrabold text-[24px] tracking-tight" style={{ color: 'hsl(160 84% 50%)' }}>{stat.value}</p>
+              <p className="font-sans text-[11px] mt-1 font-medium" style={{ color: 'hsl(215 20% 65%)' }}>{stat.label}</p>
             </div>
           ))}
         </div>
       </div>
 
-      {/* CTA */}
-      <div className="shrink-0 flex flex-col items-center" style={{ padding: '24px 16px 12px' }}>
+      {/* ── Bottom CTA ── */}
+      <div className="shrink-0 flex flex-col items-center px-5 pt-7 pb-3">
         <button
           onClick={() => navigate('/marca')}
           className="btn-primary w-full animate-fade-in"
-          style={{ animationDelay: '700ms', animationFillMode: 'both', fontSize: 15, padding: '14px 28px' }}
+          style={{ animationDelay: '700ms', animationFillMode: 'both', fontSize: 15, padding: '15px 28px' }}
         >
           Começar agora
         </button>
         <button
           onClick={() => navigate('/marca')}
-          className="font-sans text-[13px] text-muted-foreground mt-3 active:scale-[0.97] transition-transform"
+          className="font-sans text-[13px] text-muted-foreground mt-4 active:scale-[0.97] transition-all duration-150 hover:text-foreground"
         >
           Explorar plataforma →
         </button>
       </div>
 
-      {/* Footer */}
-      <footer className="border-t border-border" style={{ padding: '20px 20px 24px', marginTop: 8 }}>
-        <div className="flex items-center justify-between mb-4">
+      {/* ── Footer ── */}
+      <footer className="border-t border-border mt-4" style={{ padding: '24px 20px 28px' }}>
+        <div className="flex items-center justify-between mb-5">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-md flex items-center justify-center bg-primary">
-              <Zap size={12} className="text-primary-foreground" />
+            <div className="w-7 h-7 rounded-lg flex items-center justify-center bg-primary shadow-sm">
+              <Zap size={13} className="text-primary-foreground" />
             </div>
-            <span className="font-sans font-bold text-[13px] text-foreground">ELO Moda</span>
+            <span className="font-sans font-bold text-[14px] text-foreground">ELO Moda</span>
           </div>
-          <div className="flex items-center gap-3">
-            <Globe size={16} className="text-muted-foreground" />
-            <Shield size={16} className="text-muted-foreground" />
+          <div className="flex items-center gap-3.5">
+            <Globe size={17} className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer" />
+            <Shield size={17} className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer" />
           </div>
         </div>
-        <div className="flex gap-6">
-          <div className="flex flex-col gap-1.5">
+        <div className="flex gap-8">
+          <div className="flex flex-col gap-2">
             <span className="font-sans text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Plataforma</span>
-            <span className="font-sans text-[12px] text-foreground/70">Para Marcas</span>
-            <span className="font-sans text-[12px] text-foreground/70">Para Facções</span>
-            <span className="font-sans text-[12px] text-foreground/70">Para Artesãos</span>
+            <span className="font-sans text-[12.5px] text-foreground/70 hover:text-foreground transition-colors cursor-pointer">Para Marcas</span>
+            <span className="font-sans text-[12.5px] text-foreground/70 hover:text-foreground transition-colors cursor-pointer">Para Facções</span>
+            <span className="font-sans text-[12.5px] text-foreground/70 hover:text-foreground transition-colors cursor-pointer">Para Artesãos</span>
           </div>
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-2">
             <span className="font-sans text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Sobre</span>
-            <span className="font-sans text-[12px] text-foreground/70">Como funciona</span>
-            <span className="font-sans text-[12px] text-foreground/70">Impacto</span>
-            <span className="font-sans text-[12px] text-foreground/70">Contato</span>
+            <span className="font-sans text-[12.5px] text-foreground/70 hover:text-foreground transition-colors cursor-pointer">Como funciona</span>
+            <span className="font-sans text-[12.5px] text-foreground/70 hover:text-foreground transition-colors cursor-pointer">Impacto</span>
+            <span className="font-sans text-[12.5px] text-foreground/70 hover:text-foreground transition-colors cursor-pointer">Contato</span>
           </div>
         </div>
-        <p className="font-sans text-[11px] text-muted-foreground mt-4">
+        <p className="font-sans text-[11px] text-muted-foreground mt-5">
           © 2026 ELO Moda. Todos os direitos reservados.
         </p>
       </footer>
