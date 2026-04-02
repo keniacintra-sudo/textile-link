@@ -17,7 +17,7 @@ const Index = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col bg-background" style={{ minHeight: '100dvh', maxWidth: 430, margin: '0 auto' }}>
+    <div className="flex flex-col bg-background" style={{ minHeight: '100dvh' }}>
       {/* Hero */}
       <div className="shrink-0 flex flex-col items-center" style={{ padding: '48px 24px 32px' }}>
         {/* Logo mark */}
