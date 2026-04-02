@@ -7,12 +7,6 @@ const roles = [
   { icon: Palette, title: 'Sou um Artesão', description: 'Venda materiais e conecte-se com marcas', path: '/artesao', delay: 300 },
 ];
 
-const categories = [
-  { icon: Layers, label: 'Malharia' },
-  { icon: Ruler, label: 'Jeans' },
-  { icon: PenTool, label: 'Alfaiataria' },
-  { icon: Scissors, label: 'Corte' },
-];
 
 const steps = [
   { icon: Sparkles, title: 'Encontre', description: 'Crie ou encontre oportunidades na cadeia têxtil', delay: 400 },
