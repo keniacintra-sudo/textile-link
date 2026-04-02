@@ -83,7 +83,7 @@ const Index = () => {
 
         {/* CTA */}
         <button
-          onClick={() => navigate('/marca')}
+          onClick={() => navigate('/escolher-perfil')}
           className="btn-primary animate-fade-in mt-7 relative z-10"
           style={{ animationDelay: '250ms', animationFillMode: 'both', fontSize: 15, padding: '14px 36px', letterSpacing: '-0.01em' }}
         >
