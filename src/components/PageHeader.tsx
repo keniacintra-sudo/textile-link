@@ -43,7 +43,7 @@ const PageHeader = ({ title, showBack = true, dashboardPath }: PageHeaderProps) 
           </button>
           <button className="relative p-2.5 rounded-xl hover:bg-white/10 active:scale-95 transition-all duration-150">
             <Bell size={20} style={{ color: 'hsl(215 20% 65%)' }} />
-            <div className="absolute top-2 right-2 w-2 h-2 rounded-full bg-destructive ring-2" style={{ ringColor: 'hsl(222 84% 11%)' }} />
+            <div className="absolute top-2 right-2 w-2 h-2 rounded-full bg-destructive ring-2 ring-[hsl(222_84%_11%)]" />
           </button>
         </div>
       </div>
