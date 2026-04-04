@@ -1,6 +1,6 @@
 export interface OrderProposal {
   faccao: string;
-  preco: string;
+  preco: number;
   prazo: number;
   status: 'enviada' | 'aceita' | 'recusada';
 }
@@ -59,9 +59,46 @@ export interface ServiceEntry {
 }
 
 export const marcaOrders: Order[] = [
-  { id: '1', title: 'Coleção Verão 2025', brand: 'Atelier Verde', status: 'EM PRODUÇÃO', quantity: 500, deadline: '15/07/2025', description: 'Vestidos em linho orgânico', details: 'Vestidos midi em linho orgânico certificado, modelagem A-line, 5 cores da cartela verão.', category: 'Vestidos', proposals: [{ faccao: 'Facção Sul Têxtil', preco: '28.50', prazo: 30, status: 'aceita' }], history: [{ evento: 'Pedido criado', data: '01/05/2025' }, { evento: 'Proposta aceita', data: '05/05/2025' }, { evento: 'Produção iniciada', data: '10/05/2025' }] },
-  { id: '2', title: 'Camisetas Básicas', brand: 'Atelier Verde', status: 'ATIVO', quantity: 1200, deadline: '01/08/2025', description: 'Algodão pima, 4 cores', details: 'Camisetas unissex em algodão pima 30.1, gola redonda, nas cores branco, preto, cinza mescla e marinho.', category: 'Camisetas', history: [{ evento: 'Pedido criado', data: '15/05/2025' }] },
-  { id: '3', title: 'Jaquetas Jeans', brand: 'Atelier Verde', status: 'PROPOSTA', quantity: 300, deadline: '20/09/2025', description: 'Jeans reciclado', details: 'Jaquetas oversized em jeans reciclado, lavagem stone, botões de metal envelhecido.', category: 'Jaquetas', proposals: [{ faccao: 'Confecções ABC', preco: '45.00', prazo: 45, status: 'enviada' }, { faccao: 'Facção Sul Têxtil', preco: '42.00', prazo: 40, status: 'enviada' }], history: [{ evento: 'Pedido criado', data: '20/05/2025' }, { evento: '2 propostas recebidas', data: '25/05/2025' }] },
+  {
+    id: '1', title: 'Coleção Verão 2025', brand: 'Atelier Verde', status: 'EM PRODUÇÃO',
+    quantity: 500, deadline: '15/07/2025', description: 'Vestidos em linho orgânico',
+    details: 'Vestidos midi em linho orgânico certificado, com modelagem solta e acabamento em viés. Colorir: off-white, terracota e verde-musgo.',
+    category: 'Vestidos',
+    proposals: [
+      { faccao: 'Facção Sul Têxtil', preco: 48, prazo: 28, status: 'aceita' },
+      { faccao: 'Confecções ABC', preco: 52, prazo: 35, status: 'recusada' },
+    ],
+    history: [
+      { evento: 'Pedido publicado', data: '01/06/2025' },
+      { evento: '2 propostas recebidas', data: '05/06/2025' },
+      { evento: 'Proposta aceita — Facção Sul Têxtil', data: '07/06/2025' },
+      { evento: 'Produção iniciada', data: '10/06/2025' },
+    ],
+  },
+  {
+    id: '2', title: 'Camisetas Básicas', brand: 'Atelier Verde', status: 'ATIVO',
+    quantity: 1200, deadline: '01/08/2025', description: 'Algodão pima, 4 cores',
+    details: 'Camisetas básicas em algodão pima 30.1, corte slim, gola careca reforçada. Cores: preto, branco, cinza mescla e marinho.',
+    category: 'Camisetas',
+    proposals: [],
+    history: [
+      { evento: 'Pedido publicado', data: '10/06/2025' },
+      { evento: 'Aguardando propostas', data: '10/06/2025' },
+    ],
+  },
+  {
+    id: '3', title: 'Jaquetas Jeans', brand: 'Atelier Verde', status: 'PROPOSTA',
+    quantity: 300, deadline: '20/09/2025', description: 'Jeans reciclado',
+    details: 'Jaquetas trucker em jeans reciclado, lavagem estonada, botões de metal. Tamanhos P ao GG.',
+    category: 'Jaquetas',
+    proposals: [
+      { faccao: 'Denim Factory', preco: 89, prazo: 45, status: 'enviada' },
+    ],
+    history: [
+      { evento: 'Pedido publicado', data: '15/06/2025' },
+      { evento: '1 proposta recebida', data: '18/06/2025' },
+    ],
+  },
 ];
 
 export const marcaResiduos: Residuo[] = [
@@ -70,9 +107,35 @@ export const marcaResiduos: Residuo[] = [
 ];
 
 export const faccaoOrders: Order[] = [
-  { id: '4', title: 'Coleção Verão 2025', brand: 'Atelier Verde', status: 'EM PRODUÇÃO', quantity: 500, deadline: '15/07/2025', description: 'Vestidos em linho orgânico' },
-  { id: '5', title: 'Uniformes Corporativos', brand: 'ModaCorp', status: 'PROPOSTA', quantity: 800, deadline: '30/08/2025', description: 'Camisas sociais em algodão' },
-  { id: '6', title: 'Moletons Premium', brand: 'UrbanWear', status: 'ATIVO', quantity: 350, deadline: '10/09/2025', description: 'Moletom com capuz, 3 cores' },
+  {
+    id: '4', title: 'Coleção Verão 2025', brand: 'Atelier Verde', status: 'EM PRODUÇÃO',
+    quantity: 500, deadline: '15/07/2025', description: 'Vestidos em linho orgânico',
+    details: 'Vestidos midi em linho orgânico certificado. Sua proposta de R$48/peça foi aceita.',
+    category: 'Vestidos',
+    history: [
+      { evento: 'Proposta enviada', data: '05/06/2025' },
+      { evento: 'Proposta aceita', data: '07/06/2025' },
+      { evento: 'Produção iniciada', data: '10/06/2025' },
+    ],
+  },
+  {
+    id: '5', title: 'Uniformes Corporativos', brand: 'ModaCorp', status: 'PROPOSTA',
+    quantity: 800, deadline: '30/08/2025', description: 'Camisas sociais em algodão',
+    details: 'Camisas sociais masculinas em algodão egípcio, manga longa, botões de madrepérola.',
+    category: 'Camisas',
+    history: [
+      { evento: 'Oportunidade disponível', data: '12/06/2025' },
+    ],
+  },
+  {
+    id: '6', title: 'Moletons Premium', brand: 'UrbanWear', status: 'ATIVO',
+    quantity: 350, deadline: '10/09/2025', description: 'Moletom com capuz, 3 cores',
+    details: 'Moletons unissex com capuz, forro fleece, bolso canguru. Cores: preto, cinza e vinho.',
+    category: 'Moletons',
+    history: [
+      { evento: 'Pedido publicado', data: '14/06/2025' },
+    ],
+  },
 ];
 
 export const marketplaceResiduos: Residuo[] = [
