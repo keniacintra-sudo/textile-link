@@ -247,6 +247,7 @@ const FaccaoDashboard = () => {
                           </div>
                         ))}
                       </div>
+                    ) : (
                       <div className="space-y-3">
                         <div className="w-full h-48 rounded-2xl overflow-hidden">
                           <iframe
@@ -254,7 +255,6 @@ const FaccaoDashboard = () => {
                             src="https://www.openstreetmap.org/export/embed.html?bbox=-44.92%2C-20.16%2C-44.84%2C-20.12&layer=mapnik"
                             className="w-full h-full border-0"
                           />
-                        </div>
                         </div>
                         <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-none">
                           {wasteLots.map(lot => (
