@@ -1,5 +1,6 @@
-import { ArrowLeft, Leaf, Bell, BarChart3 } from 'lucide-react';
+import { ArrowLeft, Leaf, Bell, BarChart3, RefreshCw } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface PageHeaderProps {
   title: string;
@@ -9,6 +10,13 @@ interface PageHeaderProps {
 
 const PageHeader = ({ title, showBack = true, dashboardPath }: PageHeaderProps) => {
   const navigate = useNavigate();
+  const { logout } = useAuth();
+
+  const handleSwitchProfile = () => {
+    logout();
+    navigate('/escolher-perfil');
+  };
+
   return (
     <header
       className="sticky top-0 z-40 backdrop-blur-lg px-5"
@@ -27,6 +35,13 @@ const PageHeader = ({ title, showBack = true, dashboardPath }: PageHeaderProps) 
           <h1 className="font-sans font-bold text-[18px] tracking-tight" style={{ color: 'hsl(210 40% 98%)' }}>{title}</h1>
         </div>
         <div className="flex items-center gap-1">
+          <button
+            onClick={handleSwitchProfile}
+            title="Trocar de perfil"
+            className="p-2.5 rounded-xl hover:bg-white/10 active:scale-95 transition-all duration-150"
+          >
+            <RefreshCw size={18} style={{ color: 'hsl(215 20% 65%)' }} />
+          </button>
           {dashboardPath && (
             <button
               onClick={() => navigate(dashboardPath)}
