@@ -104,6 +104,7 @@ const MarcaDashboard = () => {
                   </div>
                   <ChevronRight size={16} className="text-muted-foreground" />
                 </div>
+                <SugerirFaccoes order={order} />
               </div>
             ))}
             {filteredOrders.length === 0 && (
