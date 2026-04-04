@@ -1,3 +1,15 @@
+export interface OrderProposal {
+  faccao: string;
+  preco: string;
+  prazo: number;
+  status: 'enviada' | 'aceita' | 'recusada';
+}
+
+export interface OrderHistory {
+  evento: string;
+  data: string;
+}
+
 export interface Order {
   id: string;
   title: string;
@@ -6,6 +18,10 @@ export interface Order {
   quantity: number;
   deadline: string;
   description: string;
+  details?: string;
+  category?: string;
+  proposals?: OrderProposal[];
+  history?: OrderHistory[];
 }
 
 export interface Residuo {
