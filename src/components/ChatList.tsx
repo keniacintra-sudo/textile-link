@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { type ChatPreview } from '@/data/mockData';
 
 interface ChatListProps {
@@ -5,6 +6,7 @@ interface ChatListProps {
 }
 
 const ChatList = ({ chats }: ChatListProps) => {
+  const navigate = useNavigate();
   return (
     <div className="space-y-2">
       {chats.map((chat, i) => (
