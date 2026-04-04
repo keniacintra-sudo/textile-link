@@ -54,7 +54,7 @@ const MarcaDashboard = () => {
 
   return (
     <div className="min-h-screen pb-20 bg-background">
-      <PageHeader title="Marca / Designer" dashboardPath="/marca/dashboard" />
+      <PageHeader title="Marca / Designer" showBack={false} dashboardPath="/marca/dashboard" />
 
       <main className="px-4 py-4 max-w-md mx-auto">
         {tab === 'producao' && (
