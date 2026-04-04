@@ -66,7 +66,7 @@ const ChatScreen = () => {
   }
 
   return (
-    <div className="flex flex-col h-full min-h-screen sm:min-h-0 bg-background">
+    <div className="flex flex-col flex-1 min-h-0 bg-background" style={{ height: '100%' }}>
 
       {/* ── Header ── */}
       <div
