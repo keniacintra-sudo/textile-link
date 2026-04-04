@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Package, Trash2, MessageCircle, User, Plus, Star, FileText, Check, X } from 'lucide-react';
+import { Package, Trash2, MessageCircle, User, Plus, Star, FileText, Check, X, LogOut, ChevronRight } from 'lucide-react';
 import BottomNav from '@/components/BottomNav';
 import PageHeader from '@/components/PageHeader';
 import StatusBadge from '@/components/StatusBadge';
@@ -9,6 +9,7 @@ import RegistrarResiduoForm from '@/components/RegistrarResiduoForm';
 import { marcaOrders, marcaResiduos, chats, type Order } from '@/data/mockData';
 import type { Proposal } from '@/components/EnviarPropostaModal';
 import { toast } from 'sonner';
+import { useAuth } from '@/contexts/AuthContext';
 
 const navItems = [
   { icon: Package, label: 'Produção', id: 'producao' },
@@ -22,6 +23,10 @@ const producaoFilters = ['Todos', 'Camisetas', 'Vestidos', 'Calças', 'Jaquetas'
 
 const MarcaDashboard = () => {
   const navigate = useNavigate();
+  const { userName, userEmail, logout } = useAuth();
+  const initials = userName
+    ? userName.split(' ').map((n: string) => n[0]).slice(0, 2).join('').toUpperCase()
+    : '?';
   const [tab, setTab] = useState('producao');
   const [producaoFilter, setProducaoFilter] = useState('Todos');
   const [showRegistrar, setShowRegistrar] = useState(false);
@@ -83,7 +88,7 @@ const MarcaDashboard = () => {
               <div
                 key={order.id}
                 onClick={() => navigate(`/pedido/${order.id}`)}
-                className="card-elevated animate-fade-in cursor-pointer active:scale-[0.98] transition-transform"
+                className="card-elevated animate-fade-in cursor-pointer active:scale-[0.98] transition-transform duration-150"
                 style={{ animationDelay: `${i * 60}ms`, animationFillMode: 'both' }}
               >
                 <div className="flex justify-between items-start mb-2">
@@ -91,9 +96,12 @@ const MarcaDashboard = () => {
                   <StatusBadge status={order.status} />
                 </div>
                 <p className="text-[13px] text-muted-foreground font-sans">{order.description}</p>
-                <div className="flex gap-4 mt-3 text-[13px] text-muted-foreground font-sans">
-                  <span>{order.quantity} peças</span>
-                  <span>Prazo: {order.deadline}</span>
+                <div className="flex justify-between items-center mt-3">
+                  <div className="flex gap-4 text-[13px] text-muted-foreground font-sans">
+                    <span>{order.quantity} peças</span>
+                    <span>Prazo: {order.deadline}</span>
+                  </div>
+                  <ChevronRight size={16} className="text-muted-foreground" />
                 </div>
               </div>
             ))}
@@ -217,9 +225,12 @@ const MarcaDashboard = () => {
           <div className="animate-fade-in">
             <div className="card-elevated text-center">
               <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3 text-primary text-2xl font-bold font-heading">
-                AV
+                {initials}
               </div>
-              <h2 className="text-section-title">Atelier Verde</h2>
+              <h2 className="text-section-title">{userName || 'Usuário'}</h2>
+              {userEmail && (
+                <p className="text-[13px] text-muted-foreground font-sans">{userEmail}</p>
+              )}
               <div className="flex items-center justify-center gap-1 mt-1">
                 <Star size={14} className="text-warning fill-warning" />
                 <span className="text-sm font-medium font-sans">4.8</span>
@@ -242,6 +253,12 @@ const MarcaDashboard = () => {
                   <p className="text-[10px] text-muted-foreground font-sans">Reciclado</p>
                 </div>
               </div>
+              <button
+                onClick={() => { logout(); navigate('/'); toast.success('Até logo!'); }}
+                className="btn-outline w-full mt-5 flex items-center justify-center gap-2"
+              >
+                <LogOut size={16} /> Sair da conta
+              </button>
             </div>
           </div>
         )}
