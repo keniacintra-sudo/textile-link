@@ -15,9 +15,10 @@ import EscolherPerfil from "./pages/EscolherPerfil.tsx";
 import Cadastro from "./pages/Cadastro.tsx";
 import Login from "./pages/Login.tsx";
 import AguardandoAprovacao from "./pages/AguardandoAprovacao.tsx";
-import NotFound from "./pages/NotFound.tsx";
 import ChatScreen from "./pages/ChatScreen.tsx";
 import DetalhesPedido from "./pages/DetalhesPedido.tsx";
+import Chat from "./pages/Chat.tsx";
+import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
 
