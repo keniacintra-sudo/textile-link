@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Package, Trash2, MessageCircle, User, Plus, Star, FileText, Check, X, LogOut, ChevronRight } from 'lucide-react';
+import SugerirFaccoes from '@/components/SugerirFaccoes';
 import BottomNav from '@/components/BottomNav';
 import PageHeader from '@/components/PageHeader';
 import StatusBadge from '@/components/StatusBadge';
@@ -103,6 +104,7 @@ const MarcaDashboard = () => {
                   </div>
                   <ChevronRight size={16} className="text-muted-foreground" />
                 </div>
+                <SugerirFaccoes order={order} />
               </div>
             ))}
             {filteredOrders.length === 0 && (
