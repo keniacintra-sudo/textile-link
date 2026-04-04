@@ -17,6 +17,7 @@ import Login from "./pages/Login.tsx";
 import AguardandoAprovacao from "./pages/AguardandoAprovacao.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import ChatScreen from "./pages/ChatScreen.tsx";
+import DetalhesPedido from "./pages/DetalhesPedido.tsx";
 
 const queryClient = new QueryClient();
 
