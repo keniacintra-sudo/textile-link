@@ -82,7 +82,8 @@ const MarcaDashboard = () => {
             {filteredOrders.map((order, i) => (
               <div
                 key={order.id}
-                className="card-elevated animate-fade-in"
+                onClick={() => navigate(`/pedido/${order.id}`)}
+                className="card-elevated animate-fade-in cursor-pointer active:scale-[0.98] transition-transform"
                 style={{ animationDelay: `${i * 60}ms`, animationFillMode: 'both' }}
               >
                 <div className="flex justify-between items-start mb-2">
