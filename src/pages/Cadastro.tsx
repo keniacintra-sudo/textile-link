@@ -15,7 +15,7 @@ const Cadastro = () => {
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const userType = (params.get('tipo') as UserType) || 'marca';
-  const { register } = useAuth();
+  const { register, loginAsGuest } = useAuth();
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
