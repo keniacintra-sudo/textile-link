@@ -88,7 +88,12 @@ const Cadastro = () => {
 
         <button
           type="button"
-          onClick={() => navigate('/login')}
+          onClick={() => {
+            loginAsGuest(userType);
+            const path = userType === 'faccao' ? '/faccao' : userType === 'artesao' ? '/artesao' : '/marca';
+            navigate(path);
+            toast.success('Bem-vindo! Você entrou como visitante.');
+          }}
           className="w-full flex items-center justify-center gap-2 py-3 rounded-xl border border-border bg-card text-foreground font-semibold text-[15px] hover:bg-secondary active:scale-[0.97] transition-all"
         >
           <LogIn size={18} />
