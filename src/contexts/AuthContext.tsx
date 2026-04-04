@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { supabase } from '@/integrations/supabase/client';
 
 export type UserType = 'marca' | 'faccao' | 'artesao' | null;
 
@@ -9,19 +10,21 @@ interface AuthState {
   isApproved: boolean;
   userName: string;
   userEmail: string;
+  isGuest: boolean;
+  isLoading: boolean;
 }
 
 interface AuthContextType extends AuthState {
-  register: (data: { name: string; email: string; password: string; userType: UserType }) => void;
-  login: (email: string, password: string) => boolean;
+  register: (data: { name: string; email: string; password: string; userType: UserType }) => Promise<{ error?: string }>;
+  login: (email: string, password: string) => Promise<boolean>;
   loginAsGuest: (userType: UserType) => void;
-  logout: () => void;
+  logout: () => Promise<void>;
   markOnboardingSeen: () => void;
-  /** Simula aprovação (para teste) */
-  simulateApproval: () => void;
+  simulateApproval: () => Promise<void>;
 }
 
-const STORAGE_KEY = 'elo_auth';
+const ONBOARDING_KEY = 'elo_onboarding_seen';
+const GUEST_KEY = 'elo_guest';
 
 const defaults: AuthState = {
   isLoggedIn: false,
@@ -30,86 +33,171 @@ const defaults: AuthState = {
   isApproved: false,
   userName: '',
   userEmail: '',
+  isGuest: false,
+  isLoading: true,
 };
-
-function load(): AuthState {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) return { ...defaults, ...JSON.parse(raw) };
-  } catch {
-    /* ignore */
-  }
-  return defaults;
-}
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
+async function fetchProfile(userId: string) {
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('name, user_type, is_approved')
+    .eq('user_id', userId)
+    .maybeSingle();
+  if (error || !data) return null;
+  return data;
+}
+
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [state, setState] = useState<AuthState>(load);
+  const [state, setState] = useState<AuthState>(() => {
+    const onboarding = localStorage.getItem(ONBOARDING_KEY) === 'true';
+    const guest = localStorage.getItem(GUEST_KEY);
+    if (guest) {
+      try {
+        const g = JSON.parse(guest);
+        return {
+          ...defaults,
+          isLoggedIn: true,
+          hasSeenOnboarding: true,
+          userType: g.userType,
+          isApproved: true,
+          userName: 'Visitante',
+          userEmail: '',
+          isGuest: true,
+          isLoading: false,
+        };
+      } catch { /* ignore */ }
+    }
+    return { ...defaults, hasSeenOnboarding: onboarding };
+  });
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  }, [state]);
+    // Listen for auth changes FIRST
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+      if (session?.user) {
+        localStorage.removeItem(GUEST_KEY);
+        const profile = await fetchProfile(session.user.id);
+        setState(prev => ({
+          ...prev,
+          isLoggedIn: true,
+          hasSeenOnboarding: true,
+          userType: (profile?.user_type as UserType) || null,
+          isApproved: profile?.is_approved ?? false,
+          userName: profile?.name ?? '',
+          userEmail: session.user.email ?? '',
+          isGuest: false,
+          isLoading: false,
+        }));
+      } else {
+        const guest = localStorage.getItem(GUEST_KEY);
+        if (guest) return;
+        setState(prev => ({
+          ...defaults,
+          hasSeenOnboarding: prev.hasSeenOnboarding,
+          isLoading: false,
+        }));
+      }
+    });
 
-  const register = useCallback(
-    (data: { name: string; email: string; password: string; userType: UserType }) => {
-      // Salva dados do registro; não loga automaticamente
-      const registered = JSON.parse(localStorage.getItem('elo_registered_users') || '[]');
-      registered.push({ email: data.email, password: data.password, name: data.name, userType: data.userType });
-      localStorage.setItem('elo_registered_users', JSON.stringify(registered));
+    // Then check existing session
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
+      if (session?.user) {
+        const profile = await fetchProfile(session.user.id);
+        setState(prev => ({
+          ...prev,
+          isLoggedIn: true,
+          hasSeenOnboarding: true,
+          userType: (profile?.user_type as UserType) || null,
+          isApproved: profile?.is_approved ?? false,
+          userName: profile?.name ?? '',
+          userEmail: session.user.email ?? '',
+          isGuest: false,
+          isLoading: false,
+        }));
+      } else {
+        setState(prev => ({ ...prev, isLoading: false }));
+      }
+    });
 
-      setState((s) => ({
-        ...s,
-        hasSeenOnboarding: true,
-        userType: data.userType,
-        userName: data.name,
-        userEmail: data.email,
-        isApproved: false,
-        isLoggedIn: false,
-      }));
-    },
-    [],
-  );
+    return () => subscription.unsubscribe();
+  }, []);
 
-  const login = useCallback((email: string, password: string): boolean => {
-    const registered: any[] = JSON.parse(localStorage.getItem('elo_registered_users') || '[]');
-    const user = registered.find((u: any) => u.email === email && u.password === password);
-    if (!user) return false;
+  useEffect(() => {
+    if (state.hasSeenOnboarding) {
+      localStorage.setItem(ONBOARDING_KEY, 'true');
+    }
+  }, [state.hasSeenOnboarding]);
 
-    setState((s) => ({
-      ...s,
-      isLoggedIn: true,
+  const register = useCallback(async (data: { name: string; email: string; password: string; userType: UserType }): Promise<{ error?: string }> => {
+    const { error } = await supabase.auth.signUp({
+      email: data.email,
+      password: data.password,
+      options: {
+        emailRedirectTo: window.location.origin,
+        data: {
+          name: data.name,
+          user_type: data.userType,
+        },
+      },
+    });
+
+    if (error) return { error: error.message };
+
+    setState(prev => ({
+      ...prev,
       hasSeenOnboarding: true,
-      userType: user.userType,
-      userName: user.name,
-      userEmail: user.email,
-      isApproved: true, // se chegou ao login, já foi aprovado
+      userName: data.name,
+      userEmail: data.email,
+      userType: data.userType,
     }));
-    return true;
+
+    return {};
+  }, []);
+
+  const login = useCallback(async (email: string, password: string): Promise<boolean> => {
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    return !error;
   }, []);
 
   const loginAsGuest = useCallback((guestType: UserType) => {
-    setState((s) => ({
-      ...s,
+    localStorage.setItem(GUEST_KEY, JSON.stringify({ userType: guestType }));
+    setState(prev => ({
+      ...prev,
       isLoggedIn: true,
       hasSeenOnboarding: true,
       userType: guestType,
+      isApproved: true,
       userName: 'Visitante',
       userEmail: '',
-      isApproved: true,
+      isGuest: true,
+      isLoading: false,
     }));
   }, []);
 
-  const logout = useCallback(() => {
-    setState((s) => ({ ...defaults, hasSeenOnboarding: s.hasSeenOnboarding }));
+  const logout = useCallback(async () => {
+    localStorage.removeItem(GUEST_KEY);
+    await supabase.auth.signOut();
+    setState(prev => ({
+      ...defaults,
+      hasSeenOnboarding: prev.hasSeenOnboarding,
+      isLoading: false,
+    }));
   }, []);
 
   const markOnboardingSeen = useCallback(() => {
-    setState((s) => ({ ...s, hasSeenOnboarding: true }));
+    setState(prev => ({ ...prev, hasSeenOnboarding: true }));
   }, []);
 
-  const simulateApproval = useCallback(() => {
-    setState((s) => ({ ...s, isApproved: true }));
+  const simulateApproval = useCallback(async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session?.user) {
+      await supabase
+        .from('profiles')
+        .update({ is_approved: true } as any)
+        .eq('user_id', session.user.id);
+    }
+    setState(prev => ({ ...prev, isApproved: true }));
   }, []);
 
   return (

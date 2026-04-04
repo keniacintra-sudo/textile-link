@@ -22,7 +22,7 @@ const Cadastro = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || !email.trim() || !password.trim()) {
       toast.error('Preencha todos os campos');
@@ -34,11 +34,20 @@ const Cadastro = () => {
     }
 
     setLoading(true);
-    setTimeout(() => {
-      register({ name: name.trim(), email: email.trim(), password, userType });
-      toast.success('Cadastro realizado com sucesso!');
-      navigate('/aguardando-aprovacao');
-    }, 600);
+    const result = await register({ name: name.trim(), email: email.trim(), password, userType });
+    setLoading(false);
+
+    if (result.error) {
+      if (result.error.includes('already registered')) {
+        toast.error('Este e-mail já está cadastrado. Tente fazer login.');
+      } else {
+        toast.error(result.error);
+      }
+      return;
+    }
+
+    toast.success('Cadastro realizado! Verifique seu e-mail para confirmar a conta.');
+    navigate('/aguardando-aprovacao');
   };
 
   return (
@@ -101,7 +110,10 @@ const Cadastro = () => {
         </button>
 
         <p className="text-center text-[13px] text-muted-foreground">
-          Já tem conta? Acesse direto pelo botão acima.
+          Já tem conta?{' '}
+          <button type="button" onClick={() => navigate('/login')} className="text-accent font-semibold hover:underline">
+            Faça login
+          </button>
         </p>
       </form>
     </div>

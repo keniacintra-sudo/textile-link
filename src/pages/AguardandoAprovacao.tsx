@@ -5,10 +5,9 @@ import { toast } from 'sonner';
 
 const AguardandoAprovacao = () => {
   const navigate = useNavigate();
-  const { isApproved, simulateApproval, userName } = useAuth();
+  const { isApproved, isLoggedIn, simulateApproval, userName } = useAuth();
 
-  if (isApproved) {
-    // Já aprovado — redireciona para login
+  if (isApproved && isLoggedIn) {
     navigate('/login', { replace: true });
     return null;
   }
@@ -25,6 +24,11 @@ const AguardandoAprovacao = () => {
 
       <p className="text-muted-foreground text-[14px] leading-relaxed max-w-[300px] mb-2 animate-fade-in">
         {userName ? `Olá, ${userName}! ` : ''}Seus dados estão sendo verificados pela nossa equipe.
+        {!isLoggedIn && (
+          <span className="block mt-2 text-accent font-semibold">
+            Confirme seu e-mail para ativar a conta.
+          </span>
+        )}
       </p>
 
       <p className="text-muted-foreground text-[13px] mb-8 animate-fade-in">
@@ -35,8 +39,8 @@ const AguardandoAprovacao = () => {
       <div className="w-full max-w-[280px] flex flex-col gap-3 mb-10">
         {[
           { icon: CheckCircle2, label: 'Cadastro recebido', done: true },
+          { icon: Mail, label: 'Confirmação de e-mail', done: isLoggedIn },
           { icon: Clock, label: 'Análise em andamento', done: false },
-          { icon: Mail, label: 'Notificação por e-mail', done: false },
         ].map((step, i) => (
           <div key={i} className="flex items-center gap-3 animate-fade-in" style={{ animationDelay: `${200 + i * 100}ms`, animationFillMode: 'both' }}>
             <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${step.done ? 'bg-accent/15' : 'bg-secondary'}`}>
@@ -54,8 +58,8 @@ const AguardandoAprovacao = () => {
 
       {/* Botão simular aprovação (só para protótipo) */}
       <button
-        onClick={() => {
-          simulateApproval();
+        onClick={async () => {
+          await simulateApproval();
           toast.success('Cadastro aprovado! Faça login para continuar.');
           navigate('/login');
         }}
