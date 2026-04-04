@@ -88,6 +88,18 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     return true;
   }, []);
 
+  const loginAsGuest = useCallback((guestType: UserType) => {
+    setState((s) => ({
+      ...s,
+      isLoggedIn: true,
+      hasSeenOnboarding: true,
+      userType: guestType,
+      userName: 'Visitante',
+      userEmail: '',
+      isApproved: true,
+    }));
+  }, []);
+
   const logout = useCallback(() => {
     setState((s) => ({ ...defaults, hasSeenOnboarding: s.hasSeenOnboarding }));
   }, []);
