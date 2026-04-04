@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth, UserType } from '@/contexts/AuthContext';
 import { Input } from '@/components/ui/input';
-import { ArrowLeft, UserPlus } from 'lucide-react';
+import { ArrowLeft, UserPlus, LogIn } from 'lucide-react';
 import { toast } from 'sonner';
 
 const typeLabels: Record<string, string> = {
@@ -80,11 +80,23 @@ const Cadastro = () => {
           {loading ? 'Cadastrando...' : 'Criar conta'}
         </button>
 
+        <div className="flex items-center gap-3 my-2">
+          <div className="flex-1 h-px bg-border" />
+          <span className="text-[12px] text-muted-foreground">ou</span>
+          <div className="flex-1 h-px bg-border" />
+        </div>
+
+        <button
+          type="button"
+          onClick={() => navigate('/login')}
+          className="w-full flex items-center justify-center gap-2 py-3 rounded-xl border border-border bg-card text-foreground font-semibold text-[15px] hover:bg-secondary active:scale-[0.97] transition-all"
+        >
+          <LogIn size={18} />
+          Entrar sem cadastro
+        </button>
+
         <p className="text-center text-[13px] text-muted-foreground">
-          Já tem conta?{' '}
-          <button type="button" onClick={() => navigate('/login')} className="text-accent font-semibold hover:underline">
-            Entrar
-          </button>
+          Já tem conta? Acesse direto pelo botão acima.
         </p>
       </form>
     </div>
