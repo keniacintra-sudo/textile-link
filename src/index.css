@@ -110,6 +110,7 @@
 @layer components {
   .card-elevated {
     @apply bg-card rounded-2xl;
+    padding: 16px;
     box-shadow: var(--shadow-md);
     border: 1px solid hsl(var(--border));
     transition: box-shadow 0.25s ease, transform 0.15s ease;
