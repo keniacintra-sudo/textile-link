@@ -45,6 +45,26 @@ const PageHeader = ({ title, showBack = true, dashboardPath }: PageHeaderProps) 
   const markAllRead = () => setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
   const markRead = (id: string) => setNotifications((prev) => prev.map((n) => n.id === id ? { ...n, read: true } : n));
 
+  const handleNotificationClick = (n: Notification) => {
+    markRead(n.id);
+    setShowNotifications(false);
+    switch (n.type) {
+      case 'mensagem':
+        navigate('/chat');
+        break;
+      case 'proposta':
+        // Navigate to the current dashboard — proposals tab will need to be selected manually
+        toast.info(`📋 ${n.title}`, { description: n.message });
+        break;
+      case 'pedido':
+        toast.info(`📦 ${n.title}`, { description: n.message });
+        break;
+      case 'sistema':
+        toast.info(`🔔 ${n.title}`, { description: n.message });
+        break;
+    }
+  };
+
   const handleSwitchProfile = () => {
     if (showConfirm) {
       logout();
@@ -194,7 +214,7 @@ const PageHeader = ({ title, showBack = true, dashboardPath }: PageHeaderProps) 
                 notifications.map((n) => (
                   <button
                     key={n.id}
-                    onClick={() => markRead(n.id)}
+                    onClick={() => handleNotificationClick(n)}
                     className={`w-full text-left flex items-start gap-3 px-5 py-4 transition-colors hover:bg-muted/50 active:bg-muted ${
                       !n.read ? 'bg-accent/5' : ''
                     }`}
