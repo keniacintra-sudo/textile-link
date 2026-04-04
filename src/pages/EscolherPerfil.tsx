@@ -41,9 +41,14 @@ const EscolherPerfil = () => {
             </button>
           ))}
         </div>
+        <button
+          onClick={() => navigate('/')}
+          className="mt-6 text-[13px] font-medium text-muted-foreground hover:text-foreground transition-colors"
+        >
+          ← Voltar para a tela inicial
+        </button>
       </div>
     </div>
   );
-};
 
 export default EscolherPerfil;
