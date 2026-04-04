@@ -116,3 +116,5 @@ export const artesaoOrders: Order[] = [
   { id: '10', title: 'Jeans reciclado - 30kg', brand: 'Facção Sul', status: 'EM PRODUÇÃO', quantity: 1, deadline: '20/07/2025', description: 'Aguardando envio' },
   { id: '11', title: 'Retalhos de seda - 8kg', brand: 'Atelier Luxo', status: 'PROPOSTA', quantity: 1, deadline: '25/07/2025', description: 'Proposta enviada' },
 ];
+
+export const allOrders: Order[] = [...marcaOrders, ...faccaoOrders, ...artesaoOrders];
