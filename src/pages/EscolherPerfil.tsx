@@ -50,5 +50,6 @@ const EscolherPerfil = () => {
       </div>
     </div>
   );
+};
 
 export default EscolherPerfil;
