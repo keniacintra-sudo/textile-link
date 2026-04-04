@@ -17,6 +17,7 @@ import Login from "./pages/Login.tsx";
 import AguardandoAprovacao from "./pages/AguardandoAprovacao.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import ChatScreen from "./pages/ChatScreen.tsx";
+import DetalhesPedido from "./pages/DetalhesPedido.tsx";
 
 const queryClient = new QueryClient();
 
@@ -77,6 +78,7 @@ const AppRoutes = () => {
       <Route path="/faccao/dashboard" element={<ProtectedRoute><DashboardPlaceholder /></ProtectedRoute>} />
       <Route path="/artesao/dashboard" element={<ProtectedRoute><DashboardPlaceholder /></ProtectedRoute>} />
       <Route path="/chat/:id" element={<ProtectedRoute><ChatScreen /></ProtectedRoute>} />
+      <Route path="/pedido/:id" element={<ProtectedRoute><DetalhesPedido /></ProtectedRoute>} />
 
       <Route path="*" element={<NotFound />} />
     </Routes>

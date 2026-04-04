@@ -1,3 +1,15 @@
+export interface OrderProposal {
+  faccao: string;
+  preco: string;
+  prazo: number;
+  status: 'enviada' | 'aceita' | 'recusada';
+}
+
+export interface OrderHistory {
+  evento: string;
+  data: string;
+}
+
 export interface Order {
   id: string;
   title: string;
@@ -6,6 +18,10 @@ export interface Order {
   quantity: number;
   deadline: string;
   description: string;
+  details?: string;
+  category?: string;
+  proposals?: OrderProposal[];
+  history?: OrderHistory[];
 }
 
 export interface Residuo {
@@ -43,9 +59,9 @@ export interface ServiceEntry {
 }
 
 export const marcaOrders: Order[] = [
-  { id: '1', title: 'Coleção Verão 2025', brand: 'Atelier Verde', status: 'EM PRODUÇÃO', quantity: 500, deadline: '15/07/2025', description: 'Vestidos em linho orgânico' },
-  { id: '2', title: 'Camisetas Básicas', brand: 'Atelier Verde', status: 'ATIVO', quantity: 1200, deadline: '01/08/2025', description: 'Algodão pima, 4 cores' },
-  { id: '3', title: 'Jaquetas Jeans', brand: 'Atelier Verde', status: 'PROPOSTA', quantity: 300, deadline: '20/09/2025', description: 'Jeans reciclado' },
+  { id: '1', title: 'Coleção Verão 2025', brand: 'Atelier Verde', status: 'EM PRODUÇÃO', quantity: 500, deadline: '15/07/2025', description: 'Vestidos em linho orgânico', details: 'Vestidos midi em linho orgânico certificado, modelagem A-line, 5 cores da cartela verão.', category: 'Vestidos', proposals: [{ faccao: 'Facção Sul Têxtil', preco: '28.50', prazo: 30, status: 'aceita' }], history: [{ evento: 'Pedido criado', data: '01/05/2025' }, { evento: 'Proposta aceita', data: '05/05/2025' }, { evento: 'Produção iniciada', data: '10/05/2025' }] },
+  { id: '2', title: 'Camisetas Básicas', brand: 'Atelier Verde', status: 'ATIVO', quantity: 1200, deadline: '01/08/2025', description: 'Algodão pima, 4 cores', details: 'Camisetas unissex em algodão pima 30.1, gola redonda, nas cores branco, preto, cinza mescla e marinho.', category: 'Camisetas', history: [{ evento: 'Pedido criado', data: '15/05/2025' }] },
+  { id: '3', title: 'Jaquetas Jeans', brand: 'Atelier Verde', status: 'PROPOSTA', quantity: 300, deadline: '20/09/2025', description: 'Jeans reciclado', details: 'Jaquetas oversized em jeans reciclado, lavagem stone, botões de metal envelhecido.', category: 'Jaquetas', proposals: [{ faccao: 'Confecções ABC', preco: '45.00', prazo: 45, status: 'enviada' }, { faccao: 'Facção Sul Têxtil', preco: '42.00', prazo: 40, status: 'enviada' }], history: [{ evento: 'Pedido criado', data: '20/05/2025' }, { evento: '2 propostas recebidas', data: '25/05/2025' }] },
 ];
 
 export const marcaResiduos: Residuo[] = [
@@ -100,3 +116,5 @@ export const artesaoOrders: Order[] = [
   { id: '10', title: 'Jeans reciclado - 30kg', brand: 'Facção Sul', status: 'EM PRODUÇÃO', quantity: 1, deadline: '20/07/2025', description: 'Aguardando envio' },
   { id: '11', title: 'Retalhos de seda - 8kg', brand: 'Atelier Luxo', status: 'PROPOSTA', quantity: 1, deadline: '25/07/2025', description: 'Proposta enviada' },
 ];
+
+export const allOrders: Order[] = [...marcaOrders, ...faccaoOrders, ...artesaoOrders];
