@@ -74,7 +74,7 @@ const Index = () => {
             animationFillMode: 'both',
           }}
         >
-          Onde a moda encontra a produção certa
+          A Conexão Inteligente para a Cadeia Produtiva da Moda
         </h1>
 
         <p
@@ -90,7 +90,7 @@ const Index = () => {
             animationFillMode: 'both',
           }}
         >
-          Conectamos marcas, facções e artesãos com inteligência artificial para uma cadeia têxtil mais eficiente e sustentável.
+          Marcas, facções e artesãos em um só lugar
         </p>
 
         {/* CTAs */}
