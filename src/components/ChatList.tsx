@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { type ChatPreview } from '@/data/mockData';
 
 interface ChatListProps {
@@ -5,6 +6,7 @@ interface ChatListProps {
 }
 
 const ChatList = ({ chats }: ChatListProps) => {
+  const navigate = useNavigate();
   return (
     <div className="space-y-2">
       {chats.map((chat, i) => (
@@ -12,6 +14,7 @@ const ChatList = ({ chats }: ChatListProps) => {
           key={chat.id}
           className="flex items-center gap-3 p-3 bg-card rounded-xl shadow-sm animate-slide-up cursor-pointer active:scale-[0.98] transition-transform"
           style={{ animationDelay: `${i * 80}ms`, animationFillMode: 'both' }}
+          onClick={() => navigate(`/chat/${chat.id}`)}
         >
           <div className="w-11 h-11 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold text-sm shrink-0">
             {chat.avatar}
