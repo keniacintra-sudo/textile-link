@@ -15,9 +15,10 @@ import EscolherPerfil from "./pages/EscolherPerfil.tsx";
 import Cadastro from "./pages/Cadastro.tsx";
 import Login from "./pages/Login.tsx";
 import AguardandoAprovacao from "./pages/AguardandoAprovacao.tsx";
-import NotFound from "./pages/NotFound.tsx";
 import ChatScreen from "./pages/ChatScreen.tsx";
 import DetalhesPedido from "./pages/DetalhesPedido.tsx";
+import Chat from "./pages/Chat.tsx";
+import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
 
@@ -77,6 +78,7 @@ const AppRoutes = () => {
       <Route path="/marca/dashboard" element={<ProtectedRoute><DashboardPlaceholder /></ProtectedRoute>} />
       <Route path="/faccao/dashboard" element={<ProtectedRoute><DashboardPlaceholder /></ProtectedRoute>} />
       <Route path="/artesao/dashboard" element={<ProtectedRoute><DashboardPlaceholder /></ProtectedRoute>} />
+      <Route path="/chat" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
       <Route path="/chat/:id" element={<ProtectedRoute><ChatScreen /></ProtectedRoute>} />
       <Route path="/pedido/:id" element={<ProtectedRoute><DetalhesPedido /></ProtectedRoute>} />
 
