@@ -16,6 +16,7 @@ import Cadastro from "./pages/Cadastro.tsx";
 import Login from "./pages/Login.tsx";
 import AguardandoAprovacao from "./pages/AguardandoAprovacao.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import ChatScreen from "./pages/ChatScreen.tsx";
 
 const queryClient = new QueryClient();
 
