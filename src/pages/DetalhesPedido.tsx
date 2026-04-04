@@ -191,6 +191,11 @@ const DetalhesPedido = () => {
           </div>
         )}
 
+        {/* ── Sugestão de Facções por IA ── */}
+        <div className="animate-fade-in" style={{ animationDelay: '500ms', animationFillMode: 'both' }}>
+          <SugerirFaccoes order={order} />
+        </div>
+
         {/* ── Ações ── */}
         <div className="flex gap-3 pb-4">
           <button
