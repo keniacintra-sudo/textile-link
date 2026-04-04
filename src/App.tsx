@@ -39,11 +39,13 @@ function dashboardPath(userType: string | null) {
 
 /** Protege rotas que exigem login */
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const { isLoggedIn, isApproved, hasSeenOnboarding } = useAuth();
+  const { isLoggedIn, isApproved, hasSeenOnboarding, isLoading, isGuest } = useAuth();
 
+  if (isLoading) return <div className="flex items-center justify-center min-h-screen bg-background"><span className="text-muted-foreground text-sm">Carregando...</span></div>;
   if (!hasSeenOnboarding) return <Navigate to="/" replace />;
-  if (!isApproved) return <Navigate to="/aguardando-aprovacao" replace />;
+  if (isGuest) return <>{children}</>;
   if (!isLoggedIn) return <Navigate to="/login" replace />;
+  if (!isApproved) return <Navigate to="/aguardando-aprovacao" replace />;
 
   return <>{children}</>;
 };
