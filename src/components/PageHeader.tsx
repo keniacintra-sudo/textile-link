@@ -65,9 +65,9 @@ const PageHeader = ({ title, showBack = true, dashboardPath }: PageHeaderProps) 
     }
   };
 
-  const handleSwitchProfile = () => {
+  const handleSwitchProfile = async () => {
     if (showConfirm) {
-      logout();
+      await logout();
       navigate('/escolher-perfil');
       toast.success('Perfil alterado.');
     } else {
