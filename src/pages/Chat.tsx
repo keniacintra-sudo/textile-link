@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import ChatList from '@/components/ChatList';
+import { chats } from '@/data/mockData';
 
 const Chat = () => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const Chat = () => {
       </div>
 
       <div className="flex-1 px-4 pb-4">
-        <ChatList />
+        <ChatList chats={chats} />
       </div>
     </div>
   );
