@@ -76,19 +76,23 @@ export const chats: ChatPreview[] = [
 
 export const chatMessages: Record<string, ChatMessage[]> = {
   '1': [
-    { id: 'm1', text: 'Olá! As amostras estão prontas?', fromMe: true, time: '14:20' },
-    { id: 'm2', text: 'Sim! Enviamos as amostras hoje!', fromMe: false, time: '14:32' },
-    { id: 'm3', text: 'Ótimo, aguardo a chegada. Obrigado!', fromMe: true, time: '14:35' },
+    { id: 'm1', text: 'Olá! Temos interesse no seu pedido de vestidos.', fromMe: false, time: '09:10' },
+    { id: 'm2', text: 'Oi! Que ótimo. Qual seria o prazo de entrega?', fromMe: true, time: '09:15' },
+    { id: 'm3', text: 'Conseguimos entregar em 30 dias para 500 peças.', fromMe: false, time: '09:18' },
+    { id: 'm4', text: 'Perfeito! Pode enviar uma proposta formal?', fromMe: true, time: '09:20' },
+    { id: 'm5', text: 'Claro! Enviamos ainda hoje.', fromMe: false, time: '09:22' },
+    { id: 'm6', text: 'Enviamos as amostras hoje!', fromMe: false, time: '14:32' },
   ],
   '2': [
-    { id: 'm4', text: 'Precisamos ajustar o prazo do pedido.', fromMe: false, time: '10:50' },
-    { id: 'm5', text: 'Podemos ajustar o prazo?', fromMe: false, time: '11:05' },
-    { id: 'm6', text: 'Claro, vamos conversar sobre isso.', fromMe: true, time: '11:20' },
+    { id: 'm1', text: 'Bom dia! Recebemos seu pedido de camisetas.', fromMe: false, time: '08:00' },
+    { id: 'm2', text: 'Bom dia! Vocês trabalham com algodão pima?', fromMe: true, time: '08:05' },
+    { id: 'm3', text: 'Sim! Temos estoque disponível para 1200 peças.', fromMe: false, time: '08:10' },
+    { id: 'm4', text: 'Podemos ajustar o prazo?', fromMe: false, time: '11:05' },
   ],
   '3': [
-    { id: 'm7', text: 'Vi que vocês têm retalhos de seda disponíveis!', fromMe: false, time: '09:15' },
-    { id: 'm8', text: 'Sim, temos 8kg disponíveis. Interessada?', fromMe: true, time: '09:30' },
-    { id: 'm9', text: 'Interessada nos retalhos de seda', fromMe: false, time: '10:00' },
+    { id: 'm1', text: 'Olá! Vi que vocês têm retalhos de seda disponíveis.', fromMe: false, time: 'Ontem' },
+    { id: 'm2', text: 'Oi Maria! Sim, temos 8kg disponíveis.', fromMe: true, time: 'Ontem' },
+    { id: 'm3', text: 'Interessada nos retalhos de seda', fromMe: false, time: 'Ontem' },
   ],
 };
 
