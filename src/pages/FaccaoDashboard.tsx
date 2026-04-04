@@ -102,7 +102,7 @@ const FaccaoDashboard = () => {
                         <span>Prazo: {order.deadline}</span>
                       </div>
                       <button
-                        onClick={() => setSelectedOrder(order)}
+                        onClick={(e) => { e.stopPropagation(); setSelectedOrder(order); }}
                         className="btn-primary !text-[13px] !py-1.5 !px-4 active:scale-95 transition-transform"
                       >
                         Enviar Proposta
