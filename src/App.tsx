@@ -74,8 +74,8 @@ const AppRoutes = () => {
       <Route path="/impacto" element={<ProtectedRoute><ImpactReport /></ProtectedRoute>} />
       <Route path="/marca/novo-pedido" element={<ProtectedRoute><CriarPedido /></ProtectedRoute>} />
       <Route path="/marca/dashboard" element={<ProtectedRoute><DashboardPlaceholder /></ProtectedRoute>} />
-      <Route path="/faccao/dashboard" element={<ProtectedRoute><FaccaoDashboard /></ProtectedRoute>} />
-      <Route path="/artesao/dashboard" element={<ProtectedRoute><ArtesaoDashboard /></ProtectedRoute>} />
+      <Route path="/faccao/dashboard" element={<ProtectedRoute><DashboardPlaceholder /></ProtectedRoute>} />
+      <Route path="/artesao/dashboard" element={<ProtectedRoute><DashboardPlaceholder /></ProtectedRoute>} />
       <Route path="/chat/:id" element={<ProtectedRoute><ChatScreen /></ProtectedRoute>} />
 
       <Route path="*" element={<NotFound />} />
