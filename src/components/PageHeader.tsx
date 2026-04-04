@@ -45,6 +45,26 @@ const PageHeader = ({ title, showBack = true, dashboardPath }: PageHeaderProps) 
   const markAllRead = () => setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
   const markRead = (id: string) => setNotifications((prev) => prev.map((n) => n.id === id ? { ...n, read: true } : n));
 
+  const handleNotificationClick = (n: Notification) => {
+    markRead(n.id);
+    setShowNotifications(false);
+    switch (n.type) {
+      case 'mensagem':
+        navigate('/chat');
+        break;
+      case 'proposta':
+        // Navigate to the current dashboard — proposals tab will need to be selected manually
+        toast.info(`📋 ${n.title}`, { description: n.message });
+        break;
+      case 'pedido':
+        toast.info(`📦 ${n.title}`, { description: n.message });
+        break;
+      case 'sistema':
+        toast.info(`🔔 ${n.title}`, { description: n.message });
+        break;
+    }
+  };
+
   const handleSwitchProfile = () => {
     if (showConfirm) {
       logout();
