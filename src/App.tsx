@@ -52,7 +52,8 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 
 /** Redireciona usuário logado para o dashboard */
 const PublicOnlyRoute = ({ children }: { children: React.ReactNode }) => {
-  const { isLoggedIn, userType } = useAuth();
+  const { isLoggedIn, userType, isLoading } = useAuth();
+  if (isLoading) return <div className="flex items-center justify-center min-h-screen bg-background"><span className="text-muted-foreground text-sm">Carregando...</span></div>;
   if (isLoggedIn) return <Navigate to={dashboardPath(userType)} replace />;
   return <>{children}</>;
 };
