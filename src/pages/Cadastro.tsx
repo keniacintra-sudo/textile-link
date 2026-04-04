@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth, UserType } from '@/contexts/AuthContext';
 import { Input } from '@/components/ui/input';
-import { ArrowLeft, UserPlus } from 'lucide-react';
+import { ArrowLeft, UserPlus, LogIn } from 'lucide-react';
 import { toast } from 'sonner';
 
 const typeLabels: Record<string, string> = {
