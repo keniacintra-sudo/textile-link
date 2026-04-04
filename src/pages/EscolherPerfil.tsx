@@ -29,7 +29,7 @@ const EscolherPerfil = () => {
             >
               <div
                 className="shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center"
-                style={{ background: `${p.color} / 0.12)`.replace(')', '') }}
+                style={{ background: `color-mix(in srgb, ${p.color} 12%, transparent)` }}
               >
                 <p.icon size={22} style={{ color: p.color }} />
               </div>
