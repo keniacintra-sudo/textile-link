@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Search, Briefcase, Trash2, MessageCircle, Plus, ToggleLeft, ToggleRight, List, Map, FileText } from 'lucide-react';
+import { Search, Briefcase, Trash2, MessageCircle, Plus, ToggleLeft, ToggleRight, List, Map, FileText, ChevronRight } from 'lucide-react';
 import BottomNav from '@/components/BottomNav';
 import PageHeader from '@/components/PageHeader';
 import StatusBadge from '@/components/StatusBadge';
@@ -102,7 +102,7 @@ const FaccaoDashboard = () => {
                         <span>Prazo: {order.deadline}</span>
                       </div>
                       <button
-                        onClick={() => setSelectedOrder(order)}
+                        onClick={(e) => { e.stopPropagation(); setSelectedOrder(order); }}
                         className="btn-primary !text-[13px] !py-1.5 !px-4 active:scale-95 transition-transform"
                       >
                         Enviar Proposta
@@ -249,8 +249,12 @@ const FaccaoDashboard = () => {
                       </div>
                     ) : (
                       <div className="space-y-3">
-                        <div className="w-full h-48 bg-muted rounded-2xl flex items-center justify-center">
-                          <Map size={32} className="text-muted-foreground" />
+                        <div className="w-full h-48 rounded-2xl overflow-hidden">
+                          <iframe
+                            title="Mapa de resíduos"
+                            src="https://www.openstreetmap.org/export/embed.html?bbox=-44.92%2C-20.16%2C-44.84%2C-20.12&layer=mapnik"
+                            className="w-full h-full border-0"
+                          />
                         </div>
                         <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-none">
                           {wasteLots.map(lot => (
