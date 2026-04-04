@@ -14,6 +14,7 @@ interface AuthState {
 interface AuthContextType extends AuthState {
   register: (data: { name: string; email: string; password: string; userType: UserType }) => void;
   login: (email: string, password: string) => boolean;
+  loginAsGuest: (userType: UserType) => void;
   logout: () => void;
   markOnboardingSeen: () => void;
   /** Simula aprovação (para teste) */
