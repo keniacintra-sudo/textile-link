@@ -214,7 +214,7 @@ const PageHeader = ({ title, showBack = true, dashboardPath }: PageHeaderProps) 
                 notifications.map((n) => (
                   <button
                     key={n.id}
-                    onClick={() => markRead(n.id)}
+                    onClick={() => handleNotificationClick(n)}
                     className={`w-full text-left flex items-start gap-3 px-5 py-4 transition-colors hover:bg-muted/50 active:bg-muted ${
                       !n.read ? 'bg-accent/5' : ''
                     }`}
