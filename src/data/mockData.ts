@@ -74,6 +74,24 @@ export const chats: ChatPreview[] = [
   { id: '3', name: 'Maria Artesã', avatar: 'MA', lastMessage: 'Interessada nos retalhos de seda', time: 'Ontem', unread: 1 },
 ];
 
+export const chatMessages: Record<string, ChatMessage[]> = {
+  '1': [
+    { id: 'm1', text: 'Olá! As amostras estão prontas?', fromMe: true, time: '14:20' },
+    { id: 'm2', text: 'Sim! Enviamos as amostras hoje!', fromMe: false, time: '14:32' },
+    { id: 'm3', text: 'Ótimo, aguardo a chegada. Obrigado!', fromMe: true, time: '14:35' },
+  ],
+  '2': [
+    { id: 'm4', text: 'Precisamos ajustar o prazo do pedido.', fromMe: false, time: '10:50' },
+    { id: 'm5', text: 'Podemos ajustar o prazo?', fromMe: false, time: '11:05' },
+    { id: 'm6', text: 'Claro, vamos conversar sobre isso.', fromMe: true, time: '11:20' },
+  ],
+  '3': [
+    { id: 'm7', text: 'Vi que vocês têm retalhos de seda disponíveis!', fromMe: false, time: '09:15' },
+    { id: 'm8', text: 'Sim, temos 8kg disponíveis. Interessada?', fromMe: true, time: '09:30' },
+    { id: 'm9', text: 'Interessada nos retalhos de seda', fromMe: false, time: '10:00' },
+  ],
+};
+
 export const artesaoOrders: Order[] = [
   { id: '10', title: 'Jeans reciclado - 30kg', brand: 'Facção Sul', status: 'EM PRODUÇÃO', quantity: 1, deadline: '20/07/2025', description: 'Aguardando envio' },
   { id: '11', title: 'Retalhos de seda - 8kg', brand: 'Atelier Luxo', status: 'PROPOSTA', quantity: 1, deadline: '25/07/2025', description: 'Proposta enviada' },
