@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, Package, Calendar, Hash, Building2, MessageCircle, CheckCircle2, Truck, FileText, ChevronRight } from 'lucide-react';
 import StatusBadge from '@/components/StatusBadge';
+import SugerirFaccoes from '@/components/SugerirFaccoes';
 import { allOrders } from '@/data/mockData';
 
 const statusSteps = [
