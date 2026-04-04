@@ -66,7 +66,7 @@ const ChatScreen = () => {
   }
 
   return (
-    <div className="flex flex-col min-h-[100dvh] bg-background">
+    <div className="flex flex-col h-full min-h-screen sm:min-h-0 bg-background">
 
       {/* ── Header ── */}
       <div
