@@ -14,6 +14,7 @@ interface AuthState {
 interface AuthContextType extends AuthState {
   register: (data: { name: string; email: string; password: string; userType: UserType }) => void;
   login: (email: string, password: string) => boolean;
+  loginAsGuest: (userType: UserType) => void;
   logout: () => void;
   markOnboardingSeen: () => void;
   /** Simula aprovação (para teste) */
@@ -87,6 +88,18 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     return true;
   }, []);
 
+  const loginAsGuest = useCallback((guestType: UserType) => {
+    setState((s) => ({
+      ...s,
+      isLoggedIn: true,
+      hasSeenOnboarding: true,
+      userType: guestType,
+      userName: 'Visitante',
+      userEmail: '',
+      isApproved: true,
+    }));
+  }, []);
+
   const logout = useCallback(() => {
     setState((s) => ({ ...defaults, hasSeenOnboarding: s.hasSeenOnboarding }));
   }, []);
@@ -100,7 +113,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ ...state, register, login, logout, markOnboardingSeen, simulateApproval }}>
+    <AuthContext.Provider value={{ ...state, register, login, loginAsGuest, logout, markOnboardingSeen, simulateApproval }}>
       {children}
     </AuthContext.Provider>
   );
