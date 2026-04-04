@@ -76,6 +76,7 @@ const AppRoutes = () => {
       <Route path="/marca/dashboard" element={<ProtectedRoute><DashboardPlaceholder /></ProtectedRoute>} />
       <Route path="/faccao/dashboard" element={<ProtectedRoute><FaccaoDashboard /></ProtectedRoute>} />
       <Route path="/artesao/dashboard" element={<ProtectedRoute><ArtesaoDashboard /></ProtectedRoute>} />
+      <Route path="/chat/:id" element={<ProtectedRoute><ChatScreen /></ProtectedRoute>} />
 
       <Route path="*" element={<NotFound />} />
     </Routes>
