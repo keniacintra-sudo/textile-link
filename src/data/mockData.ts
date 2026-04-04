@@ -27,6 +27,13 @@ export interface ChatPreview {
   unread: number;
 }
 
+export interface ChatMessage {
+  id: string;
+  text: string;
+  fromMe: boolean;
+  time: string;
+}
+
 export interface ServiceEntry {
   id: string;
   title: string;
