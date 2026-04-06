@@ -270,7 +270,7 @@ const Index = () => {
             className="btn-primary mt-6 flex items-center gap-2 mx-auto"
             style={{ fontSize: 15, padding: '14px 32px' }}
           >
-            Criar minha conta
+            Começar agora
             <ArrowRight size={16} />
           </button>
         </div>
