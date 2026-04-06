@@ -74,6 +74,13 @@ const Login = () => {
             Cadastre-se
           </button>
         </p>
+
+        <button
+          onClick={() => navigate('/')}
+          className="mt-4 text-[13px] text-muted-foreground hover:text-foreground transition-colors mx-auto"
+        >
+          ← Voltar à tela inicial
+        </button>
       </div>
     </div>
   );
