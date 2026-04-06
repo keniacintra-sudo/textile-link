@@ -39,19 +39,12 @@ const ResiduoModal = ({ residuo, onClose }: { residuo: Residuo; onClose: () => v
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center" onClick={(e) => e.stopPropagation()}>
+    <div className="fixed inset-0 z-50 flex items-end justify-center">
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm animate-fade-in" onClick={onClose} />
 
       {/* Drawer */}
-      <div className="relative w-full max-w-[460px] bg-background rounded-t-3xl shadow-2xl animate-slide-up flex flex-col" style={{ maxHeight: '85dvh' }}>
-        {/* Imagem no topo */}
-        {residuo.image_url && (
-          <div className="w-full aspect-[16/10] bg-muted overflow-hidden rounded-t-3xl shrink-0">
-            <img src={residuo.image_url} alt={residuo.material} className="w-full h-full object-cover" />
-          </div>
-        )}
-
+      <div className="relative w-full max-w-[460px] bg-background rounded-t-3xl shadow-2xl animate-slide-up overflow-y-auto scrollbar-hide" style={{ maxHeight: '85dvh' }}>
         {/* Botão fechar */}
         <button
           onClick={onClose}
@@ -60,8 +53,15 @@ const ResiduoModal = ({ residuo, onClose }: { residuo: Residuo; onClose: () => v
           <X size={16} className="text-white" />
         </button>
 
-        {/* Conteúdo scrollável */}
-        <div className="flex-1 overflow-y-auto px-5 py-5 space-y-5 scrollbar-hide">
+        {/* Imagem no topo */}
+        {residuo.image_url && (
+          <div className="w-full h-48 bg-muted overflow-hidden rounded-t-3xl">
+            <img src={residuo.image_url} alt={residuo.material} className="w-full h-full object-cover" />
+          </div>
+        )}
+
+        {/* Conteúdo */}
+        <div className="px-5 py-5 space-y-5">
           {/* Título e preço */}
           <div className="flex justify-between items-start">
             <div>
@@ -88,8 +88,7 @@ const ResiduoModal = ({ residuo, onClose }: { residuo: Residuo; onClose: () => v
           </div>
 
           {/* Ações */}
-          <div className="flex gap-3">
-            {/* Favoritar */}
+          <div className="flex gap-3 pb-2">
             <button
               onClick={handleFavoritar}
               className={`w-11 h-11 rounded-xl flex items-center justify-center border transition-colors shrink-0 ${
@@ -101,7 +100,6 @@ const ResiduoModal = ({ residuo, onClose }: { residuo: Residuo; onClose: () => v
               <Heart size={18} className={favoritado ? 'fill-current' : ''} />
             </button>
 
-            {/* Mensagem */}
             <button
               onClick={handleChat}
               className="btn-secondary flex-1 flex items-center justify-center gap-2"
@@ -110,7 +108,6 @@ const ResiduoModal = ({ residuo, onClose }: { residuo: Residuo; onClose: () => v
               Mensagem
             </button>
 
-            {/* Solicitar */}
             <button
               onClick={handleSolicitar}
               className="btn-primary flex-1 flex items-center justify-center gap-2"
