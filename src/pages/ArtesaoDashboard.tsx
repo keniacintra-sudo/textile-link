@@ -39,12 +39,12 @@ const ResiduoModal = ({ residuo, onClose }: { residuo: Residuo; onClose: () => v
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm animate-fade-in" onClick={onClose} />
 
-      {/* Drawer */}
-      <div className="relative w-full max-w-[460px] bg-background rounded-t-3xl shadow-2xl animate-slide-up overflow-y-auto scrollbar-hide" style={{ maxHeight: '85dvh' }}>
+      {/* Card central */}
+      <div className="relative w-full max-w-[420px] max-h-[80vh] bg-background rounded-2xl shadow-2xl animate-fade-in overflow-y-auto scrollbar-hide z-10">
         {/* Botão fechar */}
         <button
           onClick={onClose}
