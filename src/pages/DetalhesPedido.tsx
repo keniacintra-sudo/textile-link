@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft, Package, Calendar, Hash, Building2, MessageCircle, CheckCircle2, Truck, FileText, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Package, Calendar, Hash, Building2, MessageCircle, CheckCircle2, Truck, FileText } from 'lucide-react';
 import StatusBadge from '@/components/StatusBadge';
 import SugerirFaccoes from '@/components/SugerirFaccoes';
 import { allOrders } from '@/data/mockData';
@@ -31,6 +31,7 @@ const DetalhesPedido = () => {
   }
 
   const currentStep = stepIndex(order.status);
+  const mostrarIA = order.status === 'ATIVO' || order.status === 'PROPOSTA';
 
   return (
     <div className="flex flex-col min-h-[100dvh] bg-background">
@@ -192,9 +193,11 @@ const DetalhesPedido = () => {
         )}
 
         {/* ── Sugestão de Facções por IA ── */}
-        <div className="animate-fade-in" style={{ animationDelay: '500ms', animationFillMode: 'both' }}>
-          <SugerirFaccoes order={order} />
-        </div>
+        {mostrarIA && (
+          <div className="animate-fade-in" style={{ animationDelay: '500ms', animationFillMode: 'both' }}>
+            <SugerirFaccoes order={order} />
+          </div>
+        )}
 
         {/* ── Ações ── */}
         <div className="flex gap-3 pb-4">
