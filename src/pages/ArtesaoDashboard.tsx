@@ -55,7 +55,7 @@ const ResiduoModal = ({ residuo, onClose }: { residuo: Residuo; onClose: () => v
 
         {/* Imagem no topo */}
         {residuo.image_url && (
-          <div className="w-full h-48 bg-muted overflow-hidden rounded-t-3xl">
+          <div className="w-full h-48 bg-muted overflow-hidden rounded-t-2xl">
             <img src={residuo.image_url} alt={residuo.material} className="w-full h-full object-cover" />
           </div>
         )}
