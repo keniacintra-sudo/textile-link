@@ -33,12 +33,15 @@ const MarcaDashboard = () => {
   const [showRegistrar, setShowRegistrar] = useState(false);
   const [customOrders, setCustomOrders] = useState<Order[]>([]);
   const [proposals, setProposals] = useState<Proposal[]>([]);
+  const [customResiduos, setCustomResiduos] = useState<typeof marcaResiduos>([]);
 
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem('elo_custom_orders') || '[]');
     setCustomOrders(saved);
     const savedProposals = JSON.parse(localStorage.getItem('elo_proposals') || '[]');
     setProposals(savedProposals);
+    const savedResiduos = JSON.parse(localStorage.getItem('elo_custom_residuos') || '[]');
+    setCustomResiduos(savedResiduos);
   }, []);
 
   const allOrders = useMemo(() => [...marcaOrders, ...customOrders], [customOrders]);
@@ -187,7 +190,14 @@ const MarcaDashboard = () => {
         {tab === 'residuos' && (
           <div className="space-y-3 animate-fade-in">
             {showRegistrar ? (
-              <RegistrarResiduoForm onClose={() => setShowRegistrar(false)} />
+              <RegistrarResiduoForm
+                onClose={() => setShowRegistrar(false)}
+                onSubmit={(residuo) => {
+                  const updated = [...customResiduos, residuo];
+                  setCustomResiduos(updated);
+                  localStorage.setItem('elo_custom_residuos', JSON.stringify(updated));
+                }}
+              />
             ) : (
               <>
                 <div className="flex justify-between items-center mb-2">
@@ -199,7 +209,7 @@ const MarcaDashboard = () => {
                     <Plus size={16} /> Registrar
                   </button>
                 </div>
-                {marcaResiduos.map((r, i) => (
+                {[...marcaResiduos, ...customResiduos].map((r, i) => (
                   <div
                     key={r.id}
                     className="card-elevated animate-slide-up"
