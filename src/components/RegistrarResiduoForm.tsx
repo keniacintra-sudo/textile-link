@@ -13,7 +13,7 @@ const materials = [
 
 interface Props {
   onClose: () => void;
-  onSubmit?: (residuo: { id: string; material: string; weight: string; location: string; price: string; condition: string }) => void;
+  onSubmit?: (residuo: { id: string; material: string; weight: string; location: string; price: string; condition: string; seller: string }) => void;
 }
 
 const RegistrarResiduoForm = ({ onClose, onSubmit }: Props) => {
