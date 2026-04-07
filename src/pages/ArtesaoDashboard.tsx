@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import { ShoppingBag, ClipboardList, MessageCircle, Search, X, Heart, ShoppingCart } from 'lucide-react';
 import BottomNav from '@/components/BottomNav';
 import PageHeader from '@/components/PageHeader';
@@ -129,15 +129,23 @@ const ArtesaoDashboard = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [refreshKey, setRefreshKey] = useState(0);
   const [selectedResiduo, setSelectedResiduo] = useState<Residuo | null>(null);
+  const [customResiduos, setCustomResiduos] = useState<Residuo[]>([]);
+
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem('elo_custom_residuos') || '[]');
+    setCustomResiduos(saved);
+  }, []);
 
   const handleRefresh = useCallback(async () => {
     await new Promise((r) => setTimeout(r, 1000));
+    const saved = JSON.parse(localStorage.getItem('elo_custom_residuos') || '[]');
+    setCustomResiduos(saved);
     setRefreshKey((k) => k + 1);
     toast.success('Marketplace atualizado!');
   }, []);
 
   const filteredResiduos = useMemo(() => {
-    let items = marketplaceResiduos;
+    let items = [...marketplaceResiduos, ...customResiduos];
     if (marketplaceFilter !== 'Todos') {
       items = items.filter((r) =>
         r.material.toLowerCase().includes(marketplaceFilter.toLowerCase())
@@ -153,7 +161,7 @@ const ArtesaoDashboard = () => {
       );
     }
     return items;
-  }, [marketplaceFilter, searchQuery, refreshKey]);
+  }, [marketplaceFilter, searchQuery, refreshKey, customResiduos]);
 
   return (
     <div className="min-h-screen pb-20 bg-background">
