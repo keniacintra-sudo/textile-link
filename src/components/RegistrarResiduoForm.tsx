@@ -13,14 +13,25 @@ const materials = [
 
 interface Props {
   onClose: () => void;
+  onSubmit?: (residuo: { id: string; material: string; weight: string; location: string; price: string; condition: string; seller: string }) => void;
 }
 
-const RegistrarResiduoForm = ({ onClose }: Props) => {
+const RegistrarResiduoForm = ({ onClose, onSubmit }: Props) => {
   const [material, setMaterial] = useState('Malha');
   const [peso, setPeso] = useState('');
   const [condicao, setCondicao] = useState('Limpo');
 
   const handleSubmit = () => {
+    const newResiduo = {
+      id: crypto.randomUUID(),
+      material,
+      weight: peso ? `${peso} kg` : '0 kg',
+      location: 'Divinópolis, MG',
+      price: 'Sob consulta',
+      condition: condicao,
+      seller: 'Você',
+    };
+    onSubmit?.(newResiduo);
     toast.success('Resíduo publicado! Compradores próximos foram notificados 🎉');
     setTimeout(() => onClose(), 1500);
   };
