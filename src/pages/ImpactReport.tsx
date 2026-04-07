@@ -29,53 +29,55 @@ const ImpactReport = () => {
         </div>
       </header>
 
-      <main className="px-4 py-5 max-w-md mx-auto space-y-5">
+      <main className="px-4 py-5 max-w-md mx-auto space-y-5 overflow-hidden">
         <p className="text-[14px] text-muted-foreground font-medium font-sans">Este mês</p>
 
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-3 gap-2">
           {metrics.map((m, i) => (
             <div
               key={i}
-              className="card-elevated text-center animate-fade-in"
+              className="card-elevated text-center animate-fade-in overflow-hidden p-3"
               style={{ animationDelay: `${i * 80}ms`, animationFillMode: 'both' }}
             >
-              <span className="text-2xl">{m.emoji}</span>
-              <p className="text-metric text-base mt-1.5">{m.value}</p>
-              <p className="text-[10px] text-muted-foreground leading-tight mt-1 font-sans">{m.label}</p>
+              <span className="text-xl">{m.emoji}</span>
+              <p className="text-accent font-extrabold text-[15px] leading-tight mt-1.5 break-words">{m.value}</p>
+              <p className="text-[10px] text-muted-foreground leading-tight mt-1 font-sans break-words">{m.label}</p>
             </div>
           ))}
         </div>
 
-        <div className="card-elevated animate-fade-in" style={{ animationDelay: '240ms', animationFillMode: 'both' }}>
-          <h3 className="text-section-title !text-[16px] mb-4">Tecido desviado por semana (kg)</h3>
-          <ResponsiveContainer width="100%" height={180}>
-            <BarChart data={weeklyData}>
-              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
-              <XAxis dataKey="week" tick={{ fontSize: 12, fontFamily: 'DM Sans' }} tickLine={false} axisLine={false} />
-              <YAxis tick={{ fontSize: 12, fontFamily: 'DM Sans' }} tickLine={false} axisLine={false} width={30} />
-              <Tooltip
-                contentStyle={{ borderRadius: 16, border: 'none', boxShadow: '0 1px 8px rgba(0,0,0,0.05)', fontSize: 13, fontFamily: 'DM Sans' }}
-                cursor={{ fill: 'hsl(var(--muted))' }}
-              />
-              <Bar dataKey="kg" fill="hsl(var(--primary))" radius={[6, 6, 0, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
+        <div className="card-elevated animate-fade-in overflow-hidden" style={{ animationDelay: '240ms', animationFillMode: 'both' }}>
+          <h3 className="text-section-title !text-[15px] mb-4">Tecido desviado por semana (kg)</h3>
+          <div className="-ml-2">
+            <ResponsiveContainer width="100%" height={180}>
+              <BarChart data={weeklyData}>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
+                <XAxis dataKey="week" tick={{ fontSize: 11, fontFamily: 'Inter' }} tickLine={false} axisLine={false} />
+                <YAxis tick={{ fontSize: 11, fontFamily: 'Inter' }} tickLine={false} axisLine={false} width={28} />
+                <Tooltip
+                  contentStyle={{ borderRadius: 12, border: 'none', boxShadow: '0 1px 8px rgba(0,0,0,0.05)', fontSize: 13, fontFamily: 'Inter' }}
+                  cursor={{ fill: 'hsl(var(--muted))' }}
+                />
+                <Bar dataKey="kg" fill="hsl(var(--accent))" radius={[6, 6, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
 
         <div
-          className="card-elevated border-l-4 border-l-primary animate-fade-in"
+          className="card-elevated border-l-4 border-l-accent animate-fade-in overflow-hidden"
           style={{ animationDelay: '320ms', animationFillMode: 'both' }}
         >
-          <h3 className="text-section-title !text-[16px] mb-2">Resumo do mês</h3>
-          <p className="text-[13px] text-muted-foreground leading-relaxed font-sans">
-            Sua operação desviou <span className="text-metric-sm text-[13px]">63 kg</span> de resíduos têxteis do aterro sanitário,
-            economizando <span className="text-metric-sm text-[13px]">170.100 litros</span> de água e evitando a emissão de{' '}
-            <span className="text-metric-sm text-[13px]">227 kg de CO₂</span>. Continue assim para ampliar seu impacto positivo!
+          <h3 className="text-section-title !text-[15px] mb-2">Resumo do mês</h3>
+          <p className="text-[13px] text-muted-foreground leading-relaxed font-sans break-words">
+            Sua operação desviou <span className="text-accent font-extrabold text-[13px]">63 kg</span> de resíduos têxteis do aterro sanitário,
+            economizando <span className="text-accent font-extrabold text-[13px]">170.100 litros</span> de água e evitando a emissão de{' '}
+            <span className="text-accent font-extrabold text-[13px]">227 kg de CO₂</span>. Continue assim para ampliar seu impacto positivo!
           </p>
         </div>
 
         <div className="flex flex-col items-center py-4 animate-fade-in" style={{ animationDelay: '400ms', animationFillMode: 'both' }}>
-          <div className="bg-primary/10 text-primary font-bold text-sm px-5 py-2.5 rounded-full font-sans">
+          <div className="bg-accent/10 text-accent font-bold text-sm px-5 py-2.5 rounded-full font-sans">
             Selo Verde ✅
           </div>
           <p className="text-[13px] text-muted-foreground mt-2 font-sans">Empresa em conformidade ambiental</p>
