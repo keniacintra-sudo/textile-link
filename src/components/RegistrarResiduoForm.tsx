@@ -20,6 +20,7 @@ const RegistrarResiduoForm = ({ onClose, onSubmit }: Props) => {
   const [material, setMaterial] = useState('Malha');
   const [peso, setPeso] = useState('');
   const [condicao, setCondicao] = useState('Limpo');
+  const [preco, setPreco] = useState('');
 
   const handleSubmit = () => {
     const newResiduo = {
@@ -27,7 +28,7 @@ const RegistrarResiduoForm = ({ onClose, onSubmit }: Props) => {
       material,
       weight: peso ? `${peso} kg` : '0 kg',
       location: 'Divinópolis, MG',
-      price: 'Sob consulta',
+      price: preco ? `R$ ${preco}` : 'Sob consulta',
       condition: condicao,
       seller: 'Você',
     };
@@ -109,6 +110,21 @@ const RegistrarResiduoForm = ({ onClose, onSubmit }: Props) => {
           value="Divinópolis, MG"
           className="w-full bg-muted rounded-lg px-3 py-2.5 text-sm text-muted-foreground outline-none cursor-default"
         />
+      </div>
+
+      {/* Preço */}
+      <div>
+        <label className="text-xs font-medium text-muted-foreground block mb-1.5">Preço (opcional)</label>
+        <div className="relative">
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground font-medium">R$</span>
+          <input
+            type="number"
+            value={preco}
+            onChange={e => setPreco(e.target.value)}
+            placeholder="0,00"
+            className="w-full bg-muted rounded-lg pl-10 pr-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-primary/30"
+          />
+        </div>
       </div>
 
       {/* Foto */}
