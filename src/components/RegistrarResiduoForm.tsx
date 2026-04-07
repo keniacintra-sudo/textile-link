@@ -29,6 +29,7 @@ const RegistrarResiduoForm = ({ onClose, onSubmit }: Props) => {
       location: 'Divinópolis, MG',
       price: 'Sob consulta',
       condition: condicao,
+      seller: 'Você',
     };
     onSubmit?.(newResiduo);
     toast.success('Resíduo publicado! Compradores próximos foram notificados 🎉');
