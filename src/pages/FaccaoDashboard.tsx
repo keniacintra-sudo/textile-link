@@ -184,6 +184,11 @@ const FaccaoDashboard = () => {
       <OnboardingTour userType="faccao" />
       <PageHeader title="Facção / Confecção" showBack={false} dashboardPath="/faccao/dashboard" />
 
+      {/* Modal de detalhes do resíduo */}
+      {selectedLot && (
+        <ResiduoDetailModal lot={selectedLot} onClose={() => setSelectedLot(null)} />
+      )}
+
       {selectedOrder && (
         <EnviarPropostaModal
           order={selectedOrder}
@@ -353,14 +358,20 @@ const FaccaoDashboard = () => {
                     {residuosView === 'lista' ? (
                       <div className="space-y-3">
                         {wasteLots.map((lot, i) => (
-                          <div
+                          <button
                             key={lot.id}
-                            className="card-elevated animate-slide-up"
+                            onClick={() => setSelectedLot(lot)}
+                            className="card-elevated animate-slide-up w-full text-left active:scale-[0.97] transition-transform"
                             style={{ animationDelay: `${i * 80}ms`, animationFillMode: 'both' }}
                           >
-                            <p className="font-bold text-[15px] font-sans text-foreground">📦 {lot.name}</p>
-                            <p className="text-[13px] text-muted-foreground mt-1 font-sans">{lot.weight} · {lot.price} · {lot.bairro}</p>
-                          </div>
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <p className="font-bold text-[15px] font-sans text-foreground">📦 {lot.name}</p>
+                                <p className="text-[13px] text-muted-foreground mt-1 font-sans">{lot.weight} · {lot.price} · {lot.bairro}</p>
+                              </div>
+                              <ChevronRight size={16} className="text-muted-foreground shrink-0" />
+                            </div>
+                          </button>
                         ))}
                       </div>
                     ) : (
@@ -374,20 +385,18 @@ const FaccaoDashboard = () => {
                         </div>
                         <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-none">
                           {wasteLots.map(lot => (
-                            <div
+                            <button
                               key={lot.id}
-                              className="min-w-[200px] card-elevated border-l-4 border-l-primary flex-shrink-0"
+                              onClick={() => setSelectedLot(lot)}
+                              className="min-w-[200px] card-elevated border-l-4 border-l-primary flex-shrink-0 text-left active:scale-[0.97] transition-transform"
                             >
                               <p className="font-bold text-[15px] font-sans text-foreground">📦 {lot.name}</p>
                               <p className="text-[13px] text-muted-foreground mt-1 font-sans">{lot.weight} · {lot.price}</p>
                               <p className="text-[13px] text-muted-foreground font-sans">{lot.bairro}</p>
-                              <button
-                                onClick={() => toast.success('Solicitação enviada! A facção será notificada.')}
-                                className="btn-primary mt-2.5 w-full !text-[13px] !py-1.5 active:scale-95 transition-transform"
-                              >
-                                Solicitar
-                              </button>
-                            </div>
+                              <span className="inline-block mt-2.5 font-sans text-[12px] font-semibold text-primary">
+                                Ver detalhes →
+                              </span>
+                            </button>
                           ))}
                         </div>
                       </div>
