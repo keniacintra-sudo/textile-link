@@ -147,6 +147,7 @@ const FaccaoDashboard = () => {
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [proposals, setProposals] = useState<Proposal[]>([]);
   const [justSentId, setJustSentId] = useState<string | null>(null);
+  const [selectedLot, setSelectedLot] = useState<WasteLot | null>(null);
 
   const handleRefresh = useCallback(async () => {
     await new Promise((r) => setTimeout(r, 1000));
