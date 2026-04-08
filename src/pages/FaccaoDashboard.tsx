@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Search, Briefcase, Trash2, MessageCircle, Plus, ToggleLeft, ToggleRight, List, Map, FileText, ChevronRight } from 'lucide-react';
+import { Search, Briefcase, Trash2, MessageCircle, Plus, ToggleLeft, ToggleRight, List, Map, FileText, ChevronRight, X, Heart, ShoppingCart, Package } from 'lucide-react';
 import BottomNav from '@/components/BottomNav';
 import PageHeader from '@/components/PageHeader';
 import StatusBadge from '@/components/StatusBadge';
@@ -11,12 +11,125 @@ import { faccaoOrders, chats, type Order } from '@/data/mockData';
 import { toast } from 'sonner';
 import OnboardingTour from '@/components/OnboardingTour';
 
-const wasteLots = [
-  { id: 1, name: 'Retalhos de Algodão', weight: '8kg', price: 'R$ 45,00', bairro: 'Bairro Bom Pastor' },
-  { id: 2, name: 'Sobras de Viscose', weight: '3kg', price: 'R$ 28,00', bairro: 'Centro' },
-  { id: 3, name: 'Malha Mista', weight: '12kg', price: 'R$ 60,00', bairro: 'Niterói' },
-  { id: 4, name: 'Jeans Retalho', weight: '5kg', price: 'R$ 35,00', bairro: 'São José' },
+interface WasteLot {
+  id: number;
+  name: string;
+  weight: string;
+  price: string;
+  bairro: string;
+  condition?: string;
+  seller?: string;
+}
+
+const wasteLots: WasteLot[] = [
+  { id: 1, name: 'Retalhos de Algodão', weight: '8kg', price: 'R$ 45,00', bairro: 'Bairro Bom Pastor', condition: 'Bom estado', seller: 'Facção Sul Têxtil' },
+  { id: 2, name: 'Sobras de Viscose', weight: '3kg', price: 'R$ 28,00', bairro: 'Centro', condition: 'Novo', seller: 'Confecções ABC' },
+  { id: 3, name: 'Malha Mista', weight: '12kg', price: 'R$ 60,00', bairro: 'Niterói', condition: 'Usado - bom', seller: 'Denim Factory' },
+  { id: 4, name: 'Jeans Retalho', weight: '5kg', price: 'R$ 35,00', bairro: 'São José', condition: 'Bom estado', seller: 'Malhas Express' },
 ];
+
+/* ── Modal de detalhes do resíduo (Facção) ── */
+const ResiduoDetailModal = ({ lot, onClose }: { lot: WasteLot; onClose: () => void }) => {
+  const [favoritado, setFavoritado] = useState(false);
+
+  const handleSolicitar = () => {
+    toast.success(`Solicitação enviada para o lote "${lot.name}"!`, {
+      description: 'O comprador será notificado.',
+      duration: 4000,
+    });
+    onClose();
+  };
+
+  const handleChat = () => {
+    toast.info(`Abrindo conversa sobre "${lot.name}"...`);
+    onClose();
+  };
+
+  const handleFavoritar = () => {
+    setFavoritado((v) => !v);
+    toast.success(favoritado ? 'Removido dos favoritos' : 'Adicionado aos favoritos!');
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm animate-fade-in" onClick={onClose} />
+
+      <div className="relative w-full max-w-[420px] max-h-[80vh] bg-background rounded-2xl shadow-2xl animate-fade-in overflow-y-auto scrollbar-hide z-10">
+        <button
+          onClick={onClose}
+          className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/40 backdrop-blur flex items-center justify-center hover:bg-black/60 transition-colors z-10"
+        >
+          <X size={16} className="text-white" />
+        </button>
+
+        {/* Header visual */}
+        <div className="w-full h-36 bg-muted overflow-hidden rounded-t-2xl flex items-center justify-center"
+          style={{ background: 'linear-gradient(135deg, hsl(var(--primary) / 0.15), hsl(var(--accent) / 0.1))' }}>
+          <Package size={48} className="text-primary/40" />
+        </div>
+
+        <div className="px-5 py-5 space-y-5">
+          {/* Título e preço */}
+          <div className="flex justify-between items-start">
+            <div>
+              <h3 className="font-sans font-bold text-[18px] text-foreground">{lot.name}</h3>
+              <p className="font-sans text-[13px] text-muted-foreground mt-0.5">{lot.seller || 'Vendedor'}</p>
+            </div>
+            <div className="text-right">
+              <p className="font-sans font-extrabold text-[18px] text-accent">{lot.price}</p>
+              <p className="font-sans text-[11px] text-muted-foreground">por lote</p>
+            </div>
+          </div>
+
+          {/* Detalhes */}
+          <div className="grid grid-cols-2 gap-3">
+            {[
+              { label: 'Peso', value: lot.weight },
+              { label: 'Localização', value: lot.bairro },
+              { label: 'Condição', value: lot.condition || 'Não informada' },
+              { label: 'Disponibilidade', value: 'Imediata' },
+            ].map(({ label, value }) => (
+              <div key={label} className="bg-muted rounded-xl p-3">
+                <p className="font-sans text-[11px] text-muted-foreground">{label}</p>
+                <p className="font-sans font-semibold text-[14px] text-foreground">{value}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Ações */}
+          <div className="flex gap-3 pb-2">
+            <button
+              onClick={handleFavoritar}
+              className={`w-11 h-11 rounded-xl flex items-center justify-center border transition-colors shrink-0 ${
+                favoritado
+                  ? 'bg-destructive/10 border-destructive/30 text-destructive'
+                  : 'bg-muted border-border text-muted-foreground hover:text-destructive'
+              }`}
+            >
+              <Heart size={18} className={favoritado ? 'fill-current' : ''} />
+            </button>
+
+            <button
+              onClick={handleChat}
+              className="btn-secondary flex-1 flex items-center justify-center gap-2"
+            >
+              <MessageCircle size={16} />
+              Mensagem
+            </button>
+
+            <button
+              onClick={handleSolicitar}
+              className="btn-primary flex-1 flex items-center justify-center gap-2"
+            >
+              <ShoppingCart size={16} />
+              Solicitar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const navItems = [
   { icon: Search, label: 'Oportunidades', id: 'oportunidades' },
@@ -34,6 +147,7 @@ const FaccaoDashboard = () => {
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [proposals, setProposals] = useState<Proposal[]>([]);
   const [justSentId, setJustSentId] = useState<string | null>(null);
+  const [selectedLot, setSelectedLot] = useState<WasteLot | null>(null);
 
   const handleRefresh = useCallback(async () => {
     await new Promise((r) => setTimeout(r, 1000));
@@ -69,6 +183,11 @@ const FaccaoDashboard = () => {
     <div className="min-h-screen pb-20 bg-background">
       <OnboardingTour userType="faccao" />
       <PageHeader title="Facção / Confecção" showBack={false} dashboardPath="/faccao/dashboard" />
+
+      {/* Modal de detalhes do resíduo */}
+      {selectedLot && (
+        <ResiduoDetailModal lot={selectedLot} onClose={() => setSelectedLot(null)} />
+      )}
 
       {selectedOrder && (
         <EnviarPropostaModal
@@ -239,14 +358,20 @@ const FaccaoDashboard = () => {
                     {residuosView === 'lista' ? (
                       <div className="space-y-3">
                         {wasteLots.map((lot, i) => (
-                          <div
+                          <button
                             key={lot.id}
-                            className="card-elevated animate-slide-up"
+                            onClick={() => setSelectedLot(lot)}
+                            className="card-elevated animate-slide-up w-full text-left active:scale-[0.97] transition-transform"
                             style={{ animationDelay: `${i * 80}ms`, animationFillMode: 'both' }}
                           >
-                            <p className="font-bold text-[15px] font-sans text-foreground">📦 {lot.name}</p>
-                            <p className="text-[13px] text-muted-foreground mt-1 font-sans">{lot.weight} · {lot.price} · {lot.bairro}</p>
-                          </div>
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <p className="font-bold text-[15px] font-sans text-foreground">📦 {lot.name}</p>
+                                <p className="text-[13px] text-muted-foreground mt-1 font-sans">{lot.weight} · {lot.price} · {lot.bairro}</p>
+                              </div>
+                              <ChevronRight size={16} className="text-muted-foreground shrink-0" />
+                            </div>
+                          </button>
                         ))}
                       </div>
                     ) : (
@@ -260,20 +385,18 @@ const FaccaoDashboard = () => {
                         </div>
                         <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-none">
                           {wasteLots.map(lot => (
-                            <div
+                            <button
                               key={lot.id}
-                              className="min-w-[200px] card-elevated border-l-4 border-l-primary flex-shrink-0"
+                              onClick={() => setSelectedLot(lot)}
+                              className="min-w-[200px] card-elevated border-l-4 border-l-primary flex-shrink-0 text-left active:scale-[0.97] transition-transform"
                             >
                               <p className="font-bold text-[15px] font-sans text-foreground">📦 {lot.name}</p>
                               <p className="text-[13px] text-muted-foreground mt-1 font-sans">{lot.weight} · {lot.price}</p>
                               <p className="text-[13px] text-muted-foreground font-sans">{lot.bairro}</p>
-                              <button
-                                onClick={() => toast.success('Solicitação enviada! A facção será notificada.')}
-                                className="btn-primary mt-2.5 w-full !text-[13px] !py-1.5 active:scale-95 transition-transform"
-                              >
-                                Solicitar
-                              </button>
-                            </div>
+                              <span className="inline-block mt-2.5 font-sans text-[12px] font-semibold text-primary">
+                                Ver detalhes →
+                              </span>
+                            </button>
                           ))}
                         </div>
                       </div>
