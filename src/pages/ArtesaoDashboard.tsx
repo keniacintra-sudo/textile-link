@@ -7,6 +7,7 @@ import ChatList from '@/components/ChatList';
 import PullToRefresh from '@/components/PullToRefresh';
 import { marketplaceResiduos, artesaoOrders, chats, type Residuo } from '@/data/mockData';
 import { toast } from 'sonner';
+import OnboardingTour from '@/components/OnboardingTour';
 
 const navItems = [
   { icon: ShoppingBag, label: 'Marketplace', id: 'marketplace' },
@@ -165,6 +166,7 @@ const ArtesaoDashboard = () => {
 
   return (
     <div className="min-h-screen pb-20 bg-background">
+      <OnboardingTour userType="artesao" />
       <PageHeader title="Artesão / Reciclador" showBack={false} dashboardPath="/artesao/dashboard" />
 
       {/* Modal de detalhes */}

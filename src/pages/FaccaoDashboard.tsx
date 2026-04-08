@@ -9,6 +9,7 @@ import EnviarPropostaModal, { type Proposal } from '@/components/EnviarPropostaM
 import PullToRefresh from '@/components/PullToRefresh';
 import { faccaoOrders, chats, type Order } from '@/data/mockData';
 import { toast } from 'sonner';
+import OnboardingTour from '@/components/OnboardingTour';
 
 const wasteLots = [
   { id: 1, name: 'Retalhos de Algodão', weight: '8kg', price: 'R$ 45,00', bairro: 'Bairro Bom Pastor' },
@@ -66,6 +67,7 @@ const FaccaoDashboard = () => {
 
   return (
     <div className="min-h-screen pb-20 bg-background">
+      <OnboardingTour userType="faccao" />
       <PageHeader title="Facção / Confecção" showBack={false} dashboardPath="/faccao/dashboard" />
 
       {selectedOrder && (

@@ -11,6 +11,7 @@ import { marcaOrders, marcaResiduos, chats, type Order } from '@/data/mockData';
 import type { Proposal } from '@/components/EnviarPropostaModal';
 import { toast } from 'sonner';
 import { useAuth } from '@/contexts/AuthContext';
+import OnboardingTour from '@/components/OnboardingTour';
 
 const navItems = [
   { icon: Package, label: 'Produção', id: 'producao' },
@@ -63,6 +64,7 @@ const MarcaDashboard = () => {
 
   return (
     <div className="min-h-screen pb-20 bg-background">
+      <OnboardingTour userType="marca" />
       <PageHeader title="Marca / Designer" showBack={false} dashboardPath="/marca/dashboard" />
 
       <main className="px-4 py-4 max-w-md mx-auto">
